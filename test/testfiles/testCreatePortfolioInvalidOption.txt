@@ -1,0 +1,18 @@
+Welcome!
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit
+Invalid option!
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit
+Invalid option!
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit

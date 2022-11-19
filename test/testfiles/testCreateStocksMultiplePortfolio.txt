@@ -1,0 +1,58 @@
+Portfolio Actions:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Exit
+1. Load from existing filepath
+2. Create portfolio manually
+Enter stock information
+
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter portfolio name:
+Would you like to save the portfolio? (Y/N):
+
+Portfolio Actions:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Exit
+1. Load from existing filepath
+2. Create portfolio manually
+Enter stock information
+
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter portfolio name:
+Would you like to save the portfolio? (Y/N):
+
+Portfolio Actions:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Exit
+Portfolio Composition:
+GOOG -> Quantity = 12
+AAPL -> Quantity = 26
+
+Portfolio Actions:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Exit
+Enter date (yyyy-mm-dd):
+Value on [2014-10-10] = $9152.86
+
+Portfolio Actions:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Exit

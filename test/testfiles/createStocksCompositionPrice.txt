@@ -1,0 +1,54 @@
+Welcome!
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit
+
+PORTFOLIO ACTIONS:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Show performance over time
+5. Exit
+
+PORTFOLIO CREATION METHODS:
+1. Load from existing filepath
+2. Create portfolio manually
+3. Exit
+Enter portfolio name:
+Enter stock information
+
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Enter stock name:
+Enter stock quantity:
+Would you like to add more stocks? Y/N:
+Error: Portfolio already exists!
+
+PORTFOLIO ACTIONS:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Show performance over time
+5. Exit
+Portfolio Composition:
+GOOG -> Quantity = 39.0
+AAPL -> Quantity = 26.0
+
+
+PORTFOLIO ACTIONS:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Show performance over time
+5. Exit
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit

@@ -1,0 +1,40 @@
+Welcome!
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit
+
+FLEXIBLE PORTFOLIO ACTIONS:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Show performance over time
+5. Buy stocks
+6. Sell stocks
+7. Show cost basis
+8. Show composition at date
+9. Exit
+
+FLEXIBLE PORTFOLIO CREATION METHODS:
+1. Load from existing filepath
+2. Create portfolio manually
+3. Exit
+Enter portfolio name:
+Portfolio saved successfully!
+
+FLEXIBLE PORTFOLIO ACTIONS:
+1. Show composition
+2. Show value at specific date
+3. Create/Load portfolio
+4. Show performance over time
+5. Buy stocks
+6. Sell stocks
+7. Show cost basis
+8. Show composition at date
+9. Exit
+
+Which one of the following type of portfolio would you like to work with?
+1. Inflexible portfolio, or
+2. Flexible portfolio
+3. Exit

@@ -1,0 +1,3 @@
+New_Duplicates
+GOOG;39
+AAPL;26

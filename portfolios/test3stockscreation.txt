@@ -1,0 +1,4 @@
+test3stockscreation
+AAPL;1
+GOOG;2
+NFLX;3
