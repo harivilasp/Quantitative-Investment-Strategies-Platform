@@ -179,8 +179,8 @@ public class SimulatorImpl implements Simulator {
     } else if (diff <= 366) {
       c.setTime(firstDate);
       while (c.getTime().compareTo(secondDate) <= 0) {
-        String nesDate = sdf.format(c.getTime());
-        performances.put(nesDate, (int) portfolio.getValue(nesDate));
+        String nextDate = sdf.format(c.getTime());
+        performances.put(nextDate, (int) portfolio.getValue(nextDate));
         c.add(Calendar.MONTH, 1);
       }
     } else {
@@ -230,12 +230,30 @@ public class SimulatorImpl implements Simulator {
     return performances;
   }
 
-  public double getCostBasis(String date) throws RuntimeException {
+  public double getCostBasis(String date) throws Exception {
     return flexiblePortfolio.getCostBasis(date);
   }
 
   public List<Stock> getCompositionAtDate(String date) throws RuntimeException {
     return flexiblePortfolio.getCompositionAtDate(date);
+  }
+
+  @Override
+  public void addStrategy(double amount, int intervalInDays,
+                   String startDate, String endDate, double commission,
+                   Map<String, Double> weights) throws Exception{
+    if(inflexiblePortfolio!=null){
+      throw new Exception("Operation only supported on Inflexible Portfolio");
+    }
+    flexiblePortfolio.addStrategy(amount, intervalInDays, startDate, endDate, commission, weights);
+  }
+  @Override
+  public void buyStocksWithWeights(double amount, String date, double commission,
+                            Map<String,Double> weights) throws Exception{
+    if(inflexiblePortfolio!=null){
+      throw new Exception("Operation only supported on Inflexible Portfolio");
+    }
+    flexiblePortfolio.buyStocksWithWeights(amount, date, commission, weights);
   }
 
 }

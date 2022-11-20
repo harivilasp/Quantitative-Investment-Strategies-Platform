@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   private final Portfolio delegate;
   private final List<Transaction> transactions;
   private FileIO fileIO;
+  private List<Strategy> strategies;
 
   /**
    * This constructs object of portfolio with portfolio name.
@@ -34,6 +36,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     List<Stock> stocks = new ArrayList<>();
     this.delegate = new PortfolioImpl(portfolioName, stocks);
     transactions = new ArrayList<>();
+    strategies = new ArrayList<>();
   }
 
   /**
@@ -51,6 +54,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
             (FlexiblePortfolioImpl) fileIO.readFlexiblePortfolio(filePath);
     this.transactions = flexiblePortfolio.transactions;
     this.delegate = flexiblePortfolio.delegate;
+    this.strategies = new ArrayList<>();
   }
 
   /**
@@ -62,6 +66,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   FlexiblePortfolioImpl(List<Transaction> transactions, Portfolio delegate) {
     this.delegate = delegate;
     this.transactions = transactions;
+    this.strategies = new ArrayList<>();
   }
 
   @Override
@@ -180,7 +185,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   }
 
   @Override
-  public double getCostBasis(String date) throws RuntimeException {
+  public double getCostBasis(String date) throws Exception {
     // Format the date parameter.
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     format.setLenient(false);
@@ -192,7 +197,10 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     } catch (ParseException exception) {
       throw new RuntimeException(Constants.ERR_INVALID_DATE);
     }
-
+    Date todayDate = new Date();
+    if(formattedDate.compareTo(todayDate)>=0){
+      processStrategy(date);
+    }
     double cost = 0;
     // Assuming transactions are sorted.
     for (Transaction transaction : transactions) {
@@ -212,6 +220,42 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
 
     return cost;
+  }
+
+  private void processStrategy(String date) throws Exception {
+    for(Strategy strategy:strategies){
+      if(date.compareTo(strategy.getStartDate())>=0){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Calendar c = Calendar.getInstance();
+        Date firstDate;
+        try {
+          firstDate = sdf.parse(strategy.getStartDate());
+        } catch (ParseException pe) {
+          throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+        }
+
+        Date secondDate;
+        try {
+          secondDate = sdf.parse(date);
+        } catch (ParseException pe) {
+          throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+        }
+
+        c.setTime(firstDate);
+        while (c.getTime().compareTo(secondDate) <= 0) {
+          String nextDate = sdf.format(c.getTime());
+          this.buyStocksWithWeights(strategy.getAmount(), nextDate,
+                  strategy.getCommission(), strategy.getWeights());
+          c.add(Calendar.DATE, strategy.getIntervalInDays());
+        }
+        if(strategy.getEndDate().compareTo(date)<=0){
+          strategies.remove(strategy);
+        }else{
+          strategy.setStartDate(date);
+        }
+      }
+    }
   }
 
   @Override
@@ -236,5 +280,72 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
 
     return stockList;
+  }
+  @Override
+  public void addStrategy(double amount, int intervalInDays,
+                          String startDate, String endDate, double commission,
+                          Map<String, Double> weights) throws Exception {
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    Calendar c = Calendar.getInstance();
+    Date firstDate;
+    try {
+      firstDate = sdf.parse(startDate);
+    } catch (ParseException pe) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+
+    Date secondDate;
+    try {
+      secondDate = sdf.parse(endDate);
+    } catch (ParseException pe) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+
+    if (firstDate.compareTo(secondDate) > 0) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+    c.setTime(firstDate);
+    Date todayDate = new Date();
+    while (c.getTime().compareTo(todayDate) <= 0) {
+      String nextDate = sdf.format(c.getTime());
+      this.buyStocksWithWeights(amount, nextDate, commission, weights);
+      c.add(Calendar.DATE, intervalInDays);
+    }
+    if(c.getTime().compareTo(secondDate)<0){
+      Strategy strategy = new DollarCostAveragingStrategy(amount,
+              intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);
+      strategies.add(strategy);
+    }
+  }
+
+  @Override
+  public void buyStocksWithWeights(double amount, String date,
+                                   double commission, Map<String, Double> weights)
+          throws Exception{
+    // future date
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    try {
+      Date buyDate = sdf.parse(date);
+      Date todayDate = new Date();
+      if(todayDate.compareTo(buyDate)<=0){
+        throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+      }
+      double totalWeight=0;
+      for (double weight:weights.values()){
+        totalWeight+=weight;
+      }
+      if(Math.abs(100.00-totalWeight)>0.01){
+        throw new IllegalArgumentException(Constants.ERR_INVALID_STOCK_DATA);
+      }
+    } catch (Exception pe) {
+      throw pe;
+    }
+    for(Map.Entry<String, Double> entry:weights.entrySet()){
+      String stockName = entry.getKey();
+      double valueAtDate = AlphaVantgeApiUtil.getInstance().getValue(stockName, date);
+      double quantity = (amount*entry.getValue()/100.0)/valueAtDate;
+      this.buyStock(new Stock(stockName,quantity),date,commission);
+    }
   }
 }

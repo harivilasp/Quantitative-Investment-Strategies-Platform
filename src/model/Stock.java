@@ -1,5 +1,8 @@
 package model;
 
+import utils.Constants;
+import utils.Utils;
+
 /**
  * Represents the stock of company, has name/symbol and quantity.
  */
@@ -18,8 +21,12 @@ public class Stock {
    * @param quantity represents quantity of stock
    */
   public Stock(String name, double quantity) {
-    this.name = name;
-    this.quantity = quantity;
+    if(Utils.VALID_STOCKS.contains(name)){
+      this.name = name;
+      this.quantity = quantity;
+    }else{
+      throw new IllegalArgumentException(Constants.ERR_INVALID_STOCK_DATA);
+    }
   }
 
   /**

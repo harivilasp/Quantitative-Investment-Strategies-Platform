@@ -136,7 +136,7 @@ public interface Simulator {
    * @return returns the cost spent till given date.
    * @throws RuntimeException when invalid date is passed.
    */
-  double getCostBasis(String date) throws RuntimeException;
+  double getCostBasis(String date) throws Exception;
 
   /**
    * This method helps to get composition of stock till that date.
@@ -146,4 +146,11 @@ public interface Simulator {
    * @throws RuntimeException when wrong date is passed.
    */
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
+
+  void addStrategy(double amount, int intervalInDays,
+                   String startDate, String endDate, double commission,
+                   Map<String, Double> weights) throws Exception;
+  void buyStocksWithWeights(double amount, String Date, double commission,
+                            Map<String,Double> weights) throws Exception;
+
 }

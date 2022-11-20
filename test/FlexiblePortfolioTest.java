@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -74,7 +73,7 @@ public class FlexiblePortfolioTest {
   }
 
   @Test
-  public void testPortfolioGetCostBasis() throws ParseException {
+  public void testPortfolioGetCostBasis() throws Exception {
     FlexiblePortfolio flexiblePortfolio =
             new FlexiblePortfolioImpl("test");
     flexiblePortfolio.buyStock(new Stock("NFLX", 3),

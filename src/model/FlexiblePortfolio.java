@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * This represents the inflexible portfolio which has all functionalities
@@ -36,7 +37,7 @@ public interface FlexiblePortfolio extends Portfolio {
    * @return returns the cost spent till given date.
    * @throws RuntimeException when invalid date is passed.
    */
-  double getCostBasis(String date) throws RuntimeException;
+  double getCostBasis(String date) throws Exception;
 
   /**
    * This method helps to get composition of stock till that date.
@@ -46,4 +47,10 @@ public interface FlexiblePortfolio extends Portfolio {
    * @throws RuntimeException when wrong date is passed.
    */
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
+
+  void addStrategy(double amount, int intervalInDays,
+                   String startDate, String endDate, double commission,
+                   Map<String, Double> weights) throws Exception;
+  void buyStocksWithWeights(double amount, String Date, double commission,
+                            Map<String,Double> weights) throws Exception;
 }

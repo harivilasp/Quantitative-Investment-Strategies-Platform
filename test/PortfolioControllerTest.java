@@ -135,6 +135,16 @@ public class PortfolioControllerTest {
     public List<Stock> getCompositionAtDate(String date) throws RuntimeException {
       return null;
     }
+
+    @Override
+    public void addStrategy(double amount, int intervalInDays, String startDate, String endDate, double commission, Map<String, Double> weights) throws Exception {
+
+    }
+
+    @Override
+    public void buyStocksWithWeights(double amount, String Date, double commission, Map<String, Double> weights) throws Exception {
+
+    }
   }
 
   static class MockSimulatorForStock implements Simulator {
@@ -227,6 +237,16 @@ public class PortfolioControllerTest {
     @Override
     public List<Stock> getCompositionAtDate(String date) throws RuntimeException {
       return null;
+    }
+
+    @Override
+    public void addStrategy(double amount, int intervalInDays, String startDate, String endDate, double commission, Map<String, Double> weights) throws Exception {
+
+    }
+
+    @Override
+    public void buyStocksWithWeights(double amount, String Date, double commission, Map<String, Double> weights) throws Exception {
+
     }
 
   }

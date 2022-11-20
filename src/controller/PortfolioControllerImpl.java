@@ -583,7 +583,7 @@ public class PortfolioControllerImpl implements PortfolioController {
                   String.format("Cost-basis at [%s]: $%f",
                           date, this.model.getCostBasis(date))
           );
-        } catch (RuntimeException re) {
+        } catch (Exception re) {
           this.view.showText(re.getMessage());
         }
 
