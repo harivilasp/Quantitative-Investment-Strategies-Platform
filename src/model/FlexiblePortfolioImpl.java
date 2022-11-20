@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import utils.Constants;
 
@@ -198,10 +199,12 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
       throw new RuntimeException(Constants.ERR_INVALID_DATE);
     }
     Date todayDate = new Date();
-    if(formattedDate.compareTo(todayDate)>=0){
-      processStrategy(date);
-    }
     double cost = 0;
+    if(formattedDate.compareTo(todayDate)>=0){
+      double tempcost = processStrategy(date);
+      System.out.println(tempcost+" "+cost);
+      cost+=tempcost;
+    }
     // Assuming transactions are sorted.
     for (Transaction transaction : transactions) {
       if (date.compareTo(transaction.getDate()) >= 0) {
@@ -222,11 +225,18 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     return cost;
   }
 
-  private void processStrategy(String date) throws Exception {
+  private double processStrategy(String date) throws Exception {
+    double tempcost=0;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    Date todayDate = new Date();
+    Date secondDate;
+    try {
+      secondDate = sdf.parse(date);
+    } catch (ParseException pe) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
     for(Strategy strategy:strategies){
-      if(date.compareTo(strategy.getStartDate())>=0){
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+      if(sdf.format(todayDate).compareTo(strategy.getStartDate())>=0){
         Calendar c = Calendar.getInstance();
         Date firstDate;
         try {
@@ -235,27 +245,39 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
           throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
         }
 
-        Date secondDate;
-        try {
-          secondDate = sdf.parse(date);
-        } catch (ParseException pe) {
-          throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
-        }
+
 
         c.setTime(firstDate);
-        while (c.getTime().compareTo(secondDate) <= 0) {
+        while (c.getTime().compareTo(todayDate) < 0) {
           String nextDate = sdf.format(c.getTime());
           this.buyStocksWithWeights(strategy.getAmount(), nextDate,
                   strategy.getCommission(), strategy.getWeights());
           c.add(Calendar.DATE, strategy.getIntervalInDays());
         }
-        if(strategy.getEndDate().compareTo(date)<=0){
+        if(strategy.getEndDate().compareTo(sdf.format(todayDate))<0){
           strategies.remove(strategy);
         }else{
-          strategy.setStartDate(date);
+          strategy.setStartDate(sdf.format(todayDate));
+          long diffInMillis = Math.abs(secondDate.getTime() - c.getTime().getTime());
+          long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+          System.out.println(diff+" diff");
+          tempcost+=(diff/strategy.getIntervalInDays())*(strategy.getCommission()+strategy.getAmount());
         }
       }
+      if(sdf.format(secondDate).compareTo(strategy.getStartDate())>=0){
+        long diffInMillis;
+        long diff;
+        if(sdf.format(secondDate).compareTo(strategy.getEndDate())>0){
+          diffInMillis = Math.abs(sdf.parse(strategy.getEndDate()).getTime() - sdf.parse(strategy.getStartDate()).getTime());
+        }else{
+          diffInMillis = Math.abs(secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
+        }
+        diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        System.out.println(diff+" diff");
+        tempcost+=(diff/strategy.getIntervalInDays())*(strategy.getCommission()+strategy.getAmount());
+      }
     }
+    return tempcost;
   }
 
   @Override
@@ -307,7 +329,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     c.setTime(firstDate);
     Date todayDate = new Date();
-    while (c.getTime().compareTo(todayDate) <= 0) {
+    while (c.getTime().compareTo(todayDate) < 0) {
       String nextDate = sdf.format(c.getTime());
       this.buyStocksWithWeights(amount, nextDate, commission, weights);
       c.add(Calendar.DATE, intervalInDays);

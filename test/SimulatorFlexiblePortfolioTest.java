@@ -230,8 +230,7 @@ public class SimulatorFlexiblePortfolioTest {
     System.out.println(simulator.getCostBasis("2022-10-01"));
     System.out.println(simulator.getCostBasis("2023-10-01"));
     System.out.println(simulator.getCostBasis("2024-10-01"));
+    System.out.println(simulator.getCostBasis("2025-01-01"));
     System.out.println(simulator.getCostBasis("2025-10-01"));
   }
-
-
 }
