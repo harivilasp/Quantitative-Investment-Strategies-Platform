@@ -2,13 +2,17 @@ package view;
 
 public interface Features {
 
-  void toggleColor();
+  void buyStock();
 
-  void makeUppercase();
+  void sellStock();
 
-  void restoreLowercase();
+  void getCostBasis();
 
-  void echoOutput(String typed);
+  void getCompositionAtDate();
+
+  void addStrategy();
+
+  void buyStocksWithWeights();
 
   void exitProgram();
 }

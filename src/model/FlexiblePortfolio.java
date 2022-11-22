@@ -51,6 +51,7 @@ public interface FlexiblePortfolio extends Portfolio {
   void addStrategy(double amount, int intervalInDays,
                    String startDate, String endDate, double commission,
                    Map<String, Double> weights) throws Exception;
+
   void buyStocksWithWeights(double amount, String Date, double commission,
                             Map<String,Double> weights) throws Exception;
 }

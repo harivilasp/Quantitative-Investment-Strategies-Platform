@@ -1,11 +1,5 @@
-import java.io.InputStreamReader;
-
-import controller.PortfolioController;
-import controller.PortfolioControllerImpl;
-import model.Simulator;
-import model.SimulatorImpl;
-import view.PortfolioView;
-import view.PortfolioViewImpl;
+import view.IView;
+import view.JStockView;
 
 /**
  * This method is main class and staring point of execution.
@@ -19,15 +13,17 @@ public class Main {
    * @throws Exception in case of any errors
    */
   public static void main(String[] args) throws Exception {
-    // Instantiate the model
-    Simulator model = new SimulatorImpl();
-    // Instantiate the view
-    PortfolioView view = new PortfolioViewImpl(System.out);
-    // Instantiate the controller
-    PortfolioController controller = new PortfolioControllerImpl(model, view,
-            new InputStreamReader(System.in), System.out);
+//    // Instantiate the model
+//    Simulator model = new SimulatorImpl();
+//    // Instantiate the view
+//    PortfolioView view = new PortfolioViewImpl(System.out);
+//    // Instantiate the controller
+//    PortfolioController controller = new PortfolioControllerImpl(model, view,
+//            new InputStreamReader(System.in), System.out);
+//
+//    // Start the application
+//    controller.start();
 
-    // Start the application
-    controller.start();
+    IView view = new JStockView("Sell");
   }
 }
