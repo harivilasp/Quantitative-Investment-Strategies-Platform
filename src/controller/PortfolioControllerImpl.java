@@ -60,6 +60,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     int portfolioDecision;
     while (true) {
       /* Show user whether they'd like to work on a flexible or an inflexible portfolio. */
+      // TODO: Concatenate
       this.view.showText(
               "\nWhich one of the following type of portfolio would you like to work with?"
       );
