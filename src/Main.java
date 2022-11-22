@@ -1,5 +1,5 @@
 import view.IView;
-import view.JStockView;
+import view.JTransactionView;
 
 /**
  * This method is main class and staring point of execution.
@@ -24,6 +24,6 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    IView view = new JStockView("Sell");
+    IView view = new JTransactionView("Sell");
   }
 }

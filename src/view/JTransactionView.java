@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JStockView extends JFrame implements IView {
+public class JTransactionView extends JFrame implements IView {
 
   private JLabel mTitleLabel;
   private JTextField mNameField;
@@ -18,7 +18,7 @@ public class JStockView extends JFrame implements IView {
   private JButton mActionButton;
   private JLabel mResultLabel;
 
-  public JStockView(String title) {
+  public JTransactionView(String title) {
     setSize(500, 500);
     setLocation(200, 100);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
