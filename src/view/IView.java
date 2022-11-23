@@ -29,5 +29,5 @@ public interface IView {
    */
   void resetFocus();
 
-//  void addFeatures(Features features);
+  void addFeatures(Features features);
 }

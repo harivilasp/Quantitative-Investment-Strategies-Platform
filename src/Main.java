@@ -1,4 +1,5 @@
 import view.IView;
+import view.JGetAtDateView;
 import view.JTransactionView;
 
 /**
@@ -24,6 +25,6 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    IView view = new JTransactionView("Sell");
+    IView view = new JGetAtDateView("Get value at date");
   }
 }
