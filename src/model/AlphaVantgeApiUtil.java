@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +75,6 @@ public class AlphaVantgeApiUtil implements APIUtil {
       List<String> rows = Arrays.asList(output.toString().split("\n"));
       cache.put(symbol, rows);
     }
-
     List<String> prices = cache.get(symbol);
     // Perform binary search on the results.
     int low = 0;
@@ -92,6 +93,12 @@ public class AlphaVantgeApiUtil implements APIUtil {
       }
     }
     if (low <= 0 || low >= prices.size()) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      String todayDate = sdf.format(new Date());
+      if(todayDate.compareTo(key)>0 && prices.get(1).compareTo(key)<=0){
+        String[] row = prices.get(1).split(",");
+        return Double.parseDouble(row[4]);
+      }
       throw new RuntimeException("Not Found or Problem with API");
     }
 

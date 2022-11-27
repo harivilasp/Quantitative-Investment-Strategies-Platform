@@ -26,42 +26,42 @@ public class SimulatorFlexiblePortfolioTest {
   public void setUp() {
     simulator = new SimulatorImpl();
     simulator.addFlexiblePortfolio("testporfolio");
-    simulator.buyStock(new Stock("GOOG", 3), "2022-08-10", 0.2);
-    simulator.buyStock(new Stock("GOOG", 3), "2022-09-10", 0.2);
-    simulator.buyStock(new Stock("GOOG", 3), "2022-10-10", 0.2);
-    simulator.buyStock(new Stock("GOOG", 3), "2022-11-01", 0.2);
+    simulator.buyStock("GOOG", 3, "2022-08-10", 0.2);
+    simulator.buyStock("GOOG", 3, "2022-09-10", 0.2);
+    simulator.buyStock("GOOG", 3, "2022-10-10", 0.2);
+    simulator.buyStock("GOOG", 3, "2022-11-01", 0.2);
   }
 
   @Test(expected = RuntimeException.class)
   public void testSellStockInSufficientStock() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 6), "2022-08-20", 0.2);
+    simulator.sellStock("GOOG", 6, "2022-08-20", 0.2);
     String s = "Error";
     assertEquals("Error", s);
   }
 
   @Test(expected = Exception.class)
   public void testSellStockInvalidDate() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 6), "2021-08-90", 0.2);
+    simulator.sellStock("GOOG", 6, "2021-08-90", 0.2);
     String s = "Error";
     assertEquals("Error", s);
   }
 
   @Test(expected = Exception.class)
   public void testBuyStockInvalidDate() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 6), "2014-20-22", 0.2);
+    simulator.sellStock("GOOG", 6, "2014-20-22", 0.2);
     String s = "Error";
     assertEquals("Error", s);
   }
 
   @Test()
   public void testSellStockWhenSufficientStock() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 1), "2022-08-20", 0.2);
+    simulator.sellStock("GOOG", 1, "2022-08-20", 0.2);
     assertEquals("[GOOG=11.0]", simulator.getComposition().toString());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testSellStockWithNegativeCommission() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 1), "2022-08-20", -0.2);
+    simulator.sellStock("GOOG", 1, "2022-08-20", -0.2);
     assertEquals("[GOOG=11.0]", simulator.getComposition().toString());
   }
 
@@ -106,7 +106,7 @@ public class SimulatorFlexiblePortfolioTest {
   @Test
   public void testGetCostBasis() throws RuntimeException, Exception {
     double costBasis = simulator.getCostBasis("2022-08-30");
-    simulator.sellStock(new Stock("GOOG", 1), "2022-08-20", 0.2);
+    simulator.sellStock("GOOG", 1, "2022-08-20", 0.2);
     assertEquals(362.15, costBasis, 0.01);
   }
 
@@ -120,7 +120,7 @@ public class SimulatorFlexiblePortfolioTest {
 
   @Test
   public void testSaveFlexiblePortfolio() throws IOException {
-    simulator.sellStock(new Stock("GOOG", 3), "2022-08-10", 0.2);
+    simulator.sellStock("GOOG", 3, "2022-08-10", 0.2);
     simulator.save();
     assertTrue(simulator.isPortfolioChosen());
   }
@@ -226,11 +226,22 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL",20.0);
     weights.put("NFLX",30.0);
     weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"2022-01-01", "2024-12-31",0.4,weights);
+    simulator.addStrategy(2000.0,3,"2022-11-21", "2022-12-01",0.4,weights);
     System.out.println(simulator.getCostBasis("2022-10-01"));
     System.out.println(simulator.getCostBasis("2023-10-01"));
     System.out.println(simulator.getCostBasis("2024-10-01"));
     System.out.println(simulator.getCostBasis("2025-01-01"));
     System.out.println(simulator.getCostBasis("2025-10-01"));
   }
+
+  @Test
+  public void testAddStrategyDaily() throws Exception{
+    Map<String,Double> weights = new HashMap<>();
+    weights.put("MSFT",25.0);
+    weights.put("GOOG",50.0);
+    weights.put("NFLX",15.0);
+    weights.put("AAPL",10.0);
+    simulator.addStrategy(2000.0,7,"2021-02-11", "2021-02-30",0.0,weights);
+  }
+
 }

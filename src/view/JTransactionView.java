@@ -1,12 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+
+import javax.swing.*;
+
+import controller.Features;
 
 public class JTransactionView extends JPanel implements IView {
 
@@ -90,6 +88,11 @@ public class JTransactionView extends JPanel implements IView {
 
   @Override
   public void addFeatures(Features features) {
-
+    mBuyButton.addActionListener(evt -> {
+      String status = features.buyStock(mNameField.getText(),
+              Integer.parseInt(mQuantityField.getText()),
+              mTDateField.getText(),Double.parseDouble(mCommField.getText()));
+      mResultLabel.setText(status);
+    });
   }
 }

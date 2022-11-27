@@ -111,12 +111,12 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void buyStock(Stock stock, String date, double commission) {
+    public void buyStock(String stockName, int stockQty, String date, double commission) {
       // Do nothing
     }
 
     @Override
-    public void sellStock(Stock stock, String date, double commission) throws RuntimeException {
+    public void sellStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
       // Do nothing
     }
 
@@ -214,12 +214,12 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void buyStock(Stock stock, String date, double commission) {
+    public void buyStock(String stockName, int stockQty, String date, double commission) {
       // Do nothing
     }
 
     @Override
-    public void sellStock(Stock stock, String date, double commission) throws RuntimeException {
+    public void sellStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
       // Do nothing
     }
 

@@ -36,5 +36,6 @@ public class Main {
     frame.pack();
     // frame.remove(tranPanel);
 
+    IView view = new JTransactionView("Sell");
   }
 }
