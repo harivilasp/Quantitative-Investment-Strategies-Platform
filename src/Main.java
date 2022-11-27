@@ -2,8 +2,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.IView;
 import view.JCompositionView;
+import view.JCostBasisView;
 import view.JCreatePortfolioView;
 import view.JGetAtDateView;
+import view.JLoadPortfolioView;
+import view.JStrategyView;
 import view.JTransactionView;
 
 /**
@@ -29,7 +32,7 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    JPanel panel = new JCreatePortfolioView("Create portfolio");
+    JPanel panel = new JStrategyView("Strategy");
     JFrame frame = new JFrame();
     frame.setVisible(true);
     frame.add(panel);
