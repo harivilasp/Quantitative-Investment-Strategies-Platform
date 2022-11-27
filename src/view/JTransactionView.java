@@ -59,14 +59,14 @@ public class JTransactionView extends JPanel implements PanelView {
     this.buyButton = new JButton("BUY");
     this.sellButton = new JButton("SELL");
     this.homeButton = new JButton("HOME");
-    this.mResultLabel = new JLabel();
+    this.resultLabel = new JLabel();
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 64, 16));
     southPanel.add(this.buyButton);
     southPanel.add(this.sellButton);
     southPanel.add(this.homeButton);
-    southPanel.add(this.mResultLabel);
+    southPanel.add(this.resultLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
