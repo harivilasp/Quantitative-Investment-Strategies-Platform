@@ -1,12 +1,15 @@
-package view.archive;
-
-import java.awt.*;
-
-import javax.swing.*;
+package view;
 
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class JGetAtDateView extends JPanel implements IView {
+public class JGetAtDateView extends JPanel implements PanelView {
 
   private JButton homeButton;
   private JLabel titleLabel;
@@ -48,28 +51,15 @@ public class JGetAtDateView extends JPanel implements IView {
   }
 
   @Override
-  public void setEchoOutput(String s) {
-
-  }
-
-  @Override
-  public String getInput() {
-    return null;
+  public void addActionListener(Features features) {
+    this.actionButton.addActionListener(event -> {
+      double response = features.getValue(dateField.getText());
+      this.messageLabel.setText(String.valueOf(response));
+    });
   }
 
   @Override
   public void clearInput() {
 
-  }
-  @Override
-  public void resetFocus() {
-
-  }
-
-  @Override
-  public void addFeatures(Features features) {
-    this.actionButton.addActionListener(event ->
-        features.getCompositionAtDate(dateField.getText())
-    );
   }
 }

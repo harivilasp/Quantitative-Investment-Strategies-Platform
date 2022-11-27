@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 import controller.Features;
 
-public class JStrategyView extends JPanel implements PanelView{
+public class JStrategyView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
@@ -63,9 +63,9 @@ public class JStrategyView extends JPanel implements PanelView{
     JPanel boxPanel = new JPanel();
     boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
-    String[] options = new String[] {"GOOG", "AAPL", "NFLX", "MSFT"};
+    String[] options = new String[]{"GOOG", "AAPL", "NFLX", "MSFT"};
     JComboBox<String> comboBox = new JComboBox<>();
-    for (String option: options) {
+    for (String option : options) {
       comboBox.addItem(option);
     }
     boxPanel.add(comboBox);
@@ -85,6 +85,10 @@ public class JStrategyView extends JPanel implements PanelView{
 
   @Override
   public void clearInput() {
-
+    this.amountField.setText("");
+    this.intervalField = new JTextField(4);
+    this.startDateField = new JTextField(8);
+    this.endDateField = new JTextField(8);
+    this.commissionField = new JTextField(6);
   }
 }

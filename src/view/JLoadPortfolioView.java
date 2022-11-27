@@ -80,8 +80,8 @@ public class JLoadPortfolioView extends JPanel implements PanelView{
       // Response code is valid
       if (responseCode == JFileChooser.APPROVE_OPTION) {
         File selectedFile = fileChooser.getSelectedFile();
-        features.loadFlexiblePortfolio(selectedFile.getAbsolutePath());
-        this.messageLabel.setText(selectedFile.getAbsolutePath()); // TODO
+        String responseStatus = features.loadFlexiblePortfolio(selectedFile.getAbsolutePath());
+        this.messageLabel.setText(responseStatus); // TODO
       }
     });
     homeButton.addActionListener(evt -> {
