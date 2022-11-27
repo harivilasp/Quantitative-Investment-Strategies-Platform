@@ -14,6 +14,7 @@ public class JCostBasisView extends JPanel {
   private JLabel portfolioLabel;
   private JTextField dateField;
   private JButton showButton;
+  private JButton homeButton;
   private JLabel messageLabel;
 
   public JCostBasisView(String title) {
@@ -33,12 +34,14 @@ public class JCostBasisView extends JPanel {
     // Center panel -> Date text field and show composition button
     this.dateField = new JTextField(8);
     this.showButton = new JButton("SHOW");
+    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
     centerPanel.add(new JLabel("Date:"));
     centerPanel.add(this.dateField);
     centerPanel.add(this.showButton);
+    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
@@ -48,5 +51,4 @@ public class JCostBasisView extends JPanel {
     southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
-
 }

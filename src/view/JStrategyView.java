@@ -42,6 +42,7 @@ public class JStrategyView extends JPanel {
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
     centerPanel.add(new JLabel("Amount: "));
     centerPanel.add(this.amountField);
+
     this.add(centerPanel, BorderLayout.CENTER);
   }
 

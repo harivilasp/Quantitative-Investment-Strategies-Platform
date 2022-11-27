@@ -13,6 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class JLoadPortfolioView extends JPanel {
 
+  private JButton homeButton;
   private JLabel titleLabel;
   private JButton chooseFileButton;
   private JLabel messageLabel;
@@ -30,6 +31,8 @@ public class JLoadPortfolioView extends JPanel {
 
     // Center panel -> Choose file button
     this.chooseFileButton = new JButton("Choose portfolio from filepath");
+    this.homeButton = new JButton("HOME");
+
     this.chooseFileButton.addActionListener(event -> {
       // Open file chooser
       JFileChooser fileChooser = new JFileChooser();
@@ -51,6 +54,7 @@ public class JLoadPortfolioView extends JPanel {
 
     JPanel centerPanel = new JPanel();
     centerPanel.add(this.chooseFileButton);
+    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Message to show whether portfolio loaded was valid or not.

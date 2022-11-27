@@ -12,6 +12,7 @@ import controller.Features;
 
 public class JCreatePortfolioView extends JPanel implements PanelView{
 
+  private JButton homeButton;
   private JLabel titleLabel;
   private JTextField nameField;
   private JButton createButton;
@@ -31,12 +32,14 @@ public class JCreatePortfolioView extends JPanel implements PanelView{
     // Center panel -> Name text field and create button
     this.nameField = new JTextField(12);
     this.createButton = new JButton("CREATE");
+    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
     centerPanel.add(new JLabel("Portfolio name:"));
     centerPanel.add(this.nameField);
     centerPanel.add(this.createButton);
+    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result

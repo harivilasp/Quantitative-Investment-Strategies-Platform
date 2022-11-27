@@ -8,6 +8,7 @@ import controller.Features;
 
 public class JTransactionView extends JPanel implements PanelView {
 
+  private JButton homeButton;
   private JLabel mTitleLabel;
   private JLabel mPortfolioLabel;
   private JTextField mNameField;
@@ -42,27 +43,28 @@ public class JTransactionView extends JPanel implements PanelView {
     this.mQuantityField.setText("1");
     this.mCommField.setText("0");
 
+    JPanel centerPanel = new JPanel();
+    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
+    centerPanel.add(new JLabel("Name: "));
+    centerPanel.add(this.mNameField);
+    centerPanel.add(new JLabel("Quantity: "));
+    centerPanel.add(this.mQuantityField);
+    centerPanel.add(new JLabel("Transaction date: "));
+    centerPanel.add(this.mTDateField);
+    centerPanel.add(new JLabel("Commission: "));
+    centerPanel.add(this.mCommField);
+    this.add(centerPanel, BorderLayout.CENTER);
+
+    // South panel -> Buy/Sell buttons
     this.mBuyButton = new JButton("BUY");
     this.mSellButton = new JButton("SELL");
-
-    JPanel westPanel = new JPanel();
-    westPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 4, 0));
-    westPanel.add(new JLabel("Name: "));
-    westPanel.add(this.mNameField);
-    westPanel.add(new JLabel("Quantity: "));
-    westPanel.add(this.mQuantityField);
-    westPanel.add(new JLabel("Transaction date: "));
-    westPanel.add(this.mTDateField);
-    westPanel.add(new JLabel("Commission: "));
-    westPanel.add(this.mCommField);
-
-    this.add(westPanel, BorderLayout.CENTER);
+    this.homeButton = new JButton("HOME");
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 64, 16));
     southPanel.add(this.mBuyButton);
     southPanel.add(this.mSellButton);
-
+    southPanel.add(this.homeButton);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 

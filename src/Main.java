@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import view.IView;
 import view.JCompositionView;
 import view.JCostBasisView;
+import view.JGetAtDateView;
+import view.JLoadPortfolioView;
 import view.JTransactionView;
 import view.PanelView;
 
@@ -30,7 +32,7 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    JPanel panel = new JCreatePortfolioView("Create portfolio");
+    JPanel panel = new JTransactionView("");
     JFrame frame = new JFrame();
     frame.setVisible(true);
     frame.add(panel);

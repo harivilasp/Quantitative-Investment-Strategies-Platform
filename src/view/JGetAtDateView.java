@@ -8,39 +8,41 @@ import controller.Features;
 
 public class JGetAtDateView extends JPanel implements IView {
 
-  private JLabel mTitleLabel;
-  private JTextField mDateField;
-  private JButton mActionButton;
-  private JLabel mResultLabel;
+  private JButton homeButton;
+  private JLabel titleLabel;
+  private JTextField dateField;
+  private JButton actionButton;
+  private JLabel messageLabel;
 
   public JGetAtDateView(String title) {
-    setSize(500, 500);
-    setLocation(200, 100);
-    setLayout(new BorderLayout(8, 8));
+    this.setPreferredSize(new Dimension(500, 500));
+    this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.mTitleLabel = new JLabel(title);
-    this.mTitleLabel.setHorizontalAlignment(JLabel.LEFT);
-    this.mTitleLabel.setVerticalAlignment(JLabel.CENTER);
+    this.titleLabel = new JLabel(title);
+
     JPanel northPanel = new JPanel();
-    northPanel.add(this.mTitleLabel);
+    northPanel.add(this.titleLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
-    // West panel -> Enter date and submit
-    this.mDateField = new JTextField(6);
-    this.mActionButton = new JButton("Get Value");
-    JPanel westPanel = new JPanel();
-    westPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 4, 0));
-    westPanel.add(new JLabel("Enter date:"));
-    westPanel.add(this.mDateField);
-    westPanel.add(new JLabel("    "));
-    westPanel.add(this.mActionButton);
-    this.add(westPanel, BorderLayout.WEST);
+    // Center panel -> Enter date and submit
+    this.dateField = new JTextField(6);
+    this.actionButton = new JButton("Get Value");
+    this.homeButton = new JButton("HOME");
+
+    JPanel centerPanel = new JPanel();
+    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
+    centerPanel.add(new JLabel("Enter date:"));
+    centerPanel.add(this.dateField);
+    centerPanel.add(new JLabel("    "));
+    centerPanel.add(this.actionButton);
+    centerPanel.add(this.homeButton);
+    this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Show result
-    this.mResultLabel = new JLabel("Show result");
+    this.messageLabel = new JLabel("Show result");
     JPanel southPanel = new JPanel();
-    southPanel.add(this.mResultLabel);
+    southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
     setVisible(true);
   }
@@ -67,8 +69,8 @@ public class JGetAtDateView extends JPanel implements IView {
 
   @Override
   public void addFeatures(Features features) {
-    this.mActionButton.addActionListener(event ->
-        features.getCompositionAtDate(mDateField.getText())
+    this.actionButton.addActionListener(event ->
+        features.getCompositionAtDate(dateField.getText())
     );
   }
 }

@@ -9,6 +9,7 @@ import controller.Features;
 
 public class JCompositionView extends JPanel implements PanelView{
 
+  private JButton homeButton;
   private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JTextField dateField;
@@ -32,12 +33,14 @@ public class JCompositionView extends JPanel implements PanelView{
     // Center panel -> Date text field and show composition button
     this.dateField = new JTextField(8);
     this.showButton = new JButton("SHOW");
+    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
     centerPanel.add(new JLabel("Date:"));
     centerPanel.add(this.dateField);
     centerPanel.add(this.showButton);
+    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
