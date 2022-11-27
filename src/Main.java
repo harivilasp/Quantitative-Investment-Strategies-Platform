@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.IView;
+import view.JCompositionView;
+import view.JCreatePortfolioView;
 import view.JGetAtDateView;
 import view.JTransactionView;
 
@@ -27,21 +29,10 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    IView view;
-    JPanel tranPanel = new JTransactionView("Buy/Sell");
-    JPanel getDatePanel = new JGetAtDateView("Get value at date");
+    JPanel panel = new JCreatePortfolioView("Create portfolio");
     JFrame frame = new JFrame();
     frame.setVisible(true);
-
-    frame.add(tranPanel);
-    frame.add(getDatePanel);
-    frame.pack();
-
-    tranPanel.setVisible(true);
-    getDatePanel.setVisible(false);
-    Thread.sleep(5000);
-    tranPanel.setVisible(false);
-    getDatePanel.setVisible(true);
+    frame.add(panel);
     frame.pack();
     // frame.remove(tranPanel);
 

@@ -102,7 +102,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void loadFlexiblePortfolio(String filepath)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     inflexiblePortfolio = null;
     flexiblePortfolio = new FlexiblePortfolioImpl(filepath, Utils.VALID_STOCKS);
   }
@@ -134,7 +134,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public Map<String, Integer> getPerformance(String startDate, String endDate)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Map<String, Integer> performances = new TreeMap<>();
     Calendar c = Calendar.getInstance();
@@ -225,7 +225,7 @@ public class SimulatorImpl implements Simulator {
       }
     }
     performances.put("Scale (relative) [$" + Double.toString(mi) + "]",
-            (int) Math.round(scalediff));
+        (int) Math.round(scalediff));
 
     return performances;
   }
@@ -240,17 +240,18 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void addStrategy(double amount, int intervalInDays,
-                   String startDate, String endDate, double commission,
-                   Map<String, Double> weights) throws Exception{
-    if(inflexiblePortfolio!=null){
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) throws Exception {
+    if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }
     flexiblePortfolio.addStrategy(amount, intervalInDays, startDate, endDate, commission, weights);
   }
+
   @Override
   public void buyStocksWithWeights(double amount, String date, double commission,
-                            Map<String,Double> weights) throws Exception{
-    if(inflexiblePortfolio!=null){
+      Map<String, Double> weights) throws Exception {
+    if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }
     flexiblePortfolio.buyStocksWithWeights(amount, date, commission, weights);

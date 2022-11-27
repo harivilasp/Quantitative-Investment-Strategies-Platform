@@ -11,11 +11,13 @@ import javax.swing.JTextField;
 public class JTransactionView extends JPanel implements IView {
 
   private JLabel mTitleLabel;
+  private JLabel mPortfolioLabel;
   private JTextField mNameField;
   private JTextField mQuantityField;
   private JTextField mTDateField;
   private JTextField mCommField;
-  private JButton mActionButton;
+  private JButton mBuyButton;
+  private JButton mSellButton;
   private JLabel mResultLabel;
 
   public JTransactionView(String title) {
@@ -25,10 +27,11 @@ public class JTransactionView extends JPanel implements IView {
 
     // North panel -> Title
     this.mTitleLabel = new JLabel(title);
-    this.mTitleLabel.setHorizontalAlignment(JLabel.LEFT);
-    this.mTitleLabel.setVerticalAlignment(JLabel.CENTER);
+    this.mPortfolioLabel = new JLabel("<Portfolio Name>"); // TODO
     JPanel northPanel = new JPanel();
+    northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
     northPanel.add(this.mTitleLabel);
+    northPanel.add(this.mPortfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // West panel
@@ -37,7 +40,12 @@ public class JTransactionView extends JPanel implements IView {
     this.mTDateField = new JTextField(6);
     this.mCommField = new JTextField(4);
 
-    this.mActionButton = new JButton(title);
+    // Default values
+    this.mQuantityField.setText("1");
+    this.mCommField.setText("0");
+
+    this.mBuyButton = new JButton("BUY");
+    this.mSellButton = new JButton("SELL");
 
     JPanel westPanel = new JPanel();
     westPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 4, 0));
@@ -50,10 +58,14 @@ public class JTransactionView extends JPanel implements IView {
     westPanel.add(new JLabel("Commission: "));
     westPanel.add(this.mCommField);
 
-    westPanel.add(new JLabel("    "));
-    westPanel.add(this.mActionButton);
+    this.add(westPanel, BorderLayout.CENTER);
 
-    this.add(westPanel, BorderLayout.WEST);
+    JPanel southPanel = new JPanel();
+    southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 64, 16));
+    southPanel.add(this.mBuyButton);
+    southPanel.add(this.mSellButton);
+
+    this.add(southPanel, BorderLayout.SOUTH);
   }
 
   @Override
