@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JGetAtDateView extends JFrame implements IView {
+public class JGetAtDateView extends JPanel implements IView {
 
   private JLabel mTitleLabel;
   private JTextField mDateField;
@@ -20,7 +20,6 @@ public class JGetAtDateView extends JFrame implements IView {
   public JGetAtDateView(String title) {
     setSize(500, 500);
     setLocation(200, 100);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout(8, 8));
 
     // North panel -> Title
@@ -48,7 +47,6 @@ public class JGetAtDateView extends JFrame implements IView {
     southPanel.add(this.mResultLabel);
     this.add(southPanel, BorderLayout.SOUTH);
 
-    pack();
     setVisible(true);
   }
 
@@ -74,10 +72,5 @@ public class JGetAtDateView extends JFrame implements IView {
 
   @Override
   public void addFeatures(Features features) {
-    this.mActionButton.addActionListener(event ->
-        features.getCompositionAtDate(mDateField.getText())
-    );
-
-
   }
 }

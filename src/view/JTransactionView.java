@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JTransactionView extends JFrame implements IView {
+public class JTransactionView extends JPanel implements IView {
 
   private JLabel mTitleLabel;
   private JTextField mNameField;
@@ -21,7 +21,6 @@ public class JTransactionView extends JFrame implements IView {
   public JTransactionView(String title) {
     setSize(500, 500);
     setLocation(200, 100);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout(8, 8));
 
     // North panel -> Title
@@ -55,9 +54,6 @@ public class JTransactionView extends JFrame implements IView {
     westPanel.add(this.mActionButton);
 
     this.add(westPanel, BorderLayout.WEST);
-
-    pack();
-    setVisible(true);
   }
 
   @Override
@@ -77,6 +73,11 @@ public class JTransactionView extends JFrame implements IView {
 
   @Override
   public void resetFocus() {
+
+  }
+
+  @Override
+  public void addFeatures(Features features) {
 
   }
 }

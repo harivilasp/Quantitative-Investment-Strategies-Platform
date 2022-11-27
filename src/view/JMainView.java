@@ -42,6 +42,11 @@ public class JMainView extends JFrame implements IView {
 
   }
 
+  @Override
+  public void addFeatures(Features features) {
+
+  }
+
   private void setupJView() {
     setSize(500, 500);
     setMinimumSize(new Dimension(500, 500));
