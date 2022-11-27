@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import controller.Features;
 
-public class JTransactionView extends JPanel implements IView {
+public class JTransactionView extends JPanel implements PanelView {
 
   private JLabel mTitleLabel;
   private JLabel mPortfolioLabel;
@@ -66,30 +66,31 @@ public class JTransactionView extends JPanel implements IView {
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
-  @Override
   public void setEchoOutput(String s) {
 
   }
 
-  @Override
   public String getInput() {
     return null;
   }
 
-  @Override
   public void clearInput() {
 
   }
 
-  @Override
   public void resetFocus() {
 
   }
-
   @Override
-  public void addFeatures(Features features) {
+  public void addActionListener(Features features) {
     mBuyButton.addActionListener(evt -> {
       String status = features.buyStock(mNameField.getText(),
+              Integer.parseInt(mQuantityField.getText()),
+              mTDateField.getText(),Double.parseDouble(mCommField.getText()));
+      mResultLabel.setText(status);
+    });
+    mSellButton.addActionListener(evt -> {
+      String status = features.sellStock(mNameField.getText(),
               Integer.parseInt(mQuantityField.getText()),
               mTDateField.getText(),Double.parseDouble(mCommField.getText()));
       mResultLabel.setText(status);

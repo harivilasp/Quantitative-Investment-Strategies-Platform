@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JCreatePortfolioView extends JPanel {
+import controller.Features;
+
+public class JCreatePortfolioView extends JPanel implements PanelView{
 
   private JLabel titleLabel;
   private JTextField nameField;
@@ -45,4 +47,11 @@ public class JCreatePortfolioView extends JPanel {
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
+  @Override
+  public void addActionListener(Features features) {
+    createButton.addActionListener(evt -> {
+      String status = features.addFlexiblePortfolio(nameField.getText());
+      messageLabel.setText(status);
+    });
+  }
 }

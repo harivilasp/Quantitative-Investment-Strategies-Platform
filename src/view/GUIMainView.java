@@ -1,36 +1,65 @@
 package view;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
 
-public class GUIMainView implements GUIView{
+import controller.Features;
+
+public class GUIMainView extends JFrame implements GUIView{
 
   JPanel portfolioValue;
+  JCreatePortfolioView createPortfolio;
   JPanel savePortfolio;
-  JPanel addPortfolio;
   JPanel loadPortfolio;
-  JPanel buySellStock;
   JPanel addStrategy;
   JPanel buyStocksWithWeights;
   JPanel costBasis;
-  JPanel compositionAtDate;
-  JPanel home;
+  JCompositionView compositionAtDate;
+  Home home;
   JPanel currentPanel;
-
+  JTransactionView transactionView;
   public GUIMainView(){
-    home = new JPanel();
+    super("Stock Market Simulator");
+    this.setPreferredSize(new Dimension(450, 500));
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setVisible(true);
+
+    home = new Home();
     currentPanel = home;
+    createPortfolio = new JCreatePortfolioView("Create Portfolio");
     portfolioValue = new JPanel();
     savePortfolio = new JPanel();
-    addPortfolio = new JPanel();
     loadPortfolio = new JPanel();
-    buySellStock = new JPanel();
     addStrategy = new JPanel();
     buyStocksWithWeights = new JPanel();
     costBasis = new JPanel();
-    compositionAtDate = new JPanel();
+    compositionAtDate = new JCompositionView("Composition At Date");
+    transactionView = new JTransactionView("Buy Sell Stock");
+    this.add(home);
+//    this.add(createPortfolio);
+//    this.add(savePortfolio);
+//    this.add(loadPortfolio);
+//
+//    this.add(addStrategy);
+//    this.add(buyStocksWithWeights);
+//
+//    this.add(costBasis);
+//    this.add(compositionAtDate);
+//    this.add(transactionView);
+
+//    home.setVisible(true);
+//    createPortfolio.setVisible(false);
+//    savePortfolio.setVisible(false);
+//    addStrategy.setVisible(false);
+//    buyStocksWithWeights.setVisible(false);
+//
+//    transactionView.setVisible(false);
+//    compositionAtDate.setVisible(false);
+
+    this.pack();
   }
 
   @Override
@@ -45,7 +74,11 @@ public class GUIMainView implements GUIView{
 
   @Override
   public void showAddPortfolio() {
-
+    this.getContentPane().removeAll();
+    this.add(createPortfolio);
+    this.pack();
+//    home.setVisible(false);
+//    createPortfolio.setVisible(true);
   }
 
   @Override
@@ -55,7 +88,8 @@ public class GUIMainView implements GUIView{
 
   @Override
   public void showBuySellStock() {
-
+    home.setVisible(false);
+    transactionView.setVisible(true);
   }
 
   @Override
@@ -65,7 +99,8 @@ public class GUIMainView implements GUIView{
 
   @Override
   public void showCompositionAtDate(List<String> composition) {
-
+    home.setVisible(false);
+    compositionAtDate.setVisible(true);
   }
 
   @Override
@@ -87,4 +122,12 @@ public class GUIMainView implements GUIView{
   public void showHome(){
 
   }
+
+  @Override
+  public void addActionListener(Features features) {
+    compositionAtDate.addActionListener(features);
+    home.addActionListener(features);
+    createPortfolio.addActionListener(features);
+  }
+
 }

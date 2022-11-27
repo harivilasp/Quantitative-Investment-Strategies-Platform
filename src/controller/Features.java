@@ -86,4 +86,8 @@ public interface Features {
   Map<String, Integer> getPerformance(String startDate, String endDate);
 
   void exitProgram();
+
+  void showHome();
+  void showCreatePortfolio();
+
 }

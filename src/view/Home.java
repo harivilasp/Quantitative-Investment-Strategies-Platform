@@ -9,7 +9,7 @@ import controller.Features;
 /**
  * This class represents the main view.
  */
-public class MainView extends JFrame implements ButtonOnly {
+public class Home extends JPanel implements PanelView{
   private JButton createPortfolio;
   private JButton checkCost;
   private JButton checkValue;
@@ -19,18 +19,11 @@ public class MainView extends JFrame implements ButtonOnly {
   private JButton applyStrategy;
   private JButton quit;
 
-  /**
-   * Constructor of MainPlusView, it initialize the mainPlus view.
-   *
-   * @param str caption.
-   */
-  public MainView(String str) {
-    super(str);
+  public Home() {
     this.setPreferredSize(new Dimension(450, 500));
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
 
-    GridLayout layout = new GridLayout(8, 2);
+    GridLayout layout = new GridLayout(4, 2);
     JPanel panel;
     panel = new JPanel();
     panel.setLayout(layout);
@@ -62,12 +55,9 @@ public class MainView extends JFrame implements ButtonOnly {
     panel.add(applyStrategy);
     panel.add(quit);
 
-    this.getContentPane().add(panel);
-    this.setVisible(true);
-    this.pack();
+    this.add(panel);
   }
 
-  @Override
   public void addActionListener(Features features) {
 //    createPortfolio.addActionListener(listener);
 //    showAllPortfolio.addActionListener(listener);
@@ -85,16 +75,10 @@ public class MainView extends JFrame implements ButtonOnly {
 //    readStrategy.addActionListener(listener);
 //    saveStrategy.addActionListener(listener);
     createPortfolio.addActionListener(evt -> {
-      WithTextField createPortfolioFrame = new CreatePortfolio("Create Portfolio");
-      createPortfolioFrame.addActionListener(features);
-      ((JFrame) createPortfolioFrame).setLocation(((JFrame) this).getLocation());
-      ((JFrame) this).dispose();
+      features.showCreatePortfolio();
     });
     buySellStock.addActionListener(evt -> {
-      IView buyStockFrame = new JTransactionView("Buy stock");
-      buyStockFrame.addFeatures(features);
-      ((JFrame) buyStockFrame).setLocation(((JFrame) this).getLocation());
-      ((JFrame) this).dispose();
+      features.showHome();
     });
     quit.addActionListener(evt -> features.exitProgram());
   }
@@ -102,7 +86,6 @@ public class MainView extends JFrame implements ButtonOnly {
   /**
    * Reset the focus on the appropriate part of the view.
    */
-  @Override
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();

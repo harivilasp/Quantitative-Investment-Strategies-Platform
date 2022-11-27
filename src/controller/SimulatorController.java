@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import model.Simulator;
 import model.Stock;
-import view.ButtonOnly;
+import view.GUIView;
 
 public class SimulatorController implements Features{
 
@@ -17,7 +17,7 @@ public class SimulatorController implements Features{
   private final Simulator model;
 
   /* The view class instance. */
-  private ButtonOnly view;
+  private GUIView view;
 
   /* The scanner class instance. */
   private final Scanner scanner;
@@ -25,7 +25,7 @@ public class SimulatorController implements Features{
   /* The Appendable out instance. */
   private final Appendable out;
 
-  public SimulatorController(Simulator model, ButtonOnly view, Readable in, Appendable out) {
+  public SimulatorController(Simulator model, GUIView view, Readable in, Appendable out) {
     // Create the model
     this.model = model;
     // Create the view
@@ -172,5 +172,15 @@ public class SimulatorController implements Features{
   @Override
   public void exitProgram() {
     System.exit(0);
+  }
+
+  @Override
+  public void showHome() {
+    view.showHome();
+  }
+
+  @Override
+  public void showCreatePortfolio() {
+    view.showAddPortfolio();
   }
 }

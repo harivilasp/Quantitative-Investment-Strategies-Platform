@@ -3,6 +3,8 @@ package view;
 import java.util.List;
 import java.util.Map;
 
+import controller.Features;
+
 public interface GUIView {
   void showPortfolioValue();
 
@@ -24,4 +26,5 @@ public interface GUIView {
 
   void showPerformance(Map<String, Integer> values);
   void showHome();
+  public void addActionListener(Features features);
 }

@@ -1,10 +1,8 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import view.IView;
-import view.JCompositionView;
+import javax.swing.*;
+
 import view.JCreatePortfolioView;
-import view.JGetAtDateView;
 import view.JTransactionView;
+import view.PanelView;
 
 /**
  * This method is main class and staring point of execution.
@@ -36,6 +34,6 @@ public class Main {
     frame.pack();
     // frame.remove(tranPanel);
 
-    IView view = new JTransactionView("Sell");
+    PanelView view = new JTransactionView("Sell");
   }
 }
