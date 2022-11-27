@@ -6,6 +6,7 @@ import view.JCompositionView;
 import view.JCostBasisView;
 import view.JGetAtDateView;
 import view.JLoadPortfolioView;
+import view.JStrategyView;
 import view.JTransactionView;
 import view.PanelView;
 
@@ -32,7 +33,7 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    JPanel panel = new JTransactionView("");
+    JPanel panel = new JStrategyView("");
     JFrame frame = new JFrame();
     frame.setVisible(true);
     frame.add(panel);

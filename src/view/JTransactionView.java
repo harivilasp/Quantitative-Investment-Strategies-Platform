@@ -9,15 +9,15 @@ import controller.Features;
 public class JTransactionView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel mTitleLabel;
-  private JLabel mPortfolioLabel;
-  private JTextField mNameField;
-  private JTextField mQuantityField;
-  private JTextField mTDateField;
-  private JTextField mCommField;
-  private JButton mBuyButton;
-  private JButton mSellButton;
-  private JLabel mResultLabel;
+  private JLabel titleLabel;
+  private JLabel portfolioLabel;
+  private JTextField nameField;
+  private JTextField quantityField;
+  private JTextField tranDateField;
+  private JTextField commField;
+  private JButton buyButton;
+  private JButton sellButton;
+  private JLabel resultLabel;
 
   public JTransactionView(String title) {
     setSize(500, 500);
@@ -25,45 +25,45 @@ public class JTransactionView extends JPanel implements PanelView {
     setLayout(new BorderLayout(8, 8));
 
     // North panel -> Title
-    this.mTitleLabel = new JLabel(title);
-    this.mPortfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.titleLabel = new JLabel(title);
+    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
-    northPanel.add(this.mTitleLabel);
-    northPanel.add(this.mPortfolioLabel);
+    northPanel.add(this.titleLabel);
+    northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // West panel
-    this.mNameField = new JTextField(8);
-    this.mQuantityField = new JTextField(4);
-    this.mTDateField = new JTextField(6);
-    this.mCommField = new JTextField(4);
+    this.nameField = new JTextField(8);
+    this.quantityField = new JTextField(4);
+    this.tranDateField = new JTextField(6);
+    this.commField = new JTextField(4);
 
     // Default values
-    this.mQuantityField.setText("1");
-    this.mCommField.setText("0");
+    this.quantityField.setText("1");
+    this.commField.setText("0");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
     centerPanel.add(new JLabel("Name: "));
-    centerPanel.add(this.mNameField);
+    centerPanel.add(this.nameField);
     centerPanel.add(new JLabel("Quantity: "));
-    centerPanel.add(this.mQuantityField);
+    centerPanel.add(this.quantityField);
     centerPanel.add(new JLabel("Transaction date: "));
-    centerPanel.add(this.mTDateField);
+    centerPanel.add(this.tranDateField);
     centerPanel.add(new JLabel("Commission: "));
-    centerPanel.add(this.mCommField);
+    centerPanel.add(this.commField);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Buy/Sell buttons
-    this.mBuyButton = new JButton("BUY");
-    this.mSellButton = new JButton("SELL");
+    this.buyButton = new JButton("BUY");
+    this.sellButton = new JButton("SELL");
     this.homeButton = new JButton("HOME");
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 64, 16));
-    southPanel.add(this.mBuyButton);
-    southPanel.add(this.mSellButton);
+    southPanel.add(this.buyButton);
+    southPanel.add(this.sellButton);
     southPanel.add(this.homeButton);
     this.add(southPanel, BorderLayout.SOUTH);
   }
@@ -85,17 +85,17 @@ public class JTransactionView extends JPanel implements PanelView {
   }
   @Override
   public void addActionListener(Features features) {
-    mBuyButton.addActionListener(evt -> {
-      String status = features.buyStock(mNameField.getText(),
-              Integer.parseInt(mQuantityField.getText()),
-              mTDateField.getText(),Double.parseDouble(mCommField.getText()));
-      mResultLabel.setText(status);
+    buyButton.addActionListener(evt -> {
+      String status = features.buyStock(nameField.getText(),
+              Integer.parseInt(quantityField.getText()),
+              tranDateField.getText(),Double.parseDouble(commField.getText()));
+      resultLabel.setText(status);
     });
-    mSellButton.addActionListener(evt -> {
-      String status = features.sellStock(mNameField.getText(),
-              Integer.parseInt(mQuantityField.getText()),
-              mTDateField.getText(),Double.parseDouble(mCommField.getText()));
-      mResultLabel.setText(status);
+    sellButton.addActionListener(evt -> {
+      String status = features.sellStock(nameField.getText(),
+              Integer.parseInt(quantityField.getText()),
+              tranDateField.getText(),Double.parseDouble(commField.getText()));
+      resultLabel.setText(status);
     });
   }
 }
