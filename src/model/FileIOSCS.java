@@ -201,7 +201,8 @@ public class FileIOSCS implements FileIO {
   }
 
   @Override
-  public void writeFlexiblePortfolio(String portfolioName, List<Transaction> transactions)
+  public void writeFlexiblePortfolio(String portfolioName, List<Transaction> transactions,
+                                     List<Strategy> strategies)
           throws IOException, RuntimeException {
     StringBuilder data = new StringBuilder(portfolioName);
     for (Transaction transaction : transactions) {
@@ -209,7 +210,16 @@ public class FileIOSCS implements FileIO {
               + (int) transaction.getQuantity() + ";" + transaction.getCommission();
       data.append("\n").append(row);
     }
-
+    /*
+    if(strategies.size()>0){
+      data.append("\n").append("Strategy");
+    }
+    for (Strategy strategy : strategies) {
+      String row = strategy.getAmount()+";"+strategy.getIntervalInDays()+";"
+              +strategy.getStartDate() + ";" + strategy.getEndDate() + ";"
+              + strategy.getCommission() + ";" + strategy.getWeights().toString();
+      data.append("\n").append(row);
+    }*/
     writeFile(data, portfolioName, "flexibleportfolios", "flexible");
   }
 

@@ -65,6 +65,7 @@ public class SimulatorController implements Features{
   public String save() throws IOException, RuntimeException {
     try {
       model.save();
+
       return "Successfully Saved";
     }catch (Exception e){
       return e.toString();

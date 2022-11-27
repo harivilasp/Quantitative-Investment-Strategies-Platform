@@ -99,7 +99,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
 
   @Override
   public void save() throws IOException, RuntimeException {
-    fileIO.writeFlexiblePortfolio(this.getName(), transactions);
+    fileIO.writeFlexiblePortfolio(this.getName(), transactions, strategies);
   }
 
   @Override
@@ -329,11 +329,15 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     c.setTime(firstDate);
     Date todayDate = new Date();
+    if(todayDate.compareTo(secondDate)>0){
+      todayDate = secondDate;
+    }
     while (c.getTime().compareTo(todayDate) < 0) {
       String nextDate = sdf.format(c.getTime());
       this.buyStocksWithWeights(amount, nextDate, commission, weights);
       c.add(Calendar.DATE, intervalInDays);
     }
+
     if(c.getTime().compareTo(secondDate)<0){
       Strategy strategy = new DollarCostAveragingStrategy(amount,
               intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);

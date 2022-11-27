@@ -226,7 +226,7 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL",20.0);
     weights.put("NFLX",30.0);
     weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,1,"2022-01-01", "2024-12-31",0.4,weights);
+    simulator.addStrategy(2000.0,3,"2022-11-21", "2022-12-01",0.4,weights);
     System.out.println(simulator.getCostBasis("2022-10-01"));
     System.out.println(simulator.getCostBasis("2023-10-01"));
     System.out.println(simulator.getCostBasis("2024-10-01"));
@@ -241,7 +241,7 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG",50.0);
     weights.put("NFLX",15.0);
     weights.put("AAPL",10.0);
-    simulator.addStrategy(2000.0,3,"2020-02-11", "2021-04-10",0.0,weights);
+    simulator.addStrategy(2000.0,7,"2021-02-11", "2021-02-30",0.0,weights);
   }
 
 }

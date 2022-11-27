@@ -13,19 +13,11 @@ public class MainView extends JFrame implements ButtonOnly {
   private JButton createPortfolio;
   private JButton checkCost;
   private JButton checkValue;
-  private JButton getPortfolio;
-  private JButton showAllPortfolio;
-  private JButton buyStock;
-  private JButton setCommissionFee;
-  private JButton setAPI;
+  private JButton buySellStock;
   private JButton savePortfolioToFile;
   private JButton readPortfolioFromFile;
-  private JButton add;
-  private JButton createStrategy;
   private JButton applyStrategy;
   private JButton quit;
-  private JButton readStrategy;
-  private JButton saveStrategy;
 
   /**
    * Constructor of MainPlusView, it initialize the mainPlus view.
@@ -44,66 +36,37 @@ public class MainView extends JFrame implements ButtonOnly {
     panel.setLayout(layout);
 
     createPortfolio = new JButton("Create Portfolio");
-    showAllPortfolio = new JButton("Show All Portfolio");
-    getPortfolio = new JButton("Get Portfolio");
-    buyStock = new JButton("Buy Stock");
+    buySellStock = new JButton("Buy/Sell Stock");
     quit = new JButton("Quit");
-    checkCost = new JButton("Check Cost");
+    checkCost = new JButton("Check Cost Basis");
     checkValue = new JButton("Check Value");
-    setCommissionFee = new JButton("Set Commission Fee");
-    setAPI = new JButton("Set API");
     savePortfolioToFile = new JButton("Save Portfolio To File");
     readPortfolioFromFile = new JButton("Read Portfolio From File");
-    add = new JButton("Add Stock To Portfolio");
-    createStrategy = new JButton("Create Strategy");
     applyStrategy = new JButton("Apply Strategy");
-    readStrategy = new JButton("Read Strategy from file");
-    saveStrategy = new JButton("Save Strategy to file");
 
     createPortfolio.setActionCommand("createPortfolio");
-    showAllPortfolio.setActionCommand("showAllPortfolio");
-    buyStock.setActionCommand("buyStockChooseAWay");
-    getPortfolio.setActionCommand("getPortfolio");
-    checkCost.setActionCommand("checkCost");
+    buySellStock.setActionCommand("buySellStockChooseAWay");
+    checkCost.setActionCommand("checkCostBasis");
     checkValue.setActionCommand("checkValue");
-    setCommissionFee.setActionCommand("setCommissionFee");
-    setAPI.setActionCommand("setAPI");
     savePortfolioToFile.setActionCommand("savePortfolioToFile");
     readPortfolioFromFile.setActionCommand("readPortfolioFromFile");
     quit.setActionCommand("quit");
-    add.setActionCommand("add portfolio");
-    createStrategy.setActionCommand("create strategy");
     applyStrategy.setActionCommand("apply strategy");
-    readStrategy.setActionCommand("read strategy");
-    saveStrategy.setActionCommand("save strategy");
 
     panel.add(createPortfolio);
-    panel.add(showAllPortfolio);
-    panel.add(getPortfolio);
-    panel.add(buyStock);
+    panel.add(buySellStock);
     panel.add(checkCost);
     panel.add(checkValue);
-    panel.add(setCommissionFee);
-    panel.add(setAPI);
     panel.add(savePortfolioToFile);
     panel.add(readPortfolioFromFile);
-    panel.add(saveStrategy);
-    panel.add(readStrategy);
-    panel.add(add);
-    panel.add(createStrategy);
     panel.add(applyStrategy);
     panel.add(quit);
 
     this.getContentPane().add(panel);
     this.setVisible(true);
     this.pack();
-
   }
 
-  /**
-   * Add the provided listener.
-   * @param listener provided listener.
-   */
   @Override
   public void addActionListener(Features features) {
 //    createPortfolio.addActionListener(listener);
@@ -127,7 +90,7 @@ public class MainView extends JFrame implements ButtonOnly {
       ((JFrame) createPortfolioFrame).setLocation(((JFrame) this).getLocation());
       ((JFrame) this).dispose();
     });
-    buyStock.addActionListener(evt -> {
+    buySellStock.addActionListener(evt -> {
       IView buyStockFrame = new JTransactionView("Buy stock");
       buyStockFrame.addFeatures(features);
       ((JFrame) buyStockFrame).setLocation(((JFrame) this).getLocation());
