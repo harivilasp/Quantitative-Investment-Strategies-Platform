@@ -1,4 +1,4 @@
-package view;
+package view.archive;
 
 import java.awt.*;
 
@@ -61,7 +61,6 @@ public class JGetAtDateView extends JPanel implements IView {
   public void clearInput() {
 
   }
-
   @Override
   public void resetFocus() {
 

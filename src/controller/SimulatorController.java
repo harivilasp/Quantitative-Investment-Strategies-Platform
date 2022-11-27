@@ -183,4 +183,40 @@ public class SimulatorController implements Features{
   public void showCreatePortfolio() {
     view.showAddPortfolio();
   }
+
+  @Override
+  public void showPortfolioComposition() {
+    List<String> list = new ArrayList<>();
+    view.showCompositionAtDate(this.getName(),list);
+  }
+
+  @Override
+  public void showBuySellStock() {
+    view.showBuySellStock(this.getName());
+  }
+
+  @Override
+  public void showCostBasis() {
+    view.showCostBasis(this.getName());
+  }
+
+  @Override
+  public void showPortfolioValue() {
+    view.showPortfolioValue(this.getName());
+  }
+
+  @Override
+  public void showSavePortfolio() {
+    view.showSavePortfolio();
+  }
+
+  @Override
+  public void showReadPortfolio() {
+    view.showLoadPortfolio();
+  }
+
+  @Override
+  public void showCreateStrategy() {
+    view.showAddStrategy(this.getName());
+  }
 }

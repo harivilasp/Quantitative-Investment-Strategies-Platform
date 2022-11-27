@@ -56,5 +56,13 @@ public class JCreatePortfolioView extends JPanel implements PanelView{
       String status = features.addFlexiblePortfolio(nameField.getText());
       messageLabel.setText(status);
     });
+    homeButton.addActionListener(evt -> {
+      features.showHome();
+    });
+  }
+
+  @Override
+  public void clearInput() {
+
   }
 }

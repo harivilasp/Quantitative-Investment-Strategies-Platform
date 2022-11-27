@@ -52,7 +52,7 @@ public class JCompositionView extends JPanel implements PanelView{
   }
 
   public void addActionListener(Features features) {
-    showButton.addActionListener(evt ->{
+    this.showButton.addActionListener(evt ->{
       List<String> compositions = features.getCompositionAtDate(dateField.getText());
       String result = new String();
       for(String composition:compositions){
@@ -60,6 +60,15 @@ public class JCompositionView extends JPanel implements PanelView{
       }
       resultLabel.setText(result);
     });
+    this.homeButton.addActionListener(evt -> {
+      features.showHome();
+    });
+  }
+
+  @Override
+  public void clearInput() {
+    resultLabel.setText("");
+    dateField.setText("");
   }
 
 }

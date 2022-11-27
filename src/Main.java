@@ -1,11 +1,5 @@
-import view.JCreatePortfolioView;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import view.IView;
-import view.JCompositionView;
-import view.JCostBasisView;
-import view.JGetAtDateView;
-import view.JLoadPortfolioView;
 import view.JStrategyView;
 import view.JTransactionView;
 import view.PanelView;

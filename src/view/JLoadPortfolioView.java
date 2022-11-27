@@ -1,17 +1,14 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class JLoadPortfolioView extends JPanel {
+import controller.Features;
+
+public class JLoadPortfolioView extends JPanel implements PanelView{
 
   private JButton homeButton;
   private JLabel titleLabel;
@@ -33,24 +30,24 @@ public class JLoadPortfolioView extends JPanel {
     this.chooseFileButton = new JButton("Choose portfolio from filepath");
     this.homeButton = new JButton("HOME");
 
-    this.chooseFileButton.addActionListener(event -> {
-      // Open file chooser
-      JFileChooser fileChooser = new JFileChooser();
-      // Apply file extension filters
-      FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-          "Text files",
-          "txt"
-      );
-      fileChooser.setFileFilter(fileFilter);
-
-      // Retrieve response code from the file chooser
-      int responseCode = fileChooser.showOpenDialog(JLoadPortfolioView.this);
-      // Response code is valid
-      if (responseCode == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        this.messageLabel.setText(selectedFile.getAbsolutePath()); // TODO
-      }
-    });
+//    this.chooseFileButton.addActionListener(event -> {
+//      // Open file chooser
+//      JFileChooser fileChooser = new JFileChooser();
+//      // Apply file extension filters
+//      FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+//          "Text files",
+//          "txt"
+//      );
+//      fileChooser.setFileFilter(fileFilter);
+//
+//      // Retrieve response code from the file chooser
+//      int responseCode = fileChooser.showOpenDialog(JLoadPortfolioView.this);
+//      // Response code is valid
+//      if (responseCode == JFileChooser.APPROVE_OPTION) {
+//        File selectedFile = fileChooser.getSelectedFile();
+//        this.messageLabel.setText(selectedFile.getAbsolutePath()); // TODO
+//      }
+//    });
 
     JPanel centerPanel = new JPanel();
     centerPanel.add(this.chooseFileButton);
@@ -63,5 +60,37 @@ public class JLoadPortfolioView extends JPanel {
     JPanel southPanel = new JPanel();
     southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
+  }
+
+  @Override
+  public void addActionListener(Features features) {
+
+    chooseFileButton.addActionListener( evt -> {
+      // Open file chooser
+      JFileChooser fileChooser = new JFileChooser();
+      // Apply file extension filters
+      FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+              "Text files",
+              "txt"
+      );
+      fileChooser.setFileFilter(fileFilter);
+
+      // Retrieve response code from the file chooser
+      int responseCode = fileChooser.showOpenDialog(JLoadPortfolioView.this);
+      // Response code is valid
+      if (responseCode == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        features.loadFlexiblePortfolio(selectedFile.getAbsolutePath());
+        this.messageLabel.setText(selectedFile.getAbsolutePath()); // TODO
+      }
+    });
+    homeButton.addActionListener(evt -> {
+      features.showHome();
+    });
+  }
+
+  @Override
+  public void clearInput() {
+
   }
 }

@@ -11,7 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JStrategyView extends JPanel {
+import controller.Features;
+
+public class JStrategyView extends JPanel implements PanelView{
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
@@ -74,5 +76,15 @@ public class JStrategyView extends JPanel {
     southPanel.add(boxPanel);
     southPanel.add(new JButton("ADD"));
     this.add(southPanel, BorderLayout.SOUTH);
+  }
+
+  @Override
+  public void addActionListener(Features features) {
+
+  }
+
+  @Override
+  public void clearInput() {
+
   }
 }

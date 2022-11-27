@@ -84,10 +84,15 @@ public interface Features {
    * @throws IllegalArgumentException when some invalid date is passed.
    */
   Map<String, Integer> getPerformance(String startDate, String endDate);
-
   void exitProgram();
-
   void showHome();
   void showCreatePortfolio();
+  void showPortfolioComposition();
+  void showBuySellStock();
+  void showCostBasis();
+  void showPortfolioValue();
+  void showSavePortfolio();
+  void showReadPortfolio();
+  void showCreateStrategy();
 
 }

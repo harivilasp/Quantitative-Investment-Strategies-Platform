@@ -6,7 +6,7 @@ import java.util.Map;
 import controller.Features;
 
 public interface GUIView {
-  void showPortfolioValue();
+  void showPortfolioValue(String portfolioName);
 
   void showSavePortfolio();
 
@@ -14,13 +14,13 @@ public interface GUIView {
 
   void showLoadPortfolio();
 
-  void showBuySellStock();
+  void showBuySellStock(String portfolioName);
 
-  void showCostBasis();
+  void showCostBasis(String portfolioName);
 
-  void showCompositionAtDate(List<String> composition);
+  void showCompositionAtDate(String portfolioName, List<String> composition);
 
-  void showAddStrategy();
+  void showAddStrategy(String portfolioName);
 
   void showBuyStocksWithWeights();
 
