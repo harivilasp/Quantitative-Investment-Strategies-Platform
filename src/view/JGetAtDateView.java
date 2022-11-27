@@ -1,14 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+
+import javax.swing.*;
+
+import controller.Features;
 
 public class JGetAtDateView extends JPanel implements IView {
 
@@ -46,7 +42,6 @@ public class JGetAtDateView extends JPanel implements IView {
     JPanel southPanel = new JPanel();
     southPanel.add(this.mResultLabel);
     this.add(southPanel, BorderLayout.SOUTH);
-
     setVisible(true);
   }
 
@@ -72,5 +67,8 @@ public class JGetAtDateView extends JPanel implements IView {
 
   @Override
   public void addFeatures(Features features) {
+    this.mActionButton.addActionListener(event ->
+        features.getCompositionAtDate(mDateField.getText())
+    );
   }
 }

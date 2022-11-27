@@ -31,7 +31,8 @@ public interface FileIO {
    * @param transactions  represents the transactions of portfolio.
    * @throws IOException when error occurs while writing file.
    */
-  public void writeFlexiblePortfolio(String portfolioName, List<Transaction> transactions)
+  public void writeFlexiblePortfolio(String portfolioName,
+                                     List<Transaction> transactions, List<Strategy> strategies)
           throws IOException;
 
   /**

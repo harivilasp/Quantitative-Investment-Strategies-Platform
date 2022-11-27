@@ -447,8 +447,8 @@ public class PortfolioControllerImpl implements PortfolioController {
         }
 
         // Buy the stock.
-        Stock stock = this.model.generateStock(stockName, stockQty);  // #ignored: IAE. No need.
-        this.model.buyStock(stock, stockDate, stockComm);
+
+        this.model.buyStock(stockName, stockQty, stockDate, stockComm);
 
         // Auto-save the portfolio
         try {
@@ -537,11 +537,8 @@ public class PortfolioControllerImpl implements PortfolioController {
           }
         }
 
-        // Buy the stock.
-        Stock stock = this.model.generateStock(stockName, stockQty);
-
         try {
-          this.model.sellStock(stock, stockDate, stockComm);
+          this.model.sellStock(stockName, stockQty, stockDate, stockComm);
         } catch (RuntimeException re) {
           this.view.showText(re.getMessage());
           return;

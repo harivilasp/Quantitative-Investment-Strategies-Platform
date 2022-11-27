@@ -1,13 +1,11 @@
+import view.JCreatePortfolioView;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.IView;
 import view.JCompositionView;
 import view.JCostBasisView;
-import view.JCreatePortfolioView;
-import view.JGetAtDateView;
-import view.JLoadPortfolioView;
-import view.JStrategyView;
 import view.JTransactionView;
+import view.PanelView;
 
 /**
  * This method is main class and staring point of execution.
@@ -32,12 +30,13 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    JPanel panel = new JStrategyView("Strategy");
+    JPanel panel = new JCreatePortfolioView("Create portfolio");
     JFrame frame = new JFrame();
     frame.setVisible(true);
     frame.add(panel);
     frame.pack();
     // frame.remove(tranPanel);
 
+    PanelView view = new JTransactionView("Sell");
   }
 }

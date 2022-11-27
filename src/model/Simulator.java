@@ -105,7 +105,8 @@ public interface Simulator {
    * @param date       represents date of buying stock.
    * @param commission represents the commission of buying.
    */
-  void buyStock(Stock stock, String date, double commission) throws RuntimeException;
+  void buyStock(String stockName, int stockQty, String date, double commission)
+          throws RuntimeException;
 
   /**
    * This method sells stock at particular date with given commission.
@@ -115,7 +116,8 @@ public interface Simulator {
    * @param commission represents the commission of selling.
    * @throws RuntimeException when stock invalid combination of selling is provided.
    */
-  void sellStock(Stock stock, String date, double commission) throws RuntimeException;
+  void sellStock(String stockName, int stockQty, String date, double commission)
+          throws RuntimeException;
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.
