@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import controller.Features;
+import view.archive.IView;
 
 public class JMainView extends JFrame implements IView {
 

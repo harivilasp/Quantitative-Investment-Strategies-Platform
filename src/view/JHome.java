@@ -9,7 +9,7 @@ import controller.Features;
 /**
  * This class represents the main view.
  */
-public class Home extends JPanel implements PanelView{
+public class JHome extends JPanel implements PanelView{
   private JButton createPortfolio;
   private JButton checkCost;
   private JButton checkValue;
@@ -17,13 +17,14 @@ public class Home extends JPanel implements PanelView{
   private JButton savePortfolioToFile;
   private JButton readPortfolioFromFile;
   private JButton applyStrategy;
+  private JButton compositionAtDate;
   private JButton quit;
 
-  public Home() {
+  public JHome() {
     this.setPreferredSize(new Dimension(450, 500));
     setVisible(true);
 
-    GridLayout layout = new GridLayout(4, 2);
+    GridLayout layout = new GridLayout(8, 2);
     JPanel panel;
     panel = new JPanel();
     panel.setLayout(layout);
@@ -36,6 +37,7 @@ public class Home extends JPanel implements PanelView{
     savePortfolioToFile = new JButton("Save Portfolio To File");
     readPortfolioFromFile = new JButton("Read Portfolio From File");
     applyStrategy = new JButton("Apply Strategy");
+    compositionAtDate = new JButton("Composition at Date");
 
     createPortfolio.setActionCommand("createPortfolio");
     buySellStock.setActionCommand("buySellStockChooseAWay");
@@ -45,9 +47,11 @@ public class Home extends JPanel implements PanelView{
     readPortfolioFromFile.setActionCommand("readPortfolioFromFile");
     quit.setActionCommand("quit");
     applyStrategy.setActionCommand("apply strategy");
+    compositionAtDate.setActionCommand("compositionAtDate");
 
     panel.add(createPortfolio);
     panel.add(buySellStock);
+    panel.add(compositionAtDate);
     panel.add(checkCost);
     panel.add(checkValue);
     panel.add(savePortfolioToFile);
@@ -59,28 +63,36 @@ public class Home extends JPanel implements PanelView{
   }
 
   public void addActionListener(Features features) {
-//    createPortfolio.addActionListener(listener);
-//    showAllPortfolio.addActionListener(listener);
-//    buyStock.addActionListener(listener);
-//    checkCost.addActionListener(listener);
-//    checkValue.addActionListener(listener);
-//    getPortfolio.addActionListener(listener);
-//    setCommissionFee.addActionListener(listener);
-//    savePortfolioToFile.addActionListener(listener);
-//    readPortfolioFromFile.addActionListener(listener);
-//    setAPI.addActionListener(listener);
-//    add.addActionListener(listener);
-//    createStrategy.addActionListener(listener);
-//    applyStrategy.addActionListener(listener);
-//    readStrategy.addActionListener(listener);
-//    saveStrategy.addActionListener(listener);
     createPortfolio.addActionListener(evt -> {
       features.showCreatePortfolio();
     });
     buySellStock.addActionListener(evt -> {
-      features.showHome();
+      features.showBuySellStock();
+    });
+    compositionAtDate.addActionListener(evt -> {
+      features.showPortfolioComposition();
+    });
+    checkCost.addActionListener(evt ->{
+      features.showCostBasis();
+    });
+    checkValue.addActionListener(evt ->{
+      features.showPortfolioValue();
+    });
+    savePortfolioToFile.addActionListener(evt ->{
+      features.showSavePortfolio();
+    });
+    readPortfolioFromFile.addActionListener(evt ->{
+      features.showReadPortfolio();
+    });
+    applyStrategy.addActionListener(evt ->{
+      features.showCreateStrategy();
     });
     quit.addActionListener(evt -> features.exitProgram());
+  }
+
+  @Override
+  public void clearInput() {
+
   }
 
   /**

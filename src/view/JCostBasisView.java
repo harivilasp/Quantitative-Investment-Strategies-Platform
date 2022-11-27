@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JCostBasisView extends JPanel {
+import controller.Features;
+
+public class JCostBasisView extends JPanel implements PanelView{
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
@@ -50,5 +52,21 @@ public class JCostBasisView extends JPanel {
     JPanel southPanel = new JPanel();
     southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
+  }
+
+  @Override
+  public void addActionListener(Features features) {
+    this.showButton.addActionListener( evt -> {
+      String status = features.getCostBasis(dateField.getText());
+      messageLabel.setText(status);
+    });
+    this.homeButton.addActionListener(evt -> {
+      features.showHome();
+    });
+  }
+
+  @Override
+  public void clearInput() {
+
   }
 }

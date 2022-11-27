@@ -59,12 +59,14 @@ public class JTransactionView extends JPanel implements PanelView {
     this.mBuyButton = new JButton("BUY");
     this.mSellButton = new JButton("SELL");
     this.homeButton = new JButton("HOME");
+    this.mResultLabel = new JLabel();
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 64, 16));
     southPanel.add(this.mBuyButton);
     southPanel.add(this.mSellButton);
     southPanel.add(this.homeButton);
+    southPanel.add(this.mResultLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
@@ -77,7 +79,7 @@ public class JTransactionView extends JPanel implements PanelView {
   }
 
   public void clearInput() {
-
+    
   }
 
   public void resetFocus() {
@@ -96,6 +98,9 @@ public class JTransactionView extends JPanel implements PanelView {
               Integer.parseInt(mQuantityField.getText()),
               mTDateField.getText(),Double.parseDouble(mCommField.getText()));
       mResultLabel.setText(status);
+    });
+    homeButton.addActionListener(evt -> {
+      features.showHome();
     });
   }
 }
