@@ -13,12 +13,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
-
 import utils.Constants;
 
 /**
- * This class represents flexible portfolio which is mutable
- * i.e. it is possible to add and delete stocks after creation.
+ * This class represents flexible portfolio which is mutable i.e. it is possible to add and delete
+ * stocks after creation.
  */
 public class FlexiblePortfolioImpl implements FlexiblePortfolio {
 
@@ -49,10 +48,10 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
    * @throws RuntimeException         when error occurs while reading.
    */
   public FlexiblePortfolioImpl(String filePath, Set<String> validStocks)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     fileIO = new FileIOSCS();
     FlexiblePortfolioImpl flexiblePortfolio =
-            (FlexiblePortfolioImpl) fileIO.readFlexiblePortfolio(filePath);
+        (FlexiblePortfolioImpl) fileIO.readFlexiblePortfolio(filePath);
     this.transactions = flexiblePortfolio.transactions;
     this.delegate = flexiblePortfolio.delegate;
     this.strategies = new ArrayList<>();
@@ -172,7 +171,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     for (Stock stock : composition) {
       try {
         value += (stock.getQuantity() * AlphaVantgeApiUtil.getInstance()
-                .getValue(stock.getName(), date));
+            .getValue(stock.getName(), date));
       } catch (RuntimeException re) {
         throw new RuntimeException(Constants.ERR_API_TIMEOUT);
       }
@@ -200,10 +199,10 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     Date todayDate = new Date();
     double cost = 0;
-    if(formattedDate.compareTo(todayDate)>=0){
+    if (formattedDate.compareTo(todayDate) >= 0) {
       double tempcost = processStrategy(date);
-      System.out.println(tempcost+" "+cost);
-      cost+=tempcost;
+      System.out.println(tempcost + " " + cost);
+      cost += tempcost;
     }
     // Assuming transactions are sorted.
     for (Transaction transaction : transactions) {
@@ -214,7 +213,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         if (qty > 0) {
           try {
             cost += qty * AlphaVantgeApiUtil.getInstance()
-                    .getValue(transaction.getStockName(), transaction.getDate());
+                .getValue(transaction.getStockName(), transaction.getDate());
           } catch (RuntimeException re) {
             throw new RuntimeException(Constants.ERR_API_TIMEOUT);
           }
@@ -226,7 +225,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   }
 
   private double processStrategy(String date) throws Exception {
-    double tempcost=0;
+    double tempcost = 0;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Date todayDate = new Date();
     Date secondDate;
@@ -235,8 +234,8 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     } catch (ParseException pe) {
       throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
     }
-    for(Strategy strategy:strategies){
-      if(sdf.format(todayDate).compareTo(strategy.getStartDate())>=0){
+    for (Strategy strategy : strategies) {
+      if (sdf.format(todayDate).compareTo(strategy.getStartDate()) >= 0) {
         Calendar c = Calendar.getInstance();
         Date firstDate;
         try {
@@ -245,36 +244,39 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
           throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
         }
 
-
-
         c.setTime(firstDate);
         while (c.getTime().compareTo(todayDate) < 0) {
           String nextDate = sdf.format(c.getTime());
           this.buyStocksWithWeights(strategy.getAmount(), nextDate,
-                  strategy.getCommission(), strategy.getWeights());
+              strategy.getCommission(), strategy.getWeights());
           c.add(Calendar.DATE, strategy.getIntervalInDays());
         }
-        if(strategy.getEndDate().compareTo(sdf.format(todayDate))<0){
+        if (strategy.getEndDate().compareTo(sdf.format(todayDate)) < 0) {
           strategies.remove(strategy);
-        }else{
+        } else {
           strategy.setStartDate(sdf.format(todayDate));
           long diffInMillis = Math.abs(secondDate.getTime() - c.getTime().getTime());
           long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-          System.out.println(diff+" diff");
-          tempcost+=(diff/strategy.getIntervalInDays())*(strategy.getCommission()+strategy.getAmount());
+          System.out.println(diff + " diff");
+          tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
+              + strategy.getAmount());
         }
       }
-      if(sdf.format(secondDate).compareTo(strategy.getStartDate())>=0){
+      if (sdf.format(secondDate).compareTo(strategy.getStartDate()) >= 0) {
         long diffInMillis;
         long diff;
-        if(sdf.format(secondDate).compareTo(strategy.getEndDate())>0){
-          diffInMillis = Math.abs(sdf.parse(strategy.getEndDate()).getTime() - sdf.parse(strategy.getStartDate()).getTime());
-        }else{
-          diffInMillis = Math.abs(secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
+        if (sdf.format(secondDate).compareTo(strategy.getEndDate()) > 0) {
+          diffInMillis = Math.abs(
+              sdf.parse(strategy.getEndDate()).getTime() - sdf.parse(strategy.getStartDate())
+                  .getTime());
+        } else {
+          diffInMillis = Math.abs(
+              secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
         }
         diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-        System.out.println(diff+" diff");
-        tempcost+=(diff/strategy.getIntervalInDays())*(strategy.getCommission()+strategy.getAmount());
+        System.out.println(diff + " diff");
+        tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
+            + strategy.getAmount());
       }
     }
     return tempcost;
@@ -286,9 +288,9 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     for (Transaction transaction : transactions) {
       if (date.compareTo(transaction.getDate()) >= 0) {
         stocks.put(
-                transaction.getStockName(),
-                transaction.getQuantity()
-                        + stocks.getOrDefault(transaction.getStockName(), 0.0)
+            transaction.getStockName(),
+            transaction.getQuantity()
+                + stocks.getOrDefault(transaction.getStockName(), 0.0)
         );
       }
     }
@@ -297,16 +299,17 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     List<Stock> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> entry : stocks.entrySet()) {
       stockList.add(
-              new Stock(entry.getKey(), entry.getValue())
+          new Stock(entry.getKey(), entry.getValue())
       );
     }
 
     return stockList;
   }
+
   @Override
   public void addStrategy(double amount, int intervalInDays,
-                          String startDate, String endDate, double commission,
-                          Map<String, Double> weights) throws Exception {
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) throws Exception {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Calendar c = Calendar.getInstance();
@@ -329,7 +332,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     c.setTime(firstDate);
     Date todayDate = new Date();
-    if(todayDate.compareTo(secondDate)>0){
+    if (todayDate.compareTo(secondDate) > 0) {
       todayDate = secondDate;
     }
     while (c.getTime().compareTo(todayDate) < 0) {
@@ -338,41 +341,41 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
       c.add(Calendar.DATE, intervalInDays);
     }
 
-    if(c.getTime().compareTo(secondDate)<0){
+    if (c.getTime().compareTo(secondDate) < 0) {
       Strategy strategy = new DollarCostAveragingStrategy(amount,
-              intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);
+          intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);
       strategies.add(strategy);
     }
   }
 
   @Override
   public void buyStocksWithWeights(double amount, String date,
-                                   double commission, Map<String, Double> weights)
-          throws Exception{
+      double commission, Map<String, Double> weights)
+      throws Exception {
     amount = amount - commission;
     // future date
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     try {
       Date buyDate = sdf.parse(date);
       Date todayDate = new Date();
-      if(todayDate.compareTo(buyDate)<=0){
+      if (todayDate.compareTo(buyDate) <= 0) {
         throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
       }
-      double totalWeight=0;
-      for (double weight:weights.values()){
-        totalWeight+=weight;
+      double totalWeight = 0;
+      for (double weight : weights.values()) {
+        totalWeight += weight;
       }
-      if(Math.abs(100.00-totalWeight)>0.01){
+      if (Math.abs(100.00 - totalWeight) > 0.01) {
         throw new IllegalArgumentException(Constants.ERR_INVALID_STOCK_DATA);
       }
     } catch (Exception pe) {
       throw pe;
     }
-    for(Map.Entry<String, Double> entry:weights.entrySet()){
+    for (Map.Entry<String, Double> entry : weights.entrySet()) {
       String stockName = entry.getKey();
       double valueAtDate = AlphaVantgeApiUtil.getInstance().getValue(stockName, date);
-      double quantity = (amount*entry.getValue()/100.0)/valueAtDate;
-      this.buyStock(new Stock(stockName,quantity),date,commission);
+      double quantity = (amount * entry.getValue() / 100.0) / valueAtDate;
+      this.buyStock(new Stock(stockName, quantity), date, commission);
     }
   }
 }

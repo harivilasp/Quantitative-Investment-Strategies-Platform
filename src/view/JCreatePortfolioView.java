@@ -1,5 +1,6 @@
 package view;
 
+import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,9 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.Features;
-
-public class JCreatePortfolioView extends JPanel implements PanelView{
+public class JCreatePortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
   private JLabel titleLabel;

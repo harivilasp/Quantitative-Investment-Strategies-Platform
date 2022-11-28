@@ -2,23 +2,25 @@ package view;
 
 import controller.Features;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JCostBasisView extends JPanel implements PanelView {
+public class JPerfGraphView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
-  private JTextField dateField;
+  private JTextField startDateField;
+  private JTextField endDateField;
   private JButton showButton;
   private JButton homeButton;
-  private JLabel messageLabel;
 
-  public JCostBasisView(String title) {
+  public JPerfGraphView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
 
@@ -32,47 +34,38 @@ public class JCostBasisView extends JPanel implements PanelView {
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
-    // Center panel -> Date text field and show composition button
-    this.dateField = new JTextField(8);
+    // Center panel -> Text input fields
+    this.startDateField = new JTextField(10);
+    this.endDateField = new JTextField(10);
     this.showButton = new JButton("SHOW");
-    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
-    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
-    centerPanel.add(new JLabel("Date:"));
-    centerPanel.add(this.dateField);
+    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
+    centerPanel.add(new JLabel("Start date (yyyy-mm-dd): "));
+    centerPanel.add(this.startDateField);
+    centerPanel.add(new JLabel("End date (yyyy-mm-dd): "));
+    centerPanel.add(this.endDateField);
     centerPanel.add(this.showButton);
-    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
-    // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    // South panel -> Home button
+    this.homeButton = new JButton("HOME");
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.messageLabel);
+    southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.PAGE_AXIS));
+    southPanel.add(this.homeButton);
+    southPanel.add(new JLabel("      "));
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
   @Override
   public void addActionListener(Features features) {
-    this.showButton.addActionListener(evt -> {
-      this.clearInput();
-      String status = features.getCostBasis(dateField.getText());
-      messageLabel.setText(status);
-    });
-    this.homeButton.addActionListener(evt -> {
-      this.clearInput();
-      features.showHome();
-    });
-  }
 
-  public void setPortfolioName(String portfolioName) {
-    portfolioLabel.setText(portfolioName);
   }
 
   @Override
   public void clearInput() {
-    this.messageLabel.setText("");
-    this.dateField.setText("");
+
   }
 }

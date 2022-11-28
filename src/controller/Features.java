@@ -69,11 +69,11 @@ public interface Features {
   List<String> getCompositionAtDate(String date);
 
   String addStrategy(double amount, int intervalInDays,
-                     String startDate, String endDate, double commission,
-                     Map<String, Double> weights);
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights);
 
   String buyStocksWithWeights(double amount, String date, double commission,
-                              Map<String,Double> weights);
+      Map<String, Double> weights);
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.
@@ -84,15 +84,25 @@ public interface Features {
    * @throws IllegalArgumentException when some invalid date is passed.
    */
   Map<String, Integer> getPerformance(String startDate, String endDate);
+
   void exitProgram();
+
   void showHome();
+
   void showCreatePortfolio();
+
   void showPortfolioComposition();
+
   void showBuySellStock();
+
   void showCostBasis();
+
   void showPortfolioValue();
+
   void showSavePortfolio();
+
   void showReadPortfolio();
+
   void showCreateStrategy();
 
 }

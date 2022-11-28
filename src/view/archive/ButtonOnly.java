@@ -10,6 +10,7 @@ public interface ButtonOnly {
 
   /**
    * Add the provided listener.
+   *
    * @param listener provided listener.
    */
   void addActionListener(Features features);

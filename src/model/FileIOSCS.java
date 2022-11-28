@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import utils.Constants;
 import utils.Utils;
 
@@ -22,7 +21,7 @@ public class FileIOSCS implements FileIO {
 
   @Override
   public Portfolio readPortfolio(String filePath)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     String portfolioName;
     List<Stock> stocks;
 
@@ -82,7 +81,7 @@ public class FileIOSCS implements FileIO {
 
   @Override
   public void writePortfolio(String portfolioName, List<Stock> stocks)
-          throws IOException, RuntimeException {
+      throws IOException, RuntimeException {
     StringBuilder data = new StringBuilder(portfolioName);
     for (Stock stock : stocks) {
       String row = stock.getName() + ";" + (int) stock.getQuantity();
@@ -94,7 +93,7 @@ public class FileIOSCS implements FileIO {
 
   @Override
   public FlexiblePortfolio readFlexiblePortfolio(String filePath)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     List<Transaction> transactions = new ArrayList<>();
     Portfolio delegate;
     String portfolioName;
@@ -158,8 +157,8 @@ public class FileIOSCS implements FileIO {
         }
 
         transactions.add(
-                new Transaction(transactionParts[0], quantity,
-                        transactionParts[1], Double.parseDouble(transactionParts[3]))
+            new Transaction(transactionParts[0], quantity,
+                transactionParts[1], Double.parseDouble(transactionParts[3]))
         );
       }
     } catch (FileNotFoundException e) {
@@ -179,7 +178,7 @@ public class FileIOSCS implements FileIO {
     for (Transaction transaction : transactions) {
       // Add up quantity based on date. If < 0, invalid stock sale.
       double stockQty = stockMap.getOrDefault(transaction.getStockName(), 0.0)
-              + transaction.getQuantity();
+          + transaction.getQuantity();
 
       if (stockQty < 0) {
         throw new IllegalArgumentException(Constants.ERR_INVALID_DATA);
@@ -192,7 +191,7 @@ public class FileIOSCS implements FileIO {
     List<Stock> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> entry : stockMap.entrySet()) {
       stockList.add(
-              new Stock(entry.getKey(), entry.getValue())
+          new Stock(entry.getKey(), entry.getValue())
       );
     }
 
@@ -202,12 +201,12 @@ public class FileIOSCS implements FileIO {
 
   @Override
   public void writeFlexiblePortfolio(String portfolioName, List<Transaction> transactions,
-                                     List<Strategy> strategies)
-          throws IOException, RuntimeException {
+      List<Strategy> strategies)
+      throws IOException, RuntimeException {
     StringBuilder data = new StringBuilder(portfolioName);
     for (Transaction transaction : transactions) {
       String row = transaction.getStockName() + ";" + transaction.getDate() + ";"
-              + (int) transaction.getQuantity() + ";" + transaction.getCommission();
+          + (int) transaction.getQuantity() + ";" + transaction.getCommission();
       data.append("\n").append(row);
     }
     /*
@@ -225,7 +224,7 @@ public class FileIOSCS implements FileIO {
 
   /* Helper method to write data to a file. */
   private void writeFile(StringBuilder data, String portfolioName, String dirName, String type)
-          throws IOException, RuntimeException {
+      throws IOException, RuntimeException {
     // Create the file and write data.
     File rootDir = createDirectory(dirName);
     String filepath = rootDir.getAbsolutePath() + "/" + portfolioName + ".txt";
@@ -253,7 +252,7 @@ public class FileIOSCS implements FileIO {
 
   /* Helper method to parse stock data read from a file. */
   private Stock parseStock(String stockResponse)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     // Split the stock information using ";" delimiter.
     String[] stockInfo = stockResponse.split(";");
 

@@ -1,23 +1,29 @@
 package view;
 
-import java.awt.*;
+import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.*;
-
-import controller.Features;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import utils.Utils;
 
-public class JStrategyView extends JPanel implements PanelView {
+
+public class JBuyWeightageView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JTextField amountField;
-  private JTextField intervalField;
-  private JTextField startDateField;
-  private JTextField endDateField;
+  private JTextField dateField;
   private JTextField commissionField;
   private JButton addButton;
   private JButton homeButton;
@@ -28,7 +34,7 @@ public class JStrategyView extends JPanel implements PanelView {
 
   private final Map<String, Double> weightsMap;
 
-  public JStrategyView(String title) {
+  public JBuyWeightageView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
 
@@ -36,7 +42,7 @@ public class JStrategyView extends JPanel implements PanelView {
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("No portfolio Selected");
+    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
@@ -46,21 +52,15 @@ public class JStrategyView extends JPanel implements PanelView {
 
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
-    this.intervalField = new JTextField("0", 4);
-    this.startDateField = new JTextField(8);
-    this.endDateField = new JTextField(8);
+    this.dateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
     centerPanel.add(new JLabel("Amount: "));
     centerPanel.add(this.amountField);
-    centerPanel.add(new JLabel("Interval (in days): "));
-    centerPanel.add(this.intervalField);
-    centerPanel.add(new JLabel("Start date (yyyy-mm-dd): "));
-    centerPanel.add(this.startDateField);
-    centerPanel.add(new JLabel("End date (yyyy-mm-dd): "));
-    centerPanel.add(this.endDateField);
+    centerPanel.add(new JLabel("Date (yyyy-mm-dd): "));
+    centerPanel.add(this.dateField);
     centerPanel.add(new JLabel("Commission: "));
     centerPanel.add(this.commissionField);
     this.add(centerPanel, BorderLayout.CENTER);
@@ -127,29 +127,10 @@ public class JStrategyView extends JPanel implements PanelView {
       // Parse weightage text
       try {
         weightage = Double.parseDouble(this.weightageField.getText());
-        weightsMap.put(stockName,weightsMap.getOrDefault(stockName,0.0)+weightage);
       } catch (NumberFormatException nfe) {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
-
-    submitButton.addActionListener(event ->{
-      try{
-        String status = features.addStrategy(Double.parseDouble(this.amountField.getText())
-                ,Integer.parseInt(intervalField.getText())
-                ,startDateField.getText(),endDateField.getText()
-                ,Double.parseDouble(commissionField.getText())
-                ,weightsMap);
-        messageLabel.setText(status);
-        this.clearInput();
-      }catch (Exception e){
-        messageLabel.setText(e.getMessage());
-      }
-    });
-  }
-
-  public void setPortfolioName(String portfolioName) {
-    portfolioLabel.setText(portfolioName);
   }
 
   @Override
@@ -157,9 +138,7 @@ public class JStrategyView extends JPanel implements PanelView {
     this.comboBox.setSelectedItem("--none--");
     this.weightageField.setText("");
     this.amountField.setText("");
-    this.intervalField.setText("");
-    this.startDateField.setText("");
-    this.endDateField.setText("");
+    this.dateField.setText("");
     this.commissionField.setText("");
   }
 }

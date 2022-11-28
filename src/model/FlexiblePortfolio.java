@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This represents the inflexible portfolio which has all functionalities
- * of inflexible portfolios and also supports buying, selling, getting
- * composition at certain date, getting cost basis.
+ * This represents the inflexible portfolio which has all functionalities of inflexible portfolios
+ * and also supports buying, selling, getting composition at certain date, getting cost basis.
  */
 public interface FlexiblePortfolio extends Portfolio {
 
@@ -30,8 +29,8 @@ public interface FlexiblePortfolio extends Portfolio {
   void sellStock(Stock stock, String date, double commission) throws RuntimeException;
 
   /**
-   * This methods calculates cost basis of portfolio which includes bought stocks price
-   * and commission while selling and buying stocks.
+   * This methods calculates cost basis of portfolio which includes bought stocks price and
+   * commission while selling and buying stocks.
    *
    * @param date represents the date at which cost basis is calculated.
    * @return returns the cost spent till given date.
@@ -49,9 +48,9 @@ public interface FlexiblePortfolio extends Portfolio {
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
 
   void addStrategy(double amount, int intervalInDays,
-                   String startDate, String endDate, double commission,
-                   Map<String, Double> weights) throws Exception;
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) throws Exception;
 
   void buyStocksWithWeights(double amount, String Date, double commission,
-                            Map<String,Double> weights) throws Exception;
+      Map<String, Double> weights) throws Exception;
 }

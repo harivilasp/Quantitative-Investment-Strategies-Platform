@@ -1,10 +1,12 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class JTransactionView extends JPanel implements PanelView {
 
@@ -69,9 +71,11 @@ public class JTransactionView extends JPanel implements PanelView {
     southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
-  public void setPortfolioName(String portfolioName){
+
+  public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
   }
+
   public void setEchoOutput(String s) {
 
   }

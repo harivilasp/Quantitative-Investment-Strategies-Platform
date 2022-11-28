@@ -106,7 +106,7 @@ public interface Simulator {
    * @param commission represents the commission of buying.
    */
   void buyStock(String stockName, int stockQty, String date, double commission)
-          throws RuntimeException;
+      throws RuntimeException;
 
   /**
    * This method sells stock at particular date with given commission.
@@ -117,7 +117,7 @@ public interface Simulator {
    * @throws RuntimeException when stock invalid combination of selling is provided.
    */
   void sellStock(String stockName, int stockQty, String date, double commission)
-          throws RuntimeException;
+      throws RuntimeException;
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.
@@ -128,7 +128,7 @@ public interface Simulator {
    * @throws IllegalArgumentException when some invalid date is passed.
    */
   Map<String, Integer> getPerformance(String startDate, String endDate)
-          throws IllegalArgumentException;
+      throws IllegalArgumentException;
 
   /**
    * This methods calculates cost basis of portfolio which includes bought stocks price and
@@ -150,9 +150,10 @@ public interface Simulator {
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
 
   void addStrategy(double amount, int intervalInDays,
-                   String startDate, String endDate, double commission,
-                   Map<String, Double> weights) throws Exception;
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) throws Exception;
+
   void buyStocksWithWeights(double amount, String Date, double commission,
-                            Map<String,Double> weights) throws Exception;
+      Map<String, Double> weights) throws Exception;
 
 }

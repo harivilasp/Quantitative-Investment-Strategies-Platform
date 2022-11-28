@@ -1,14 +1,13 @@
 package view;
 
-import java.awt.*;
+import controller.Features;
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import javax.swing.*;
-
-import controller.Features;
-
-public class GUIMainView extends JFrame implements GUIView{
+public class GUIMainView extends JFrame implements GUIView {
 
   JValueAtDateView portfolioValue;
   JCreatePortfolioView createPortfolio;
@@ -21,7 +20,8 @@ public class GUIMainView extends JFrame implements GUIView{
   JHome home;
   JPanel currentPanel;
   JTransactionView transactionView;
-  public GUIMainView(){
+
+  public GUIMainView() {
     super("Stock Market Simulator");
     this.setPreferredSize(new Dimension(450, 500));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +95,7 @@ public class GUIMainView extends JFrame implements GUIView{
   }
 
   @Override
-  public void showCompositionAtDate(String portfolioName,List<String> composition) {
+  public void showCompositionAtDate(String portfolioName, List<String> composition) {
     this.getContentPane().removeAll();
     this.repaint();
     compositionAtDate.setPortfolioName(portfolioName);
@@ -123,7 +123,7 @@ public class GUIMainView extends JFrame implements GUIView{
   }
 
   @Override
-  public void showHome(){
+  public void showHome() {
     this.getContentPane().removeAll();
     this.repaint();
     this.add(home);

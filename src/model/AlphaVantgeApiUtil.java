@@ -49,14 +49,14 @@ public class AlphaVantgeApiUtil implements APIUtil {
       URL url = null;
       try {
         url = new URL("https://www.alphavantage"
-                + ".co/query?function=TIME_SERIES_DAILY"
-                + "&outputsize="
-                + outputSize
-                + "&symbol"
-                + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
+            + ".co/query?function=TIME_SERIES_DAILY"
+            + "&outputsize="
+            + outputSize
+            + "&symbol"
+            + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
       } catch (MalformedURLException e) {
         throw new RuntimeException("the alphavantage API has either changed or "
-                + "no longer works");
+            + "no longer works");
       }
 
       InputStream in = null;
@@ -95,7 +95,7 @@ public class AlphaVantgeApiUtil implements APIUtil {
     if (low <= 0 || low >= prices.size()) {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String todayDate = sdf.format(new Date());
-      if(todayDate.compareTo(key)>0 && prices.get(1).compareTo(key)<=0){
+      if (todayDate.compareTo(key) > 0 && prices.get(1).compareTo(key) <= 0) {
         String[] row = prices.get(1).split(",");
         return Double.parseDouble(row[4]);
       }

@@ -1,16 +1,20 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents the main view.
  */
 public class JHome extends JPanel implements PanelView {
 
+  private JLabel portfolioLabel;
   private JButton createPortfolio;
   private JButton checkCost;
   private JButton checkValue;
@@ -23,7 +27,14 @@ public class JHome extends JPanel implements PanelView {
 
   public JHome() {
     this.setPreferredSize(new Dimension(450, 500));
-    setVisible(true);
+    this.setVisible(true);
+    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel.setAlignmentX(Container.CENTER_ALIGNMENT);
+    this.add(new JLabel("    "));
+    this.add(portfolioLabel);
+    this.add(new JLabel("        "));
 
     GridLayout layout = new GridLayout(8, 2);
     JPanel panel;

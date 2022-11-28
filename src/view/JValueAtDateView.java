@@ -1,10 +1,13 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class JValueAtDateView extends JPanel implements PanelView {
 
@@ -50,7 +53,7 @@ public class JValueAtDateView extends JPanel implements PanelView {
     setVisible(true);
   }
 
-  public void setPortfolioName(String portfolioName){
+  public void setPortfolioName(String portfolioName) {
     this.portfolioLabel.setText(portfolioName);
   }
 
