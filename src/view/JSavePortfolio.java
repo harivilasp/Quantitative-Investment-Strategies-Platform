@@ -44,11 +44,18 @@ public class JSavePortfolio extends JPanel implements PanelView {
     JPanel centerPanel = new JPanel();
     centerPanel.add(boxPanel);
     this.add(centerPanel, BorderLayout.CENTER);
+
+    // South panel -> Home button
+    this.homeButton = new JButton("HOME");
+    this.messageLabel = new JLabel("<Message comes here>");
+    JPanel southPanel = new JPanel();
+    southPanel.add(this.homeButton);
+    southPanel.add(this.messageLabel);
+    this.add(southPanel, BorderLayout.SOUTH);
   }
 
   @Override
   public void addActionListener(Features features) {
-
   }
 
   public void setPortfolioName(String portfolioName) {
@@ -57,6 +64,6 @@ public class JSavePortfolio extends JPanel implements PanelView {
 
   @Override
   public void clearInput() {
-
+    this.messageLabel.setText("");
   }
 }

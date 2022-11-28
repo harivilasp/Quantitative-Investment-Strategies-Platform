@@ -67,6 +67,7 @@ public class JCostBasisView extends JPanel implements PanelView{
 
   @Override
   public void clearInput() {
-
+    this.messageLabel.setText("");
+    this.dateField.setText("");
   }
 }

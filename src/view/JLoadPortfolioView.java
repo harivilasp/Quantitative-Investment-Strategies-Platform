@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.Features;
 
-public class JLoadPortfolioView extends JPanel implements PanelView{
+public class JLoadPortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
   private JLabel titleLabel;
@@ -65,13 +65,13 @@ public class JLoadPortfolioView extends JPanel implements PanelView{
   @Override
   public void addActionListener(Features features) {
 
-    chooseFileButton.addActionListener( evt -> {
+    chooseFileButton.addActionListener(evt -> {
       // Open file chooser
       JFileChooser fileChooser = new JFileChooser();
       // Apply file extension filters
       FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-              "Text files",
-              "txt"
+          "Text files",
+          "txt"
       );
       fileChooser.setFileFilter(fileFilter);
 
@@ -91,6 +91,6 @@ public class JLoadPortfolioView extends JPanel implements PanelView{
 
   @Override
   public void clearInput() {
-
+    this.messageLabel.setText("");
   }
 }

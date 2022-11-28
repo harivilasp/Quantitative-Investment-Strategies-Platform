@@ -56,6 +56,7 @@ public class JCreatePortfolioView extends JPanel implements PanelView{
       String status = features.addFlexiblePortfolio(nameField.getText());
       messageLabel.setText(status);
     });
+
     homeButton.addActionListener(evt -> {
       features.showHome();
     });
@@ -63,6 +64,7 @@ public class JCreatePortfolioView extends JPanel implements PanelView{
 
   @Override
   public void clearInput() {
-
+    this.nameField.setText("");
+    this.messageLabel.setText("");
   }
 }

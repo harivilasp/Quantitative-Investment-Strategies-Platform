@@ -14,7 +14,7 @@ public class JCompositionView extends JPanel implements PanelView{
   private JLabel portfolioLabel;
   private JTextField dateField;
   private JButton showButton;
-  private JLabel resultLabel;
+  private JLabel messageLabel;
 
   public JCompositionView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
@@ -44,10 +44,10 @@ public class JCompositionView extends JPanel implements PanelView{
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.resultLabel = new JLabel("<Result comes here>"); // TODO
+    this.messageLabel = new JLabel("<Result comes here>"); // TODO
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.resultLabel);
+    southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
@@ -58,7 +58,7 @@ public class JCompositionView extends JPanel implements PanelView{
       for(String composition:compositions){
         result+=composition+"\n";
       }
-      resultLabel.setText(result);
+      messageLabel.setText(result);
     });
     this.homeButton.addActionListener(evt -> {
       features.showHome();
@@ -67,8 +67,8 @@ public class JCompositionView extends JPanel implements PanelView{
 
   @Override
   public void clearInput() {
-    resultLabel.setText("");
-    dateField.setText("");
+    this.messageLabel.setText("");
+    this.dateField.setText("");
   }
 
 }

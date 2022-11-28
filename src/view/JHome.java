@@ -9,7 +9,8 @@ import controller.Features;
 /**
  * This class represents the main view.
  */
-public class JHome extends JPanel implements PanelView{
+public class JHome extends JPanel implements PanelView {
+
   private JButton createPortfolio;
   private JButton checkCost;
   private JButton checkValue;
@@ -72,19 +73,19 @@ public class JHome extends JPanel implements PanelView{
     compositionAtDate.addActionListener(evt -> {
       features.showPortfolioComposition();
     });
-    checkCost.addActionListener(evt ->{
+    checkCost.addActionListener(evt -> {
       features.showCostBasis();
     });
-    checkValue.addActionListener(evt ->{
+    checkValue.addActionListener(evt -> {
       features.showPortfolioValue();
     });
-    savePortfolioToFile.addActionListener(evt ->{
+    savePortfolioToFile.addActionListener(evt -> {
       features.showSavePortfolio();
     });
-    readPortfolioFromFile.addActionListener(evt ->{
+    readPortfolioFromFile.addActionListener(evt -> {
       features.showReadPortfolio();
     });
-    applyStrategy.addActionListener(evt ->{
+    applyStrategy.addActionListener(evt -> {
       features.showCreateStrategy();
     });
     quit.addActionListener(evt -> features.exitProgram());

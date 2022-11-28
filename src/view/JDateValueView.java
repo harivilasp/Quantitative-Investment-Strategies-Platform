@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JGetAtDateView extends JPanel implements PanelView {
+public class JDateValueView extends JPanel implements PanelView {
 
   private JButton homeButton;
   private JLabel titleLabel;
@@ -17,7 +17,7 @@ public class JGetAtDateView extends JPanel implements PanelView {
   private JButton actionButton;
   private JLabel messageLabel;
 
-  public JGetAtDateView(String title) {
+  public JDateValueView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
 
@@ -60,6 +60,7 @@ public class JGetAtDateView extends JPanel implements PanelView {
 
   @Override
   public void clearInput() {
-
+    this.dateField.setText("");
+    this.messageLabel.setText("");
   }
 }

@@ -1,8 +1,13 @@
 package view;
 
+import controller.Features;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -10,8 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import controller.Features;
+import utils.Utils;
 
 public class JStrategyView extends JPanel implements PanelView {
 
@@ -22,10 +26,20 @@ public class JStrategyView extends JPanel implements PanelView {
   private JTextField startDateField;
   private JTextField endDateField;
   private JTextField commissionField;
+  private JButton addButton;
+  private JButton homeButton;
+  private JLabel messageLabel;
+  private JButton submitButton;
+  private JComboBox<String> comboBox;
+  private JTextField weightageField;
+
+  private final Map<String, Double> weightsMap;
 
   public JStrategyView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
+
+    this.weightsMap = new HashMap<>();
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
@@ -38,11 +52,11 @@ public class JStrategyView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Text input fields
-    this.amountField = new JTextField(6);
-    this.intervalField = new JTextField(4);
+    this.amountField = new JTextField("0.0", 6);
+    this.intervalField = new JTextField("0", 4);
     this.startDateField = new JTextField(8);
     this.endDateField = new JTextField(8);
-    this.commissionField = new JTextField(6);
+    this.commissionField = new JTextField("0.0", 6);
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
@@ -63,32 +77,77 @@ public class JStrategyView extends JPanel implements PanelView {
     JPanel boxPanel = new JPanel();
     boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
-    String[] options = new String[]{"GOOG", "AAPL", "NFLX", "MSFT"};
-    JComboBox<String> comboBox = new JComboBox<>();
+
+    // TODO: Remove
+    Utils.loadValidStocks();
+    String[] options = new String[Utils.VALID_STOCKS.size()];
+    options = Utils.VALID_STOCKS.toArray(options);
+    Arrays.sort(options);
+
+    this.comboBox = new JComboBox<>();
+    this.weightageField = new JTextField("0.0", 8);
+    this.comboBox.addItem("--none--");
     for (String option : options) {
-      comboBox.addItem(option);
+      this.comboBox.addItem(option);
     }
-    boxPanel.add(comboBox);
-    boxPanel.add(new JTextField(8));
+    boxPanel.add(this.comboBox);
+    boxPanel.add(this.weightageField);
+
+    this.homeButton = new JButton("HOME");
+    this.addButton = new JButton("ADD");
+    JPanel sectionPanel = new JPanel();
+    sectionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 16));
+    sectionPanel.add(boxPanel);
+    sectionPanel.add(this.addButton);
+    sectionPanel.add(this.homeButton);
+
+    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.submitButton = new JButton("SUBMIT");
+    this.submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JPanel southPanel = new JPanel();
-    southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 16));
-    southPanel.add(boxPanel);
-    southPanel.add(new JButton("ADD"));
+    southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.PAGE_AXIS));
+    southPanel.add(sectionPanel);
+    southPanel.add(this.messageLabel);
+    southPanel.add(new JLabel("      "));
+    southPanel.add(this.submitButton);
+    southPanel.add(new JLabel("      "));
+
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
   @Override
   public void addActionListener(Features features) {
+    addButton.addActionListener(event -> {
+      // Reset the message
+      this.messageLabel.setText("");
+      // Get the selected stock name
+      String stockName = (String) this.comboBox.getSelectedItem();
+      // Parse stock name
+      if (stockName.equals("--none--")) {
+        this.messageLabel.setText("ERROR: Please select a stock!");
+      }
+      // Get the weightage quantity
+      double weightage;
 
+      // Parse weightage text
+      try {
+        weightage = Double.parseDouble(this.weightageField.getText());
+      } catch (NumberFormatException nfe) {
+        this.messageLabel.setText("ERROR: Invalid weightage!");
+      }
+    });
   }
 
   @Override
   public void clearInput() {
+    this.comboBox.setSelectedItem("--none--");
+    this.weightageField.setText("");
     this.amountField.setText("");
-    this.intervalField = new JTextField(4);
-    this.startDateField = new JTextField(8);
-    this.endDateField = new JTextField(8);
-    this.commissionField = new JTextField(6);
+    this.intervalField.setText("");
+    this.startDateField.setText("");
+    this.endDateField.setText("");
+    this.commissionField.setText("");
   }
 }
