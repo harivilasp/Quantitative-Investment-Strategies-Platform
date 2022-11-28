@@ -60,6 +60,9 @@ public class JValueAtDateView extends JPanel implements PanelView {
       String response = features.getValue(dateField.getText());
       this.messageLabel.setText(String.valueOf(response));
     });
+    this.homeButton.addActionListener(event -> {
+      features.showHome();
+    });
   }
 
   @Override

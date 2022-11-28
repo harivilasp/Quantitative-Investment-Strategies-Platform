@@ -140,6 +140,7 @@ public class GUIMainView extends JFrame implements GUIView{
     transactionView.addActionListener(features);
     savePortfolio.addActionListener(features);
     portfolioValue.addActionListener(features);
+    addStrategy.addActionListener(features);
   }
 
   @Override

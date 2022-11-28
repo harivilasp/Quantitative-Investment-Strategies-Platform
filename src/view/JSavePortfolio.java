@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class JSavePortfolio extends JPanel implements PanelView {
 
@@ -57,6 +54,9 @@ public class JSavePortfolio extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     this.negButton.addActionListener(event -> {
+      features.showHome();
+    });
+    this.homeButton.addActionListener(event -> {
       features.showHome();
     });
     this.posButton.addActionListener(evt -> {
