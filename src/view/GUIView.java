@@ -1,8 +1,9 @@
 package view;
 
-import controller.Features;
 import java.util.List;
 import java.util.Map;
+
+import controller.Features;
 
 public interface GUIView {
 
@@ -22,11 +23,11 @@ public interface GUIView {
 
   void showAddStrategy(String portfolioName);
 
-  void showBuyStocksWithWeights();
+  void showBuyStocksWithWeights(String portfolioName);
 
   void showPerformance(Map<String, Integer> values);
 
-  void showHome();
+  void showHome(String portfolioName);
 
   void addActionListener(Features features);
 

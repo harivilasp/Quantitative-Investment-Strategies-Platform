@@ -1,14 +1,11 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
+import controller.Features;
 
 public class JCompositionView extends JPanel implements PanelView {
 
@@ -56,13 +53,13 @@ public class JCompositionView extends JPanel implements PanelView {
 
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
-      this.clearInput();
-      List<String> compositions = features.getCompositionAtDate(dateField.getText());
+      List<String> compositions = features.getCompositionAtDate(dateField.getText());;
       String result = new String();
       for (String composition : compositions) {
         result += composition + "\n";
       }
       messageLabel.setText(result);
+      dateField.setText("");
     });
     this.homeButton.addActionListener(evt -> {
       this.clearInput();

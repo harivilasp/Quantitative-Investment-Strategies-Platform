@@ -141,7 +141,7 @@ public class JStrategyView extends JPanel implements PanelView {
                 ,Double.parseDouble(commissionField.getText())
                 ,weightsMap);
         messageLabel.setText(status);
-        this.clearInput();
+//        this.clearInput();
       }catch (Exception e){
         messageLabel.setText(e.getMessage());
       }

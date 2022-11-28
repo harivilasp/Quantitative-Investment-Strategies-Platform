@@ -182,7 +182,7 @@ public class SimulatorController implements Features {
 
   @Override
   public void showHome() {
-    view.showHome();
+    view.showHome(this.getName());
   }
 
   @Override

@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * This class represents the main view.
@@ -30,7 +27,7 @@ public class JHome extends JPanel implements PanelView {
     this.setVisible(true);
     this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("No Portfolio Selected");
     this.portfolioLabel.setAlignmentX(Container.CENTER_ALIGNMENT);
     this.add(new JLabel("    "));
     this.add(portfolioLabel);
@@ -100,6 +97,10 @@ public class JHome extends JPanel implements PanelView {
       features.showCreateStrategy();
     });
     quit.addActionListener(evt -> features.exitProgram());
+  }
+
+  public void setPortfolioName(String portfolioName){
+    portfolioLabel.setText(portfolioName);
   }
 
   @Override

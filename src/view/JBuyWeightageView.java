@@ -1,20 +1,13 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
+import controller.Features;
 import utils.Utils;
 
 
@@ -42,7 +35,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("No Portfolio Selected");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
@@ -131,6 +124,10 @@ public class JBuyWeightageView extends JPanel implements PanelView {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
+  }
+
+  public void setPortfolioName(String portfolioName){
+    portfolioLabel.setText(portfolioName);
   }
 
   @Override

@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class JCostBasisView extends JPanel implements PanelView {
 
@@ -56,9 +53,9 @@ public class JCostBasisView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
-      this.clearInput();
       String status = features.getCostBasis(dateField.getText());
       messageLabel.setText(status);
+      dateField.setText("");
     });
     this.homeButton.addActionListener(evt -> {
       this.clearInput();
