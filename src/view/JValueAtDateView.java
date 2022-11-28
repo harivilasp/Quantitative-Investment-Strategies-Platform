@@ -29,7 +29,7 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Enter date and submit
-    this.dateField = new JTextField(6);
+    this.dateField = new JTextField(10);
     this.actionButton = new JButton("Get Value");
     this.homeButton = new JButton("HOME");
 

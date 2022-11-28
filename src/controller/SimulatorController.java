@@ -50,7 +50,7 @@ public class SimulatorController implements Features {
   public String getValue(String date) {
     try {
       double valueAtDate = model.getValue(date);
-      return "Value at + " + date + " : " + Double.toString(valueAtDate);
+      return "Value at " + date + " : " + Double.toString(valueAtDate);
     } catch (Exception e) {
       return e.getMessage();
     }
@@ -164,7 +164,7 @@ public class SimulatorController implements Features {
       this.model.buyStocksWithWeights(amount, date, commission, weights);
       return "Successfully bought";
     } catch (Exception e) {
-      return e.toString();
+      return e.getMessage();
     }
   }
 

@@ -18,7 +18,7 @@ public class JSavePortfolio extends JPanel implements PanelView {
   public JSavePortfolio(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
-
+    portfolioName = new String();
     // North panel -> title
     this.titleLabel = new JLabel(title);
 

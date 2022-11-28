@@ -85,6 +85,10 @@ public class JPerfGraphView extends JPanel implements PanelView {
       try {
         Map<String, Integer> map
                 = features.getPerformance(startDateField.getText(), endDateField.getText());
+
+        if (map.size()==1){
+          System.out.println("Invalid Arguments");
+        }
         PerformanceGraph.DrawGraph(map);
       } catch (Exception e) {
         e.getMessage();

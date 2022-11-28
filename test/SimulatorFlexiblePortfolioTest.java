@@ -48,7 +48,7 @@ public class SimulatorFlexiblePortfolioTest {
 
   @Test(expected = Exception.class)
   public void testBuyStockInvalidDate() throws IOException {
-    simulator.sellStock("GOOG", 6, "2014-20-22", 0.2);
+    simulator.buyStock("GOOG", 6, "2014-20-22", 0.2);
     String s = "Error";
     assertEquals("Error", s);
   }

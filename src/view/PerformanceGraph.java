@@ -57,7 +57,7 @@ public class PerformanceGraph extends JFrame {
       PerformanceGraph performanceGraph = new PerformanceGraph("Line Chart", map, scale);
       performanceGraph.setAlwaysOnTop(true);
       performanceGraph.pack();
-      performanceGraph.setSize(600, 400);
+      performanceGraph.setSize(850, 600);
       performanceGraph.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
       performanceGraph.setVisible(true);
     });
