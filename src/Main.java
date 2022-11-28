@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import view.JStrategyView;
+import view.JHome;
 import view.JTransactionView;
 import view.PanelView;
 
@@ -27,7 +27,7 @@ public class Main {
 //    // Start the application
 //    controller.start();
 
-    JPanel panel = new JStrategyView("");
+    JPanel panel = new JHome();
     JFrame frame = new JFrame();
     frame.setVisible(true);
     frame.add(panel);

@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
-
 import utils.Constants;
 import utils.Utils;
 
@@ -123,13 +122,15 @@ public class SimulatorImpl implements Simulator {
   }
 
   @Override
-  public void buyStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
+  public void buyStock(String stockName, int stockQty, String date, double commission)
+      throws RuntimeException {
     Stock stock = this.generateStock(stockName, stockQty);  // #ignored: IAE. No need.
     this.flexiblePortfolio.buyStock(stock, date, commission);
   }
 
   @Override
-  public void sellStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
+  public void sellStock(String stockName, int stockQty, String date, double commission)
+      throws RuntimeException {
     Stock stock = this.generateStock(stockName, stockQty);  // #ignored: IAE. No need.
     this.flexiblePortfolio.sellStock(stock, date, commission);
   }

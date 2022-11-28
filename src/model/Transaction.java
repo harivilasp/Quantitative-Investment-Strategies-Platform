@@ -23,7 +23,7 @@ public class Transaction {
    * @param commission represents commission charged for that transaction.
    */
   public Transaction(String stockName, double quantity, String date, double commission)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (commission < 0) {
       throw new IllegalArgumentException("Negative commission not allowed");
     }

@@ -2,20 +2,19 @@ package model;
 
 import java.util.Map;
 
-public class DollarCostAveragingStrategy implements Strategy{
+public class DollarCostAveragingStrategy implements Strategy {
 
   double amount;
   int intervalInDays;
   String startDate;
   String endDate;
   double commission;
-  Map<String,Double> weights;
-
+  Map<String, Double> weights;
 
 
   public DollarCostAveragingStrategy(double amount, int intervalInDays,
-                                     String startDate, String endDate, double commission,
-                                     Map<String, Double> weights) {
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) {
     this.amount = amount;
     this.intervalInDays = intervalInDays;
     this.startDate = startDate;
@@ -35,8 +34,9 @@ public class DollarCostAveragingStrategy implements Strategy{
   public String getStartDate() {
     return startDate;
   }
+
   public void setStartDate(String startDate) {
-    this.startDate=startDate;
+    this.startDate = startDate;
   }
 
   public String getEndDate() {

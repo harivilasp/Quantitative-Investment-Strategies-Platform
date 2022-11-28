@@ -6,12 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import model.Simulator;
 import model.Stock;
 import view.GUIView;
 
-public class SimulatorController implements Features{
+public class SimulatorController implements Features {
 
   /* The model class instance. */
   private final Simulator model;
@@ -54,9 +53,9 @@ public class SimulatorController implements Features{
 
   @Override
   public String getName() {
-    if(model.isPortfolioChosen()){
+    if (model.isPortfolioChosen()) {
       return model.getName();
-    }else{
+    } else {
       return "No Portfolio chosen";
     }
   }
@@ -67,7 +66,7 @@ public class SimulatorController implements Features{
       model.save();
 
       return "Successfully Saved";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.toString();
     }
   }
@@ -77,17 +76,18 @@ public class SimulatorController implements Features{
     try {
       model.addFlexiblePortfolio(portfolioName);
       return "Successfully Created Portfolio";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.toString();
     }
   }
 
   @Override
-  public String loadFlexiblePortfolio(String filepath) throws IllegalArgumentException, RuntimeException {
+  public String loadFlexiblePortfolio(String filepath)
+      throws IllegalArgumentException, RuntimeException {
     try {
       model.loadFlexiblePortfolio(filepath);
-      return "Successfully Loaded "+model.getName();
-    }catch (Exception e){
+      return "Successfully Loaded " + model.getName();
+    } catch (Exception e) {
       return e.toString();
     }
   }
@@ -97,7 +97,7 @@ public class SimulatorController implements Features{
     try {
       this.model.buyStock(stockName, stockQty, date, commission);
       return "Successfully Bought";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.toString();
     }
   }
@@ -107,7 +107,7 @@ public class SimulatorController implements Features{
     try {
       this.model.sellStock(stockName, stockQty, date, commission);
       return "Successfully Sold";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.getMessage();
     }
   }
@@ -116,8 +116,8 @@ public class SimulatorController implements Features{
   public String getCostBasis(String date) {
     try {
       double costBasis = this.model.getCostBasis(date);
-      return "Cost Basis : "+costBasis;
-    }catch (Exception e){
+      return "Cost Basis : " + costBasis;
+    } catch (Exception e) {
       return e.toString();
     }
   }
@@ -126,10 +126,10 @@ public class SimulatorController implements Features{
   public List<String> getCompositionAtDate(String date) {
     List<Stock> stockList = this.model.getCompositionAtDate(date);
     List<String> list = new ArrayList<>();
-    for(Stock stock:stockList){
+    for (Stock stock : stockList) {
       list.add(stock.toString());
     }
-    if(list.size()==0){
+    if (list.size() == 0) {
       list.add("No Stocks available at this date");
     }
     return list;
@@ -137,34 +137,34 @@ public class SimulatorController implements Features{
 
   @Override
   public String addStrategy(double amount, int intervalInDays,
-                          String startDate, String endDate, double commission,
-                          Map<String, Double> weights) {
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) {
     try {
       this.model.addStrategy(amount, intervalInDays, startDate, endDate, commission, weights);
       return "Successfully applied";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.toString();
     }
   }
 
   @Override
   public String buyStocksWithWeights(double amount, String date, double commission,
-                                   Map<String,Double> weights) {
+      Map<String, Double> weights) {
     try {
       this.model.buyStocksWithWeights(amount, date, commission, weights);
       return "Successfully bought";
-    }catch (Exception e){
+    } catch (Exception e) {
       return e.toString();
     }
   }
 
   @Override
   public Map<String, Integer> getPerformance(String startDate, String endDate) {
-    Map<String,Integer> stringIntegerMap = new HashMap<>();
+    Map<String, Integer> stringIntegerMap = new HashMap<>();
     try {
-      return getPerformance(startDate,endDate);
-    }catch (Exception e){
-      stringIntegerMap.put(e.getMessage(),1);
+      return getPerformance(startDate, endDate);
+    } catch (Exception e) {
+      stringIntegerMap.put(e.getMessage(), 1);
       return stringIntegerMap;
     }
   }
@@ -187,7 +187,7 @@ public class SimulatorController implements Features{
   @Override
   public void showPortfolioComposition() {
     List<String> list = new ArrayList<>();
-    view.showCompositionAtDate(this.getName(),list);
+    view.showCompositionAtDate(this.getName(), list);
   }
 
   @Override

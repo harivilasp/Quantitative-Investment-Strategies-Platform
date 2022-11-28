@@ -4,6 +4,7 @@ package model;
  * This interface helps to get value of stock at certain date.
  */
 public interface APIUtil {
+
   /**
    * This method provides the closing day value for a particular date and stock label.
    *
