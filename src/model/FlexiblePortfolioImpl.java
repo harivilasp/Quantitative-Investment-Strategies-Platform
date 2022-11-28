@@ -352,6 +352,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   public void buyStocksWithWeights(double amount, String date,
       double commission, Map<String, Double> weights)
       throws Exception {
+    amount = amount - commission;
     // future date
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     try {

@@ -56,12 +56,18 @@ public class JCostBasisView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
+      this.clearInput();
       String status = features.getCostBasis(dateField.getText());
       messageLabel.setText(status);
     });
     this.homeButton.addActionListener(evt -> {
+      this.clearInput();
       features.showHome();
     });
+  }
+
+  public void setPortfolioName(String portfolioName) {
+    portfolioLabel.setText(portfolioName);
   }
 
   @Override

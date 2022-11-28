@@ -32,25 +32,6 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
     this.chooseFileButton = new JButton("Choose portfolio from filepath");
     this.homeButton = new JButton("HOME");
 
-//    this.chooseFileButton.addActionListener(event -> {
-//      // Open file chooser
-//      JFileChooser fileChooser = new JFileChooser();
-//      // Apply file extension filters
-//      FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-//          "Text files",
-//          "txt"
-//      );
-//      fileChooser.setFileFilter(fileFilter);
-//
-//      // Retrieve response code from the file chooser
-//      int responseCode = fileChooser.showOpenDialog(JLoadPortfolioView.this);
-//      // Response code is valid
-//      if (responseCode == JFileChooser.APPROVE_OPTION) {
-//        File selectedFile = fileChooser.getSelectedFile();
-//        this.messageLabel.setText(selectedFile.getAbsolutePath()); // TODO
-//      }
-//    });
-
     JPanel centerPanel = new JPanel();
     centerPanel.add(this.chooseFileButton);
     centerPanel.add(this.homeButton);

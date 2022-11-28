@@ -43,7 +43,7 @@ public class JStrategyView extends JPanel implements PanelView {
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("No portfolio Selected");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
@@ -138,6 +138,10 @@ public class JStrategyView extends JPanel implements PanelView {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
+  }
+
+  public void setPortfolioName(String portfolioName) {
+    portfolioLabel.setText(portfolioName);
   }
 
   @Override

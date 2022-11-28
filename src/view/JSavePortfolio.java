@@ -56,6 +56,13 @@ public class JSavePortfolio extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    this.negButton.addActionListener(event -> {
+      features.showHome();
+    });
+    this.posButton.addActionListener(evt -> {
+      String status = features.save();
+      this.messageLabel.setText(status);
+    });
   }
 
   public void setPortfolioName(String portfolioName) {

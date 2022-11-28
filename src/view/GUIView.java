@@ -8,7 +8,7 @@ public interface GUIView {
 
   void showPortfolioValue(String portfolioName);
 
-  void showSavePortfolio();
+  void showSavePortfolio(String portfolioName);
 
   void showAddPortfolio();
 
@@ -28,5 +28,7 @@ public interface GUIView {
 
   void showHome();
 
-  public void addActionListener(Features features);
+  void addActionListener(Features features);
+
+  void showInputPerformanceDates(String portfolioName);
 }

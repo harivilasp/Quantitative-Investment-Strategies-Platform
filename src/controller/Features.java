@@ -26,7 +26,7 @@ public interface Features {
    * @throws IllegalArgumentException if invalid date is passed.
    * @throws RuntimeException         if errors like API timeout, or other error.
    */
-  double getValue(String date) throws IllegalArgumentException, RuntimeException;
+  String getValue(String date);
 
   /**
    * This helps to get the name of the portfolio set by the user.
@@ -41,7 +41,7 @@ public interface Features {
    * @throws IOException      if error occurs while saving file
    * @throws RuntimeException if improper data
    */
-  String save() throws IOException, RuntimeException;
+  String save();
 
   /**
    * This method helps to create new empty flexible portfolio.
