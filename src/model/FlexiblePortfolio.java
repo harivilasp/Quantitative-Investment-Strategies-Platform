@@ -48,9 +48,9 @@ public interface FlexiblePortfolio extends Portfolio {
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
 
   void addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) throws Exception;
+                   String startDate, String endDate, double commission,
+                   Map<String, Double> weights) throws Exception;
 
   void buyStocksWithWeights(double amount, String Date, double commission,
-      Map<String, Double> weights) throws Exception;
+                            Map<String, Double> weights) throws Exception;
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
+
 import utils.Constants;
 
 /**
@@ -48,10 +49,10 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
    * @throws RuntimeException         when error occurs while reading.
    */
   public FlexiblePortfolioImpl(String filePath, Set<String> validStocks)
-      throws IllegalArgumentException, RuntimeException {
+          throws IllegalArgumentException, RuntimeException {
     fileIO = new FileIOSCS();
     FlexiblePortfolioImpl flexiblePortfolio =
-        (FlexiblePortfolioImpl) fileIO.readFlexiblePortfolio(filePath);
+            (FlexiblePortfolioImpl) fileIO.readFlexiblePortfolio(filePath);
     this.transactions = flexiblePortfolio.transactions;
     this.delegate = flexiblePortfolio.delegate;
     this.strategies = new ArrayList<>();
@@ -171,7 +172,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     for (Stock stock : composition) {
       try {
         value += (stock.getQuantity() * AlphaVantgeApiUtil.getInstance()
-            .getValue(stock.getName(), date));
+                .getValue(stock.getName(), date));
       } catch (RuntimeException re) {
         throw new RuntimeException(Constants.ERR_API_TIMEOUT);
       }
@@ -213,9 +214,9 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         if (qty > 0) {
           try {
             cost += qty * AlphaVantgeApiUtil.getInstance()
-                .getValue(transaction.getStockName(), transaction.getDate());
+                    .getValue(transaction.getStockName(), transaction.getDate());
           } catch (RuntimeException re) {
-            throw new RuntimeException(Constants.ERR_API_TIMEOUT);
+            throw new IllegalArgumentException(Constants.ERR_API_TIMEOUT);
           }
         }
       }
@@ -248,7 +249,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         while (c.getTime().compareTo(todayDate) < 0) {
           String nextDate = sdf.format(c.getTime());
           this.buyStocksWithWeights(strategy.getAmount(), nextDate,
-              strategy.getCommission(), strategy.getWeights());
+                  strategy.getCommission(), strategy.getWeights());
           c.add(Calendar.DATE, strategy.getIntervalInDays());
         }
         if (strategy.getEndDate().compareTo(sdf.format(todayDate)) < 0) {
@@ -259,7 +260,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
           long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
           System.out.println(diff + " diff");
           tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
-              + strategy.getAmount());
+                  + strategy.getAmount());
         }
       }
       if (sdf.format(secondDate).compareTo(strategy.getStartDate()) >= 0) {
@@ -267,16 +268,16 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         long diff;
         if (sdf.format(secondDate).compareTo(strategy.getEndDate()) > 0) {
           diffInMillis = Math.abs(
-              sdf.parse(strategy.getEndDate()).getTime() - sdf.parse(strategy.getStartDate())
-                  .getTime());
+                  sdf.parse(strategy.getEndDate()).getTime() - sdf.parse(strategy.getStartDate())
+                          .getTime());
         } else {
           diffInMillis = Math.abs(
-              secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
+                  secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
         }
         diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
         System.out.println(diff + " diff");
         tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
-            + strategy.getAmount());
+                + strategy.getAmount());
       }
     }
     return tempcost;
@@ -288,9 +289,9 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     for (Transaction transaction : transactions) {
       if (date.compareTo(transaction.getDate()) >= 0) {
         stocks.put(
-            transaction.getStockName(),
-            transaction.getQuantity()
-                + stocks.getOrDefault(transaction.getStockName(), 0.0)
+                transaction.getStockName(),
+                transaction.getQuantity()
+                        + stocks.getOrDefault(transaction.getStockName(), 0.0)
         );
       }
     }
@@ -299,7 +300,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     List<Stock> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> entry : stocks.entrySet()) {
       stockList.add(
-          new Stock(entry.getKey(), entry.getValue())
+              new Stock(entry.getKey(), entry.getValue())
       );
     }
 
@@ -308,8 +309,8 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
 
   @Override
   public void addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) throws Exception {
+                          String startDate, String endDate, double commission,
+                          Map<String, Double> weights) throws Exception {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Calendar c = Calendar.getInstance();
@@ -343,15 +344,15 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
 
     if (c.getTime().compareTo(secondDate) < 0) {
       Strategy strategy = new DollarCostAveragingStrategy(amount,
-          intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);
+              intervalInDays, sdf.format(c.getTime()), endDate, commission, weights);
       strategies.add(strategy);
     }
   }
 
   @Override
   public void buyStocksWithWeights(double amount, String date,
-      double commission, Map<String, Double> weights)
-      throws Exception {
+                                   double commission, Map<String, Double> weights)
+          throws Exception {
     amount = amount - commission;
     // future date
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);

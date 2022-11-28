@@ -124,9 +124,24 @@ public class JBuyWeightageView extends JPanel implements PanelView {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
+    submitButton.addActionListener(event -> {
+      try {
+        String status = features.buyStocksWithWeights(Double.parseDouble(this.amountField.getText())
+                , dateField.getText()
+                , Double.parseDouble(commissionField.getText())
+                , weightsMap);
+        messageLabel.setText(status);
+      } catch (Exception e) {
+        messageLabel.setText(e.getMessage());
+      }
+    });
+    homeButton.addActionListener(event -> {
+      clearInput();
+      features.showHome();
+    });
   }
 
-  public void setPortfolioName(String portfolioName){
+  public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
   }
 

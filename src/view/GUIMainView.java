@@ -20,6 +20,7 @@ public class GUIMainView extends JFrame implements GUIView {
   JCompositionView compositionAtDate;
   JHome home;
   JTransactionView transactionView;
+  JPerfGraphView perfGraphView;
 
   public GUIMainView() {
     super("Stock Market Simulator");
@@ -37,6 +38,7 @@ public class GUIMainView extends JFrame implements GUIView {
     costBasis = new JCostBasisView("Cost Basis");
     compositionAtDate = new JCompositionView("Composition At Date");
     transactionView = new JTransactionView("Buy Sell Stock");
+    perfGraphView = new JPerfGraphView("Performance over time");
     this.add(home);
     this.pack();
   }
@@ -146,11 +148,16 @@ public class GUIMainView extends JFrame implements GUIView {
     portfolioValue.addActionListener(features);
     addStrategy.addActionListener(features);
     buyStocksWithWeights.addActionListener(features);
+    perfGraphView.addActionListener(features);
   }
 
   @Override
   public void showInputPerformanceDates(String portfolioName) {
-
+    this.getContentPane().removeAll();
+    this.repaint();
+    perfGraphView.setPortfolioName(portfolioName);
+    this.add(perfGraphView);
+    this.pack();
   }
 
 }

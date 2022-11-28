@@ -127,24 +127,29 @@ public class JStrategyView extends JPanel implements PanelView {
       // Parse weightage text
       try {
         weightage = Double.parseDouble(this.weightageField.getText());
-        weightsMap.put(stockName,weightsMap.getOrDefault(stockName,0.0)+weightage);
+        weightsMap.put(stockName, weightsMap.getOrDefault(stockName, 0.0) + weightage);
+        messageLabel.setText("Added");
       } catch (NumberFormatException nfe) {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
 
-    submitButton.addActionListener(event ->{
-      try{
+    submitButton.addActionListener(event -> {
+      try {
+        messageLabel.setText("Adding");
         String status = features.addStrategy(Double.parseDouble(this.amountField.getText())
-                ,Integer.parseInt(intervalField.getText())
-                ,startDateField.getText(),endDateField.getText()
-                ,Double.parseDouble(commissionField.getText())
-                ,weightsMap);
+                , Integer.parseInt(intervalField.getText())
+                , startDateField.getText(), endDateField.getText()
+                , Double.parseDouble(commissionField.getText())
+                , weightsMap);
         messageLabel.setText(status);
-//        this.clearInput();
-      }catch (Exception e){
+      } catch (Exception e) {
         messageLabel.setText(e.getMessage());
       }
+    });
+    homeButton.addActionListener(event -> {
+      clearInput();
+      features.showHome();
     });
   }
 

@@ -95,26 +95,26 @@ public class JTransactionView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     buyButton.addActionListener(evt -> {
-      try{
+      try {
         String status = features.buyStock(nameField.getText(),
-            Integer.parseInt(quantityField.getText()),
-            tranDateField.getText(), Double.parseDouble(commField.getText()));
+                Integer.parseInt(quantityField.getText()),
+                tranDateField.getText(), Double.parseDouble(commField.getText()));
         messageLabel.setText(status);
         nameField.setText("");
         tranDateField.setText("");
-    }catch (Exception e){
-      messageLabel.setText(e.getMessage());
-    }
+      } catch (Exception e) {
+        messageLabel.setText(e.getMessage());
+      }
     });
     sellButton.addActionListener(evt -> {
-      try{
+      try {
         String status = features.sellStock(nameField.getText(),
                 Integer.parseInt(quantityField.getText()),
                 tranDateField.getText(), Double.parseDouble(commField.getText()));
         messageLabel.setText(status);
         nameField.setText("");
         tranDateField.setText("");
-      }catch (Exception e){
+      } catch (Exception e) {
         messageLabel.setText(e.getMessage());
       }
     });

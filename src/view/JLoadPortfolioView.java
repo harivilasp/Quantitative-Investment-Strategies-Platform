@@ -1,14 +1,12 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import controller.Features;
 
 public class JLoadPortfolioView extends JPanel implements PanelView {
 
@@ -53,8 +51,8 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
       JFileChooser fileChooser = new JFileChooser();
       // Apply file extension filters
       FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-          "Text files",
-          "txt"
+              "Text files",
+              "txt"
       );
       fileChooser.setFileFilter(fileFilter);
 

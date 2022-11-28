@@ -20,6 +20,9 @@ public class JHome extends JPanel implements PanelView {
   private JButton readPortfolioFromFile;
   private JButton applyStrategy;
   private JButton compositionAtDate;
+  private JButton portfolioPerformance;
+  private JButton buyStocksWithWeights;
+
   private JButton quit;
 
   public JHome() {
@@ -47,6 +50,8 @@ public class JHome extends JPanel implements PanelView {
     readPortfolioFromFile = new JButton("Read Portfolio From File");
     applyStrategy = new JButton("Apply Strategy");
     compositionAtDate = new JButton("Composition at Date");
+    buyStocksWithWeights = new JButton("Invest Amount");
+    portfolioPerformance = new JButton("Performance of Portfolio");
 
     createPortfolio.setActionCommand("createPortfolio");
     buySellStock.setActionCommand("buySellStockChooseAWay");
@@ -57,6 +62,8 @@ public class JHome extends JPanel implements PanelView {
     quit.setActionCommand("quit");
     applyStrategy.setActionCommand("apply strategy");
     compositionAtDate.setActionCommand("compositionAtDate");
+    buyStocksWithWeights.setActionCommand("investAmount");
+    portfolioPerformance.setActionCommand("portfolioPerformance");
 
     panel.add(createPortfolio);
     panel.add(buySellStock);
@@ -66,6 +73,8 @@ public class JHome extends JPanel implements PanelView {
     panel.add(savePortfolioToFile);
     panel.add(readPortfolioFromFile);
     panel.add(applyStrategy);
+    panel.add(buyStocksWithWeights);
+    panel.add(portfolioPerformance);
     panel.add(quit);
 
     this.add(panel);
@@ -96,10 +105,16 @@ public class JHome extends JPanel implements PanelView {
     applyStrategy.addActionListener(evt -> {
       features.showCreateStrategy();
     });
+    buyStocksWithWeights.addActionListener(event -> {
+      features.showInvestAmount();
+    });
+    portfolioPerformance.addActionListener(event -> {
+      features.showInputPerformanceDates();
+    });
     quit.addActionListener(evt -> features.exitProgram());
   }
 
-  public void setPortfolioName(String portfolioName){
+  public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
   }
 

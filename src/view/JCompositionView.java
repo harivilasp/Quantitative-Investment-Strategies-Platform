@@ -53,7 +53,8 @@ public class JCompositionView extends JPanel implements PanelView {
 
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
-      List<String> compositions = features.getCompositionAtDate(dateField.getText());;
+      List<String> compositions = features.getCompositionAtDate(dateField.getText());
+      ;
       String result = new String();
       for (String composition : compositions) {
         result += composition + "\n";
@@ -76,5 +77,4 @@ public class JCompositionView extends JPanel implements PanelView {
     this.messageLabel.setText("");
     this.dateField.setText("");
   }
-
 }

@@ -13,8 +13,8 @@ public class DollarCostAveragingStrategy implements Strategy {
 
 
   public DollarCostAveragingStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) {
+                                     String startDate, String endDate, double commission,
+                                     Map<String, Double> weights) {
     this.amount = amount;
     this.intervalInDays = intervalInDays;
     this.startDate = startDate;

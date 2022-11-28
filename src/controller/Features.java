@@ -69,11 +69,11 @@ public interface Features {
   List<String> getCompositionAtDate(String date);
 
   String addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights);
+                     String startDate, String endDate, double commission,
+                     Map<String, Double> weights);
 
   String buyStocksWithWeights(double amount, String date, double commission,
-      Map<String, Double> weights);
+                              Map<String, Double> weights);
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.
@@ -104,5 +104,9 @@ public interface Features {
   void showReadPortfolio();
 
   void showCreateStrategy();
+
+  void showInputPerformanceDates();
+
+  void showInvestAmount();
 
 }

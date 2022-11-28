@@ -32,8 +32,8 @@ public interface FileIO {
    * @throws IOException when error occurs while writing file.
    */
   public void writeFlexiblePortfolio(String portfolioName,
-      List<Transaction> transactions, List<Strategy> strategies)
-      throws IOException;
+                                     List<Transaction> transactions, List<Strategy> strategies)
+          throws IOException;
 
   /**
    * This method helps to write the flexible portfolio in file.
