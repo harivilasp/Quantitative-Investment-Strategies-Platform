@@ -10,9 +10,9 @@ import controller.Features;
 
 public class GUIMainView extends JFrame implements GUIView{
 
-  JPanel portfolioValue;
+  JValueAtDateView portfolioValue;
   JCreatePortfolioView createPortfolio;
-  JPanel savePortfolio;
+  JSavePortfolio savePortfolio;
   JLoadPortfolioView loadPortfolio;
   JStrategyView addStrategy;
   JPanel buyStocksWithWeights;
@@ -30,8 +30,8 @@ public class GUIMainView extends JFrame implements GUIView{
     home = new JHome();
     currentPanel = home;
     createPortfolio = new JCreatePortfolioView("Create Portfolio");
-    portfolioValue = new JPanel();
-    savePortfolio = new JPanel();
+    portfolioValue = new JValueAtDateView("Portfolio Value at Date");
+    savePortfolio = new JSavePortfolio("Save Portfolio");
     loadPortfolio = new JLoadPortfolioView("Load Portfolio");
     addStrategy = new JStrategyView("Add Strategy");
     buyStocksWithWeights = new JPanel();
@@ -44,12 +44,20 @@ public class GUIMainView extends JFrame implements GUIView{
 
   @Override
   public void showPortfolioValue(String portfolioName) {
-
+    this.getContentPane().removeAll();
+    this.repaint();
+    portfolioValue.setPortfolioName(portfolioName);
+    this.getContentPane().add(portfolioValue);
+    this.pack();
   }
 
   @Override
-  public void showSavePortfolio() {
-
+  public void showSavePortfolio(String portfolioName) {
+    this.getContentPane().removeAll();
+    this.repaint();
+    savePortfolio.setPortfolioName(portfolioName);
+    this.getContentPane().add(savePortfolio);
+    this.pack();
   }
 
   @Override
@@ -72,6 +80,7 @@ public class GUIMainView extends JFrame implements GUIView{
   public void showBuySellStock(String portfolioName) {
     this.getContentPane().removeAll();
     this.repaint();
+    transactionView.setPortfolioName(portfolioName);
     this.getContentPane().add(transactionView);
     this.pack();
   }
@@ -80,6 +89,7 @@ public class GUIMainView extends JFrame implements GUIView{
   public void showCostBasis(String portfolioName) {
     this.getContentPane().removeAll();
     this.repaint();
+    costBasis.setPortfolioName(portfolioName);
     this.getContentPane().add(costBasis);
     this.pack();
   }
@@ -88,6 +98,7 @@ public class GUIMainView extends JFrame implements GUIView{
   public void showCompositionAtDate(String portfolioName,List<String> composition) {
     this.getContentPane().removeAll();
     this.repaint();
+    compositionAtDate.setPortfolioName(portfolioName);
     this.getContentPane().add(compositionAtDate);
     this.pack();
   }
@@ -96,6 +107,7 @@ public class GUIMainView extends JFrame implements GUIView{
   public void showAddStrategy(String portfolioName) {
     this.getContentPane().removeAll();
     this.repaint();
+    addStrategy.setPortfolioName(portfolioName);
     this.getContentPane().add(addStrategy);
     this.pack();
   }
@@ -126,6 +138,13 @@ public class GUIMainView extends JFrame implements GUIView{
     loadPortfolio.addActionListener(features);
     costBasis.addActionListener(features);
     transactionView.addActionListener(features);
+    savePortfolio.addActionListener(features);
+    portfolioValue.addActionListener(features);
+  }
+
+  @Override
+  public void showInputPerformanceDates(String portfolioName) {
+
   }
 
 }

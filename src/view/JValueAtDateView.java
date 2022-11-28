@@ -1,31 +1,31 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
 
-public class JDateValueView extends JPanel implements PanelView {
+import javax.swing.*;
+
+import controller.Features;
+
+public class JValueAtDateView extends JPanel implements PanelView {
 
   private JButton homeButton;
   private JLabel titleLabel;
   private JTextField dateField;
   private JButton actionButton;
   private JLabel messageLabel;
+  private JLabel portfolioLabel;
 
-  public JDateValueView(String title) {
+  public JValueAtDateView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
+    this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
     northPanel.add(this.titleLabel);
+    northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Enter date and submit
@@ -50,10 +50,14 @@ public class JDateValueView extends JPanel implements PanelView {
     setVisible(true);
   }
 
+  public void setPortfolioName(String portfolioName){
+    this.portfolioLabel.setText(portfolioName);
+  }
+
   @Override
   public void addActionListener(Features features) {
     this.actionButton.addActionListener(event -> {
-      double response = features.getValue(dateField.getText());
+      String response = features.getValue(dateField.getText());
       this.messageLabel.setText(String.valueOf(response));
     });
   }

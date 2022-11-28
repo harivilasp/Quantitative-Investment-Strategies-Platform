@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,8 +47,13 @@ public class SimulatorController implements Features{
   }
 
   @Override
-  public double getValue(String date) throws IllegalArgumentException, RuntimeException {
-    return 0;
+  public String getValue(String date) {
+    try{
+      double valueAtDate = model.getValue(date);
+      return "Value at + " + date + " : " + Double.toString(valueAtDate);
+    }catch (Exception e){
+      return e.getMessage();
+    }
   }
 
   @Override
@@ -62,13 +66,12 @@ public class SimulatorController implements Features{
   }
 
   @Override
-  public String save() throws IOException, RuntimeException {
+  public String save() {
     try {
       model.save();
-
       return "Successfully Saved";
     }catch (Exception e){
-      return e.toString();
+      return e.getMessage();
     }
   }
 
@@ -83,12 +86,12 @@ public class SimulatorController implements Features{
   }
 
   @Override
-  public String loadFlexiblePortfolio(String filepath) throws IllegalArgumentException, RuntimeException {
+  public String loadFlexiblePortfolio(String filepath){
     try {
       model.loadFlexiblePortfolio(filepath);
-      return "Successfully Loaded "+model.getName();
+      return "Successfully Loaded: "+ model.getName();
     }catch (Exception e){
-      return e.toString();
+      return e.getMessage();
     }
   }
 
@@ -96,9 +99,10 @@ public class SimulatorController implements Features{
   public String buyStock(String stockName, int stockQty, String date, double commission) {
     try {
       this.model.buyStock(stockName, stockQty, date, commission);
+      this.model.save();
       return "Successfully Bought";
     }catch (Exception e){
-      return e.toString();
+      return e.getMessage();
     }
   }
 
@@ -106,6 +110,7 @@ public class SimulatorController implements Features{
   public String sellStock(String stockName, int stockQty, String date, double commission) {
     try {
       this.model.sellStock(stockName, stockQty, date, commission);
+      this.model.save();
       return "Successfully Sold";
     }catch (Exception e){
       return e.getMessage();
@@ -118,7 +123,7 @@ public class SimulatorController implements Features{
       double costBasis = this.model.getCostBasis(date);
       return "Cost Basis : "+costBasis;
     }catch (Exception e){
-      return e.toString();
+      return e.getMessage();
     }
   }
 
@@ -162,7 +167,9 @@ public class SimulatorController implements Features{
   public Map<String, Integer> getPerformance(String startDate, String endDate) {
     Map<String,Integer> stringIntegerMap = new HashMap<>();
     try {
-      return getPerformance(startDate,endDate);
+      stringIntegerMap =  getPerformance(startDate,endDate);
+      // todo
+      return stringIntegerMap;
     }catch (Exception e){
       stringIntegerMap.put(e.getMessage(),1);
       return stringIntegerMap;
@@ -207,7 +214,7 @@ public class SimulatorController implements Features{
 
   @Override
   public void showSavePortfolio() {
-    view.showSavePortfolio();
+    view.showSavePortfolio(this.getName());
   }
 
   @Override
@@ -219,4 +226,8 @@ public class SimulatorController implements Features{
   public void showCreateStrategy() {
     view.showAddStrategy(this.getName());
   }
+  public void showInputPerformanceDates() {
+    view.showInputPerformanceDates(this.getName());
+  }
+
 }

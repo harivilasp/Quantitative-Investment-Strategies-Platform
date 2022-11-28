@@ -69,6 +69,12 @@ public class JTransactionView extends JPanel implements PanelView {
     southPanel.add(this.messageLabel);
     this.add(southPanel, BorderLayout.SOUTH);
   }
+  public void setPortfolioName(String portfolioName){
+    portfolioLabel.setText(portfolioName);
+  }
+  public void setEchoOutput(String s) {
+
+  }
 
   public String getInput() {
     return null;
@@ -87,18 +93,21 @@ public class JTransactionView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     buyButton.addActionListener(evt -> {
+      this.clearInput();
       String status = features.buyStock(nameField.getText(),
           Integer.parseInt(quantityField.getText()),
           tranDateField.getText(), Double.parseDouble(commField.getText()));
       messageLabel.setText(status);
     });
     sellButton.addActionListener(evt -> {
+      this.clearInput();
       String status = features.sellStock(nameField.getText(),
           Integer.parseInt(quantityField.getText()),
           tranDateField.getText(), Double.parseDouble(commField.getText()));
       messageLabel.setText(status);
     });
     homeButton.addActionListener(evt -> {
+      this.clearInput();
       features.showHome();
     });
   }

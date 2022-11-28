@@ -53,11 +53,13 @@ public class JCreatePortfolioView extends JPanel implements PanelView{
   @Override
   public void addActionListener(Features features) {
     createButton.addActionListener(evt -> {
+      this.clearInput();
       String status = features.addFlexiblePortfolio(nameField.getText());
       messageLabel.setText(status);
     });
 
     homeButton.addActionListener(evt -> {
+      this.clearInput();
       features.showHome();
     });
   }
