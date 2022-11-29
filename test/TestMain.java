@@ -10,7 +10,7 @@ import view.GUIMainView;
 import view.PortfolioViewImpl;
 
 public class TestMain {
-  public static void main(String args[]){
+  public static void main(String args[]) {
 
     System.out.println("Welcome!");
     int choice;
@@ -42,13 +42,13 @@ public class TestMain {
 
       if (choice == 2) {
         SimulatorController sc = new SimulatorController(new SimulatorImpl(),
-                new GUIMainView(),new InputStreamReader(System.in), System.out);
+                new GUIMainView(), new InputStreamReader(System.in), System.out);
       } else {
         PortfolioController pc = new PortfolioControllerImpl(new SimulatorImpl(),
-                new PortfolioViewImpl(System.out),new InputStreamReader(System.in), System.out);
+                new PortfolioViewImpl(System.out), new InputStreamReader(System.in), System.out);
         try {
           pc.start();
-        }catch (Exception e){
+        } catch (Exception e) {
           System.out.println(e.getMessage());
         }
       }

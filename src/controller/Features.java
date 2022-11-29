@@ -188,4 +188,8 @@ public interface Features {
    */
   void showCreateStrategy();
 
+  void showInputPerformanceDates();
+
+  void showInvestAmount();
+
 }

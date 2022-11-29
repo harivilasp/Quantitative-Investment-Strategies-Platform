@@ -65,9 +65,12 @@ public interface GUIView {
   void showAddStrategy(String portfolioName);
 
   /**
-   * Display the portfolio buy stocks with weights view in the main screen.
+   * Display the portfolio buy stocks with weights view in the main screen given the name of the
+   * portfolio.
+   *
+   * @param portfolioName the provided portfolio name
    */
-  void showBuyStocksWithWeights();
+  void showBuyStocksWithWeights(String portfolioName);
 
   /**
    * Display the portfolio performance view in the main screen given the performance values.
@@ -77,9 +80,11 @@ public interface GUIView {
   void showPerformance(Map<String, Integer> values);
 
   /**
-   * Display the home screen view in the main screen.
+   * Display the home screen view in the main screen given the name of the portfolio.
+   *
+   * @param portfolioName the provided portfolio name
    */
-  void showHome();
+  void showHome(String portfolioName);
 
   /**
    * Add action listeners with the provided set of features supported by views.

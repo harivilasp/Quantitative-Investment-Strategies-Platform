@@ -1,20 +1,13 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
+import controller.Features;
 import utils.Utils;
 
 /**
@@ -143,9 +136,29 @@ public class JStrategyView extends JPanel implements PanelView {
       // Parse weightage text
       try {
         weightage = Double.parseDouble(this.weightageField.getText());
+        weightsMap.put(stockName, weightsMap.getOrDefault(stockName, 0.0) + weightage);
+        messageLabel.setText("Added");
       } catch (NumberFormatException nfe) {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
+    });
+
+    submitButton.addActionListener(event -> {
+      try {
+        messageLabel.setText("Adding");
+        String status = features.addStrategy(Double.parseDouble(this.amountField.getText())
+                , Integer.parseInt(intervalField.getText())
+                , startDateField.getText(), endDateField.getText()
+                , Double.parseDouble(commissionField.getText())
+                , weightsMap);
+        messageLabel.setText(status);
+      } catch (Exception e) {
+        messageLabel.setText(e.getMessage());
+      }
+    });
+    homeButton.addActionListener(event -> {
+      clearInput();
+      features.showHome();
     });
   }
 

@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * This class represents the home screen view.
@@ -23,6 +20,9 @@ public class JHome extends JPanel implements PanelView {
   private JButton readPortfolioFromFile;
   private JButton applyStrategy;
   private JButton compositionAtDate;
+  private JButton portfolioPerformance;
+  private JButton buyStocksWithWeights;
+
   private JButton quit;
 
   /**
@@ -33,7 +33,7 @@ public class JHome extends JPanel implements PanelView {
     this.setVisible(true);
     this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("No Portfolio Selected");
     this.portfolioLabel.setAlignmentX(Container.CENTER_ALIGNMENT);
     this.add(new JLabel("    "));
     this.add(portfolioLabel);
@@ -53,6 +53,8 @@ public class JHome extends JPanel implements PanelView {
     readPortfolioFromFile = new JButton("Read Portfolio From File");
     applyStrategy = new JButton("Apply Strategy");
     compositionAtDate = new JButton("Composition at Date");
+    buyStocksWithWeights = new JButton("Invest Amount");
+    portfolioPerformance = new JButton("Performance of Portfolio");
 
     createPortfolio.setActionCommand("createPortfolio");
     buySellStock.setActionCommand("buySellStockChooseAWay");
@@ -63,6 +65,8 @@ public class JHome extends JPanel implements PanelView {
     quit.setActionCommand("quit");
     applyStrategy.setActionCommand("apply strategy");
     compositionAtDate.setActionCommand("compositionAtDate");
+    buyStocksWithWeights.setActionCommand("investAmount");
+    portfolioPerformance.setActionCommand("portfolioPerformance");
 
     panel.add(createPortfolio);
     panel.add(buySellStock);
@@ -72,6 +76,8 @@ public class JHome extends JPanel implements PanelView {
     panel.add(savePortfolioToFile);
     panel.add(readPortfolioFromFile);
     panel.add(applyStrategy);
+    panel.add(buyStocksWithWeights);
+    panel.add(portfolioPerformance);
     panel.add(quit);
 
     this.add(panel);
@@ -103,7 +109,17 @@ public class JHome extends JPanel implements PanelView {
     applyStrategy.addActionListener(evt -> {
       features.showCreateStrategy();
     });
+    buyStocksWithWeights.addActionListener(event -> {
+      features.showInvestAmount();
+    });
+    portfolioPerformance.addActionListener(event -> {
+      features.showInputPerformanceDates();
+    });
     quit.addActionListener(evt -> features.exitProgram());
+  }
+
+  public void setPortfolioName(String portfolioName) {
+    portfolioLabel.setText(portfolioName);
   }
 
   @Override

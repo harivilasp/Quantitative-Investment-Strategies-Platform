@@ -19,6 +19,6 @@ public class Constants {
 
   /* Controller */
   public static final String ERR_NO_PORTFOLIO_EXISTS = "No portfolio currently in memory! Please "
-      + "create or load a portfolio by navigating to option 3 in the main menu";
+          + "create or load a portfolio by navigating to option 3 in the main menu";
   public static final String ERR_ENTER_NUM = "Error: Please enter a whole number.";
 }

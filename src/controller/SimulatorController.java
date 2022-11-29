@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import model.Simulator;
 import model.Stock;
 import view.GUIView;
@@ -61,7 +62,7 @@ public class SimulatorController implements Features {
   public String getValue(String date) {
     try {
       double valueAtDate = model.getValue(date);
-      return "Value at + " + date + " : " + Double.toString(valueAtDate);
+      return "Value at " + date + " : " + Double.toString(valueAtDate);
     } catch (Exception e) {
       return e.getMessage();
     }
@@ -134,13 +135,18 @@ public class SimulatorController implements Features {
       double costBasis = this.model.getCostBasis(date);
       return "Cost Basis : " + costBasis;
     } catch (Exception e) {
-      return e.getMessage();
+      return "Invalid Argument";
     }
   }
 
   @Override
   public List<String> getCompositionAtDate(String date) {
-    List<Stock> stockList = this.model.getCompositionAtDate(date);
+    List<Stock> stockList = new ArrayList<>();
+    try {
+      stockList = this.model.getCompositionAtDate(date);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
     List<String> list = new ArrayList<>();
     for (Stock stock : stockList) {
       list.add(stock.toString());
@@ -153,8 +159,8 @@ public class SimulatorController implements Features {
 
   @Override
   public String addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) {
+                            String startDate, String endDate, double commission,
+                            Map<String, Double> weights) {
     try {
       this.model.addStrategy(amount, intervalInDays, startDate, endDate, commission, weights);
       return "Successfully applied";
@@ -165,12 +171,12 @@ public class SimulatorController implements Features {
 
   @Override
   public String buyStocksWithWeights(double amount, String date, double commission,
-      Map<String, Double> weights) {
+                                     Map<String, Double> weights) {
     try {
       this.model.buyStocksWithWeights(amount, date, commission, weights);
       return "Successfully bought";
     } catch (Exception e) {
-      return e.toString();
+      return e.getMessage();
     }
   }
 
@@ -178,7 +184,7 @@ public class SimulatorController implements Features {
   public Map<String, Integer> getPerformance(String startDate, String endDate) {
     Map<String, Integer> stringIntegerMap = new HashMap<>();
     try {
-      stringIntegerMap = getPerformance(startDate, endDate);
+      stringIntegerMap = model.getPerformance(startDate, endDate);
       // todo
       return stringIntegerMap;
     } catch (Exception e) {
@@ -194,7 +200,7 @@ public class SimulatorController implements Features {
 
   @Override
   public void showHome() {
-    view.showHome();
+    view.showHome(this.getName());
   }
 
   @Override
@@ -240,6 +246,10 @@ public class SimulatorController implements Features {
 
   public void showInputPerformanceDates() {
     view.showInputPerformanceDates(this.getName());
+  }
+
+  public void showInvestAmount() {
+    view.showBuyStocksWithWeights(this.getName());
   }
 
 }

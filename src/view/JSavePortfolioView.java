@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * This class represents the JPanel view for "Portfolio save" operation on flexible portfolios.
@@ -29,7 +26,7 @@ public class JSavePortfolioView extends JPanel implements PanelView {
   public JSavePortfolioView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
-
+    portfolioName = new String();
     // North panel -> title
     this.titleLabel = new JLabel(title);
 
@@ -65,6 +62,9 @@ public class JSavePortfolioView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     this.negButton.addActionListener(event -> {
+      features.showHome();
+    });
+    this.homeButton.addActionListener(event -> {
       features.showHome();
     });
     this.posButton.addActionListener(evt -> {

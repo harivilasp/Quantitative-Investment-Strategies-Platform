@@ -1,12 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * This class represents the JPanel view for "Portfolio buy/sell stock" operation on flexible
@@ -106,19 +104,29 @@ public class JTransactionView extends JPanel implements PanelView {
   @Override
   public void addActionListener(Features features) {
     buyButton.addActionListener(evt -> {
-      this.clearInput();
-      String status = features.buyStock(nameField.getText(),
-          Integer.parseInt(quantityField.getText()),
-          tranDateField.getText(), Double.parseDouble(commField.getText()));
-      messageLabel.setText(status);
+      try {
+        String status = features.buyStock(nameField.getText(),
+                Integer.parseInt(quantityField.getText()),
+                tranDateField.getText(), Double.parseDouble(commField.getText()));
+        messageLabel.setText(status);
+        nameField.setText("");
+        tranDateField.setText("");
+      } catch (Exception e) {
+        messageLabel.setText(e.getMessage());
+      }
     });
 
     sellButton.addActionListener(evt -> {
-      this.clearInput();
-      String status = features.sellStock(nameField.getText(),
-          Integer.parseInt(quantityField.getText()),
-          tranDateField.getText(), Double.parseDouble(commField.getText()));
-      messageLabel.setText(status);
+      try {
+        String status = features.sellStock(nameField.getText(),
+                Integer.parseInt(quantityField.getText()),
+                tranDateField.getText(), Double.parseDouble(commField.getText()));
+        messageLabel.setText(status);
+        nameField.setText("");
+        tranDateField.setText("");
+      } catch (Exception e) {
+        messageLabel.setText(e.getMessage());
+      }
     });
 
     homeButton.addActionListener(evt -> {

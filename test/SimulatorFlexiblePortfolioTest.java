@@ -48,7 +48,7 @@ public class SimulatorFlexiblePortfolioTest {
 
   @Test(expected = Exception.class)
   public void testBuyStockInvalidDate() throws IOException {
-    simulator.sellStock("GOOG", 6, "2014-20-22", 0.2);
+    simulator.buyStock("GOOG", 6, "2014-20-22", 0.2);
     String s = "Error";
     assertEquals("Error", s);
   }
@@ -94,6 +94,13 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test
+  public void testGetPerformanceOverMonths() throws RuntimeException, ParseException {
+    Map<String, Integer> performances = simulator.getPerformance("2022-08-19", "2022-10-15");
+
+  }
+
+
+  @Test
   public void testGetPerformanceYearsLargediff() throws RuntimeException, ParseException {
     Map<String, Integer> performances = simulator.getPerformance("1950-09-19", "2022-10-15");
     assertEquals("{1950-09-19=0, 1957-09-19=0, 1964-09-19=0, 1971-09-19=0, "
@@ -126,7 +133,7 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test
-  public void testLoadFlexiblePortfolio() throws Exception{
+  public void testLoadFlexiblePortfolio() throws Exception {
     simulator.loadFlexiblePortfolio("flexibleportfolios/testLoadPortfolio.txt");
     assertTrue(simulator.isPortfolioChosen());
     assertEquals("[NFLX=24.0, MSFT=24.0, AAPL=21.0]", simulator.getComposition().toString());
@@ -141,35 +148,35 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test(expected = Exception.class)
-  public void testBuyStocksWithWeightsWithInvalidDate() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.buyStocksWithWeights(2000.0,"2-09-09",0.4,weights);
+  public void testBuyStocksWithWeightsWithInvalidDate() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.buyStocksWithWeights(2000.0, "2-09-09", 0.4, weights);
   }
 
   @Test
-  public void testBuyStocksWithWeights() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.buyStocksWithWeights(2000.0,"2022-09-09",0.4,weights);
+  public void testBuyStocksWithWeights() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.buyStocksWithWeights(2000.0, "2022-09-09", 0.4, weights);
     System.out.println(simulator.getCompositionAtDate("2022-09-08").toString());
     System.out.println(simulator.getCompositionAtDate("2022-09-18").toString());
   }
 
   @Test
-  public void testAddStrategy() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"2019-01-01", "2021-12-31",0.4,weights);
+  public void testAddStrategy() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 30, "2019-01-01", "2021-12-31", 0.4, weights);
     System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
     System.out.println(simulator.getCompositionAtDate("2019-10-01").toString());
     System.out.println(simulator.getCompositionAtDate("2019-11-02").toString());
@@ -177,56 +184,56 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test(expected = Exception.class)
-  public void testAddStrategyWithInvalidDate() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"201-01", "2015-12-31",0.4,weights);
+  public void testAddStrategyWithInvalidDate() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 30, "201-01", "2015-12-31", 0.4, weights);
   }
 
   @Test(expected = Exception.class)
-  public void testAddStrategyWithSmallerEndDate() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"2015-01-01", "2012-12-31",0.4,weights);
+  public void testAddStrategyWithSmallerEndDate() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 30, "2015-01-01", "2012-12-31", 0.4, weights);
   }
 
   @Test
-  public void testAddStrategyWithFutureEndDate() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"2022-01-01", "2024-12-31",0.4,weights);
+  public void testAddStrategyWithFutureEndDate() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 30, "2022-01-01", "2024-12-31", 0.4, weights);
     System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
     System.out.println(simulator.getCompositionAtDate("2022-10-01").toString());
     System.out.println(simulator.getCompositionAtDate("2022-11-02").toString());
   }
 
   @Test
-  public void testAddStrategyWithNoEndDate() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,30,"2012-01-01", "2015-12-31",0.4,weights);
+  public void testAddStrategyWithNoEndDate() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 30, "2012-01-01", "2015-12-31", 0.4, weights);
   }
 
   @Test
-  public void testCostBasisAfterAtFutureDateAfterFutureStrategy() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("META",40.0);
-    weights.put("AAPL",20.0);
-    weights.put("NFLX",30.0);
-    weights.put("GOOG",10.0);
-    simulator.addStrategy(2000.0,3,"2022-11-21", "2022-12-01",0.4,weights);
+  public void testCostBasisAfterAtFutureDateAfterFutureStrategy() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 3, "2022-11-21", "2022-12-01", 0.4, weights);
     System.out.println(simulator.getCostBasis("2022-10-01"));
     System.out.println(simulator.getCostBasis("2023-10-01"));
     System.out.println(simulator.getCostBasis("2024-10-01"));
@@ -235,13 +242,13 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test
-  public void testAddStrategyDaily() throws Exception{
-    Map<String,Double> weights = new HashMap<>();
-    weights.put("MSFT",25.0);
-    weights.put("GOOG",50.0);
-    weights.put("NFLX",15.0);
-    weights.put("AAPL",10.0);
-    simulator.addStrategy(2000.0,7,"2021-02-11", "2021-02-30",0.0,weights);
+  public void testAddStrategyDaily() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("MSFT", 25.0);
+    weights.put("GOOG", 50.0);
+    weights.put("NFLX", 15.0);
+    weights.put("AAPL", 10.0);
+    simulator.addStrategy(2000.0, 7, "2021-02-11", "2021-02-30", 0.0, weights);
   }
 
 }

@@ -1,13 +1,10 @@
 package view;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * This class represents the JPanel view for "Portfolio value at date" operation on flexible
@@ -41,7 +38,7 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Enter date and submit
-    this.dateField = new JTextField(6);
+    this.dateField = new JTextField(10);
     this.actionButton = new JButton("Get Value");
     this.homeButton = new JButton("HOME");
 
@@ -71,6 +68,9 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.actionButton.addActionListener(event -> {
       String response = features.getValue(dateField.getText());
       this.messageLabel.setText(String.valueOf(response));
+    });
+    this.homeButton.addActionListener(event -> {
+      features.showHome();
     });
   }
 

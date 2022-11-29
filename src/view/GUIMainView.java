@@ -18,33 +18,34 @@ public class GUIMainView extends JFrame implements GUIView {
   private JSavePortfolioView savePortfolio;
   private JLoadPortfolioView loadPortfolio;
   private JStrategyView addStrategy;
-  private JPanel buyStocksWithWeights;
+  private JBuyWeightageView buyStocksWithWeights;
   private JCostBasisView costBasis;
   private JCompositionView compositionAtDate;
   private JHome home;
   private JPanel currentPanel;
   private JTransactionView transactionView;
+  JPerfGraphView perfGraphView;
 
   /**
    * Creates an instance of the GUIMainView JFrame to show the variety of view panels.
    */
   public GUIMainView() {
     super("Stock Market Simulator");
-    this.setPreferredSize(new Dimension(450, 500));
+    this.setPreferredSize(new Dimension(850, 650));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
 
     home = new JHome();
-    currentPanel = home;
     createPortfolio = new JCreatePortfolioView("Create Portfolio");
     portfolioValue = new JValueAtDateView("Portfolio Value at Date");
     savePortfolio = new JSavePortfolioView("Save Portfolio");
     loadPortfolio = new JLoadPortfolioView("Load Portfolio");
     addStrategy = new JStrategyView("Add Strategy");
-    buyStocksWithWeights = new JPanel();
+    buyStocksWithWeights = new JBuyWeightageView("Buy with stocks");
     costBasis = new JCostBasisView("Cost Basis");
     compositionAtDate = new JCompositionView("Composition At Date");
     transactionView = new JTransactionView("Buy Sell Stock");
+    perfGraphView = new JPerfGraphView("Performance over time");
     this.add(home);
     this.pack();
   }
@@ -120,8 +121,12 @@ public class GUIMainView extends JFrame implements GUIView {
   }
 
   @Override
-  public void showBuyStocksWithWeights() {
-    // TODO: Complete implementation
+  public void showBuyStocksWithWeights(String portfolioName) {
+    this.getContentPane().removeAll();
+    this.repaint();
+    buyStocksWithWeights.setPortfolioName(portfolioName);
+    this.getContentPane().add(buyStocksWithWeights);
+    this.pack();
   }
 
   @Override
@@ -130,9 +135,10 @@ public class GUIMainView extends JFrame implements GUIView {
   }
 
   @Override
-  public void showHome() {
+  public void showHome(String portfolioName) {
     this.getContentPane().removeAll();
     this.repaint();
+    home.setPortfolioName(portfolioName);
     this.add(home);
     this.pack();
   }
@@ -147,11 +153,18 @@ public class GUIMainView extends JFrame implements GUIView {
     transactionView.addActionListener(features);
     savePortfolio.addActionListener(features);
     portfolioValue.addActionListener(features);
+    addStrategy.addActionListener(features);
+    buyStocksWithWeights.addActionListener(features);
+    perfGraphView.addActionListener(features);
   }
 
   @Override
   public void showInputPerformanceDates(String portfolioName) {
-    // TODO: Complete implementation
+    this.getContentPane().removeAll();
+    this.repaint();
+    perfGraphView.setPortfolioName(portfolioName);
+    this.add(perfGraphView);
+    this.pack();
   }
 
 }
