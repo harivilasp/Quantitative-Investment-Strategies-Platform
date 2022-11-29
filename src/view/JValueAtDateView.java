@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Portfolio value at date" operation on flexible
+ * portfolios.
+ */
 public class JValueAtDateView extends JPanel implements PanelView {
 
   private JButton homeButton;
@@ -18,6 +22,11 @@ public class JValueAtDateView extends JPanel implements PanelView {
   private JLabel messageLabel;
   private JLabel portfolioLabel;
 
+  /**
+   * Creates an instance of the JValueAtDate view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JValueAtDateView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));

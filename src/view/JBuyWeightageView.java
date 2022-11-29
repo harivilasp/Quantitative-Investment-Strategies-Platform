@@ -18,6 +18,10 @@ import javax.swing.JTextField;
 import utils.Utils;
 
 
+/**
+ * This class represents the JPanel view for "Buying stocks with weightage" operation on a flexible
+ * portfolio.
+ */
 public class JBuyWeightageView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
@@ -34,6 +38,11 @@ public class JBuyWeightageView extends JPanel implements PanelView {
 
   private final Map<String, Double> weightsMap;
 
+  /**
+   * Creates an instance of the JBuyWeightage view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JBuyWeightageView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
@@ -71,8 +80,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
 
-    // TODO: Remove
-    Utils.loadValidStocks();
+    Utils.loadValidStocks();     // TODO: Remove
     String[] options = new String[Utils.VALID_STOCKS.size()];
     options = Utils.VALID_STOCKS.toArray(options);
     Arrays.sort(options);

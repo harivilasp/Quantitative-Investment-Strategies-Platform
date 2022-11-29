@@ -9,7 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JSavePortfolio extends JPanel implements PanelView {
+/**
+ * This class represents the JPanel view for "Portfolio save" operation on flexible portfolios.
+ */
+public class JSavePortfolioView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel messageLabel;
@@ -18,7 +21,12 @@ public class JSavePortfolio extends JPanel implements PanelView {
   private JButton homeButton;
   private String portfolioName;
 
-  public JSavePortfolio(String title) {
+  /**
+   * Creates an instance of the JSavePortfolio view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
+  public JSavePortfolioView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
 

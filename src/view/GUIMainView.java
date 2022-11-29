@@ -7,20 +7,27 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * This class is the implementation of the {@code GUIView} interface and completes the transactions
+ * of showing multiple views on the screen.
+ */
 public class GUIMainView extends JFrame implements GUIView {
 
-  JValueAtDateView portfolioValue;
-  JCreatePortfolioView createPortfolio;
-  JSavePortfolio savePortfolio;
-  JLoadPortfolioView loadPortfolio;
-  JStrategyView addStrategy;
-  JPanel buyStocksWithWeights;
-  JCostBasisView costBasis;
-  JCompositionView compositionAtDate;
-  JHome home;
-  JPanel currentPanel;
-  JTransactionView transactionView;
+  private JValueAtDateView portfolioValue;
+  private JCreatePortfolioView createPortfolio;
+  private JSavePortfolioView savePortfolio;
+  private JLoadPortfolioView loadPortfolio;
+  private JStrategyView addStrategy;
+  private JPanel buyStocksWithWeights;
+  private JCostBasisView costBasis;
+  private JCompositionView compositionAtDate;
+  private JHome home;
+  private JPanel currentPanel;
+  private JTransactionView transactionView;
 
+  /**
+   * Creates an instance of the GUIMainView JFrame to show the variety of view panels.
+   */
   public GUIMainView() {
     super("Stock Market Simulator");
     this.setPreferredSize(new Dimension(450, 500));
@@ -31,7 +38,7 @@ public class GUIMainView extends JFrame implements GUIView {
     currentPanel = home;
     createPortfolio = new JCreatePortfolioView("Create Portfolio");
     portfolioValue = new JValueAtDateView("Portfolio Value at Date");
-    savePortfolio = new JSavePortfolio("Save Portfolio");
+    savePortfolio = new JSavePortfolioView("Save Portfolio");
     loadPortfolio = new JLoadPortfolioView("Load Portfolio");
     addStrategy = new JStrategyView("Add Strategy");
     buyStocksWithWeights = new JPanel();
@@ -114,12 +121,12 @@ public class GUIMainView extends JFrame implements GUIView {
 
   @Override
   public void showBuyStocksWithWeights() {
-
+    // TODO: Complete implementation
   }
 
   @Override
   public void showPerformance(Map<String, Integer> values) {
-
+    // TODO: Complete implementation
   }
 
   @Override
@@ -144,7 +151,7 @@ public class GUIMainView extends JFrame implements GUIView {
 
   @Override
   public void showInputPerformanceDates(String portfolioName) {
-
+    // TODO: Complete implementation
   }
 
 }

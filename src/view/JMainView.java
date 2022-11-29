@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import view.archive.IView;
 
+/**
+ * This class represents the Main screen frame view for displaying and working on a portfolio.
+ */
 public class JMainView extends JFrame implements IView {
 
   private JLabel display;
@@ -20,13 +23,18 @@ public class JMainView extends JFrame implements IView {
   private JButton backButton;
   private JButton exitButton;
 
+  /**
+   * Creates an instance of the JMain frame view to map out all the panel view components.
+   *
+   * @throws HeadlessException in case of frame instantiation errors
+   */
   public JMainView() throws HeadlessException {
     setupJView();
   }
 
   @Override
   public void setEchoOutput(String s) {
-
+    // TODO: Complete implementation
   }
 
   @Override
@@ -36,19 +44,20 @@ public class JMainView extends JFrame implements IView {
 
   @Override
   public void clearInput() {
-
+    // TODO: Complete implementation
   }
 
   @Override
   public void resetFocus() {
-
+    // TODO: Complete implementation
   }
 
   @Override
   public void addFeatures(Features features) {
-
+    // TODO: Complete implementation
   }
 
+  /* Helper method to set up the frame view. */
   private void setupJView() {
     setSize(500, 500);
     setMinimumSize(new Dimension(500, 500));

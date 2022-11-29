@@ -47,10 +47,27 @@ public interface FlexiblePortfolio extends Portfolio {
    */
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
 
-  void addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) throws Exception;
+  /**
+   * This method helps add strategy to the flexible portfolio for buying and selling of stocks.
+   *
+   * @param amount         the provided balance to use for purchase and sale of stocks
+   * @param intervalInDays the interval in days to complete these operations
+   * @param startDate      the start date of these operations
+   * @param endDate        the end date of these operations (optional)
+   * @param commission     the commission associated with these operations
+   * @param weights        the stocks weights associated with these operations
+   */
+  void addStrategy(double amount, int intervalInDays, String startDate, String endDate,
+      double commission, Map<String, Double> weights) throws Exception;
 
-  void buyStocksWithWeights(double amount, String Date, double commission,
+  /**
+   * This method helps buy stocks associated with weights for each stocks for a defined amount.
+   *
+   * @param amount     the provided amount
+   * @param date       the date of the purchase
+   * @param commission the commission associated with the purchase
+   * @param weights    the defined weights for the stocks
+   */
+  void buyStocksWithWeights(double amount, String date, double commission,
       Map<String, Double> weights) throws Exception;
 }

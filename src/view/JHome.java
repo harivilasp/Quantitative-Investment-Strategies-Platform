@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * This class represents the main view.
+ * This class represents the home screen view.
  */
 public class JHome extends JPanel implements PanelView {
 
@@ -25,6 +25,9 @@ public class JHome extends JPanel implements PanelView {
   private JButton compositionAtDate;
   private JButton quit;
 
+  /**
+   * Creates an instance of the JHome view to map out all the view components.
+   */
   public JHome() {
     this.setPreferredSize(new Dimension(450, 500));
     this.setVisible(true);
@@ -74,6 +77,7 @@ public class JHome extends JPanel implements PanelView {
     this.add(panel);
   }
 
+  @Override
   public void addActionListener(Features features) {
     createPortfolio.addActionListener(evt -> {
       features.showCreatePortfolio();

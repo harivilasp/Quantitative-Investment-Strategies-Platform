@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Performance graph" operation.
+ */
 public class JPerfGraphView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
@@ -20,6 +23,11 @@ public class JPerfGraphView extends JPanel implements PanelView {
   private JButton showButton;
   private JButton homeButton;
 
+  /**
+   * Creates an instance of the JPerfGraph view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JPerfGraphView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
@@ -61,11 +69,11 @@ public class JPerfGraphView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
-
+    // TODO: Complete implementation
   }
 
   @Override
   public void clearInput() {
-
+    // TODO: Complete implementation
   }
 }

@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Portfolio buy/sell stock" operation on flexible
+ * portfolios.
+ */
 public class JTransactionView extends JPanel implements PanelView {
 
   private JButton homeButton;
@@ -21,6 +25,11 @@ public class JTransactionView extends JPanel implements PanelView {
   private JButton sellButton;
   private JLabel messageLabel;
 
+  /**
+   * Creates an instance of the JTransaction view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JTransactionView(String title) {
     setSize(500, 500);
     setLocation(200, 100);
@@ -77,7 +86,7 @@ public class JTransactionView extends JPanel implements PanelView {
   }
 
   public void setEchoOutput(String s) {
-
+    // TODO: Complete implementation
   }
 
   public String getInput() {
@@ -103,6 +112,7 @@ public class JTransactionView extends JPanel implements PanelView {
           tranDateField.getText(), Double.parseDouble(commField.getText()));
       messageLabel.setText(status);
     });
+
     sellButton.addActionListener(evt -> {
       this.clearInput();
       String status = features.sellStock(nameField.getText(),
@@ -110,6 +120,7 @@ public class JTransactionView extends JPanel implements PanelView {
           tranDateField.getText(), Double.parseDouble(commField.getText()));
       messageLabel.setText(status);
     });
+
     homeButton.addActionListener(evt -> {
       this.clearInput();
       features.showHome();

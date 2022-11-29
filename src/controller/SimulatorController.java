@@ -9,6 +9,10 @@ import model.Simulator;
 import model.Stock;
 import view.GUIView;
 
+/**
+ * This is the simulator GUI controller implementation which handles flow of program and
+ * implementation of {@code Features} interface.
+ */
 public class SimulatorController implements Features {
 
   /* The model class instance. */
@@ -23,6 +27,14 @@ public class SimulatorController implements Features {
   /* The Appendable out instance. */
   private final Appendable out;
 
+  /**
+   * This method constructs the model of controller.
+   *
+   * @param model represents the model of program
+   * @param view  represents the view of program
+   * @param in    represents the Readable Input Stream
+   * @param out   represents the Appendable Output Stream
+   */
   public SimulatorController(Simulator model, GUIView view, Readable in, Appendable out) {
     // Create the model
     this.model = model;
@@ -42,7 +54,7 @@ public class SimulatorController implements Features {
 
   @Override
   public void resetPortfolios() {
-
+    // TODO: Complete implementation
   }
 
   @Override

@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Create portfolio" operation.
+ */
 public class JCreatePortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
@@ -17,6 +20,11 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
   private JButton createButton;
   private JLabel messageLabel;
 
+  /**
+   * Creates an instance of the JCreatePortfolio view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JCreatePortfolioView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));

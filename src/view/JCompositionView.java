@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Portfolio composition" operation on a flexible
+ * portfolio.
+ */
 public class JCompositionView extends JPanel implements PanelView {
 
   private JButton homeButton;
@@ -19,6 +23,11 @@ public class JCompositionView extends JPanel implements PanelView {
   private JButton showButton;
   private JLabel messageLabel;
 
+  /**
+   * Creates an instance of the JComposition view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JCompositionView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));

@@ -17,6 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import utils.Utils;
 
+/**
+ * This class represents the JPanel view for "Portfolio strategy creation" operation on flexible
+ * portfolios.
+ */
 public class JStrategyView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
@@ -35,6 +39,11 @@ public class JStrategyView extends JPanel implements PanelView {
 
   private final Map<String, Double> weightsMap;
 
+  /**
+   * Creates an instance of the JStrategy view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JStrategyView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
@@ -140,6 +149,11 @@ public class JStrategyView extends JPanel implements PanelView {
     });
   }
 
+  /**
+   * Helper method to set the portfolio name.
+   *
+   * @param portfolioName the provided portfolio name
+   */
   public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
   }

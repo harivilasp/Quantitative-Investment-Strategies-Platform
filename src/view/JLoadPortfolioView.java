@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * This class represents the JPanel view for "Load portfolio" operation.
+ */
 public class JLoadPortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
@@ -17,6 +20,11 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
   private JButton chooseFileButton;
   private JLabel messageLabel;
 
+  /**
+   * Creates an instance of the JLoadPortfolio view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JLoadPortfolioView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));

@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the JPanel view for "Portfolio cost basis" operation on a flexible
+ * portfolio.
+ */
 public class JCostBasisView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
@@ -18,6 +22,11 @@ public class JCostBasisView extends JPanel implements PanelView {
   private JButton homeButton;
   private JLabel messageLabel;
 
+  /**
+   * Creates an instance of the JCostBasis view to map out all the view components.
+   *
+   * @param title the title of the view panel
+   */
   public JCostBasisView(String title) {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
@@ -66,6 +75,11 @@ public class JCostBasisView extends JPanel implements PanelView {
     });
   }
 
+  /**
+   * Helper method to set the portfolio name.
+   *
+   * @param portfolioName the provided portfolio name
+   */
   public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
   }
