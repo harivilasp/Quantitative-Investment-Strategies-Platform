@@ -136,8 +136,27 @@ DETAILED DESCRIPTION
   2.3. In case of any invalid choices or inputs from the user, an appropriate message is displayed
   using the view.
   2.4. Interacts with the model to complete the actions displayed to the user.
+  2.5. The controller comprises a "Features" interface to represent all the features supported by
+  the variety of views. This improves the design by decoupling the controller and the views.
 
 3. VIEW
   3.1. The View will have methods to display options to user in interactive way.
   3.2. Additionally, the view is responsible for showing the input messages to the user.
-  3.3 JFRAMESS!!!
+  3.3. The GUI however, has a home screen JFrame that presents a grid of ten operations available to
+   the user to act on portfolios. The JFrame remains the same, however we replace the JPanels
+   displayed to present different views. The GUIMainView controls the different portfolio operation
+   JPanels by swapping out using: getContentPane().removeAll(), repaint(),
+   getContentPane().add(<JPanel Instance>) and, pack().
+
+   The initial state of the JFrame consists of the home screen JPanel. In case the user selects a
+   panel from the provided grid, all current panels are removed from the frame, and then the panel
+   to be displayed is added to the content pane and packed.
+
+   3.4. The JHome view panel controls the action listener for all the subsequent JPanel's using the
+   Features interface implemented by the Controller. Each action event is associated with the
+   opening of that specific JPanel.
+
+   3.5. The operation JPanels have the associated view components to implement the functionality
+   correctly and provide a great user experience. Additionally, each panel is equipped with message
+   field to keep the user updated about the status of their operation and a home button to jump back
+    to the home screen for further operations on the same portfolio.

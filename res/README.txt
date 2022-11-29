@@ -74,3 +74,42 @@ FLEXIBLE PORTFOLIO
 9. Web API Integration has been completed, which fetches the real time prices of stocks
    for date with design to support plan (for additional APIs in the future).
 
+USER INTERFACE
+
+The JAR file provides the options to run the program on a graphical user interface or the earlier
+created text interface.
+
+The text interface works as expected, showing users a list of operations to work on and taking input
+ to select a certain operation. Each operation is associated with a further list of operations and
+ input sequences to operate on the portfolios. The text interface provides the following list of
+ operations to operate on either inflexible or flexible portoflios.
+
+1. Show value at specific date
+2. Create/Load portfolio
+3. Show performance over time
+4. Buy stocks
+5. Sell stocks
+6. Show cost basis
+7. Show composition at date
+8. Exit
+
+The GUI option however, provides the user the below set of operations arranged in a grid layout for
+the user to click.
+
+1. Create portfolio
+2. Buy/Sell stock
+3. Composition at date
+4. Check cost basis
+5. Check value
+6. Save portfolio to file
+7. Read portfolio from file
+8. Apply strategy
+9. Invest amount
+10. Performance of portfolio
+11. Quit
+
+The user can click on any of the options which opens a new panel for that operation inside the same
+window, by replacing the old one. Each window has the associated view components to implement the
+functionality correctly and provide a great user experience. Additionally, each panel is equipped
+with message field to keep the user updated about the status of their operation and a home button to
+ jump back to the home screen for further operations on the same portfolio.

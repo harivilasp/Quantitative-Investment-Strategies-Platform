@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +40,8 @@ public interface Features {
 
   /**
    * This helps to make in memory portfolio persistent by saving it as a text file.
-   *
-   * @throws IOException      if error occurs while saving file
-   * @throws RuntimeException if improper data
    */
-  String save() throws IOException, RuntimeException;
+  String save();
 
   /**
    * This method helps to create new empty flexible portfolio.
@@ -58,10 +54,8 @@ public interface Features {
    * This method helps to load flexible portfolio form existing file.
    *
    * @param filepath the relative file path
-   * @throws IllegalArgumentException in case of invalid filepath
-   * @throws RuntimeException         if the portfolio does not exist or is of an invalid format
    */
-  String loadFlexiblePortfolio(String filepath) throws IllegalArgumentException, RuntimeException;
+  String loadFlexiblePortfolio(String filepath);
 
   /**
    * This method helps to purchase a stock for a portfolio.
