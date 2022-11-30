@@ -1,8 +1,8 @@
 package view;
 
-import controller.Features;
 import java.util.List;
-import java.util.Map;
+
+import controller.Features;
 
 /**
  * This interface defines all the operations as part of the Graphical User Interface (GUI) for the
@@ -72,12 +72,6 @@ public interface GUIView {
    */
   void showBuyStocksWithWeights(String portfolioName);
 
-  /**
-   * Display the portfolio performance view in the main screen given the performance values.
-   *
-   * @param values the provided portfolio performance values
-   */
-  void showPerformance(Map<String, Integer> values);
 
   /**
    * Display the home screen view in the main screen given the name of the portfolio.

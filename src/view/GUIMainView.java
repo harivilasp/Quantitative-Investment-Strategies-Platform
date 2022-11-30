@@ -1,11 +1,11 @@
 package view;
 
-import controller.Features;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.List;
-import java.util.Map;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+
+import javax.swing.*;
+
+import controller.Features;
 
 /**
  * This class is the implementation of the {@code GUIView} interface and completes the transactions
@@ -127,11 +127,6 @@ public class GUIMainView extends JFrame implements GUIView {
     buyStocksWithWeights.setPortfolioName(portfolioName);
     this.getContentPane().add(buyStocksWithWeights);
     this.pack();
-  }
-
-  @Override
-  public void showPerformance(Map<String, Integer> values) {
-    // TODO: Complete implementation
   }
 
   @Override

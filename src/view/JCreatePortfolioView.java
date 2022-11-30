@@ -47,7 +47,7 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("<Message comes here>");
 
     JPanel southPanel = new JPanel();
     southPanel.add(this.messageLabel);

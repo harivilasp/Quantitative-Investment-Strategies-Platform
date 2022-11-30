@@ -30,7 +30,7 @@ public class JCostBasisView extends JPanel implements PanelView {
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
@@ -52,7 +52,7 @@ public class JCostBasisView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("<Message comes here>");
 
     JPanel southPanel = new JPanel();
     southPanel.add(this.messageLabel);

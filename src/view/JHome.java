@@ -124,7 +124,7 @@ public class JHome extends JPanel implements PanelView {
 
   @Override
   public void clearInput() {
-
+    // nothing to clear
   }
 
   /**

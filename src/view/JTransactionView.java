@@ -83,14 +83,6 @@ public class JTransactionView extends JPanel implements PanelView {
     portfolioLabel.setText(portfolioName);
   }
 
-  public void setEchoOutput(String s) {
-    // TODO: Complete implementation
-  }
-
-  public String getInput() {
-    return null;
-  }
-
   @Override
   public void clearInput() {
     this.messageLabel.setText("");

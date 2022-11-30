@@ -1,18 +1,13 @@
 package view;
 
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.Map;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
+import java.util.Map;
+
+import javax.swing.*;
+
+import controller.Features;
 
 /**
  * This class represents the JPanel view for "Performance graph" operation.
@@ -102,6 +97,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
         if (map.size()==1){
           System.out.println("Invalid Arguments");
         }
+        clearInput();
         PerformanceGraph.DrawGraph(map);
       } catch (Exception e) {
         e.getMessage();
@@ -109,12 +105,14 @@ public class JPerfGraphView extends JPanel implements PanelView {
     });
 
     homeButton.addActionListener(event -> {
+      clearInput();
       features.showHome();
     });
   }
 
   @Override
   public void clearInput() {
-    // TODO: Complete implementation
+    startDateField.setText("");
+    endDateField.setText("");
   }
 }
