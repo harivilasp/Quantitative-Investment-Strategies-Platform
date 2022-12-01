@@ -1,13 +1,20 @@
 package view;
 
-import java.awt.*;
+import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.*;
-
-import controller.Features;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import utils.Utils;
 
 /**
@@ -80,8 +87,6 @@ public class JStrategyView extends JPanel implements PanelView {
     boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
 
-    // TODO: Remove
-    Utils.loadValidStocks();
     String[] options = new String[Utils.VALID_STOCKS.size()];
     options = Utils.VALID_STOCKS.toArray(options);
     Arrays.sort(options);
@@ -146,11 +151,13 @@ public class JStrategyView extends JPanel implements PanelView {
     submitButton.addActionListener(event -> {
       try {
         messageLabel.setText("Adding");
-        String status = features.addStrategy(Double.parseDouble(this.amountField.getText())
-                , Integer.parseInt(intervalField.getText())
-                , startDateField.getText(), endDateField.getText()
-                , Double.parseDouble(commissionField.getText())
-                , weightsMap);
+        String status = features.addStrategy(
+            Double.parseDouble(this.amountField.getText()),
+            Integer.parseInt(intervalField.getText()),
+            startDateField.getText(), endDateField.getText(),
+            Double.parseDouble(commissionField.getText()),
+            weightsMap
+        );
         messageLabel.setText(status);
       } catch (Exception e) {
         messageLabel.setText(e.getMessage());

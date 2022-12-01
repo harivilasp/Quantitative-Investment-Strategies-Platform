@@ -36,21 +36,30 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
     // Center panel -> Name text field and create button
     this.nameField = new JTextField(12);
     this.createButton = new JButton("CREATE");
-    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
     centerPanel.add(new JLabel("Portfolio name:"));
     centerPanel.add(this.nameField);
     centerPanel.add(this.createButton);
-    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton = new JButton("HOME");
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    // BoxLayout for the south panel
+    JPanel southBox = new JPanel();
+    southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
+    southBox.add(this.messageLabel);
+    southBox.add(new JLabel("      "));
+    southBox.add(this.homeButton);
+    southBox.add(new JLabel("      "));
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.messageLabel);
+    southPanel.add(southBox);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
