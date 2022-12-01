@@ -136,33 +136,39 @@ public class SimulatorImpl implements Simulator {
     this.flexiblePortfolio.sellStock(stock, date, commission);
   }
 
-  @Override
-  public Map<String, Integer> getPerformance(String startDate, String endDate)
-          throws IllegalArgumentException {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+  private Map<String,Integer> calculateValueScale(Map<String,Integer> performances){
+    ArrayList<Integer> vals = new ArrayList<Integer>(performances.values());
+    vals.sort((Integer a, Integer b) -> a.compareTo(b));
+    double mi = vals.get(0);
+    if (mi == 0) {
+      for (int val : vals) {
+        if (val > 0) {
+          mi = val;
+          break;
+        }
+      }
+    }
+    int ma = vals.get(vals.size() - 1);
+    //System.out.println(ma/mi);
+    double scalediff = ma - mi;
+    scalediff /= 10;
+    mi -= scalediff;
+    // relative
+    for (Map.Entry<String, Integer> entry : performances.entrySet()) {
+      String key = entry.getKey();
+      if (performances.get(key) > 0) {
+        performances.put(key, (int) Math.round((performances.get(key) - mi) / scalediff));
+      }
+    }
+    performances.put("Scale (relative) [$" + Double.toString(mi) + "]",
+            (int) Math.round(scalediff));
+    return performances;
+  }
+  private Map<String, Integer> calculateDateScale(Portfolio portfolio
+          ,Date firstDate, Date secondDate, String endDate){
     Map<String, Integer> performances = new TreeMap<>();
     Calendar c = Calendar.getInstance();
-
-    Portfolio portfolio = (inflexiblePortfolio != null) ? inflexiblePortfolio : flexiblePortfolio;
-
-    Date firstDate;
-    try {
-      firstDate = sdf.parse(startDate);
-    } catch (ParseException pe) {
-      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
-    }
-
-    Date secondDate;
-    try {
-      secondDate = sdf.parse(endDate);
-    } catch (ParseException pe) {
-      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
-    }
-
-    if (firstDate.compareTo(secondDate) > 0) {
-      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
-    }
-
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
     long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
@@ -204,33 +210,38 @@ public class SimulatorImpl implements Simulator {
       }
     }
     performances.put(endDate, (int) portfolio.getValue(endDate));
-    //System.out.println(performances);
-    ArrayList<Integer> vals = new ArrayList<Integer>(performances.values());
-    vals.sort((Integer a, Integer b) -> a.compareTo(b));
-    double mi = vals.get(0);
-    if (mi == 0) {
-      for (int val : vals) {
-        if (val > 0) {
-          mi = val;
-          break;
-        }
-      }
-    }
-    int ma = vals.get(vals.size() - 1);
-    //System.out.println(ma/mi);
-    double scalediff = ma - mi;
-    scalediff /= 10;
-    mi -= scalediff;
-    // relative
-    for (Map.Entry<String, Integer> entry : performances.entrySet()) {
-      String key = entry.getKey();
-      if (performances.get(key) > 0) {
-        performances.put(key, (int) Math.round((performances.get(key) - mi) / scalediff));
-      }
-    }
-    performances.put("Scale (relative) [$" + Double.toString(mi) + "]",
-            (int) Math.round(scalediff));
+    return performances;
+  }
+  @Override
+  public Map<String, Integer> getPerformance(String startDate, String endDate)
+          throws IllegalArgumentException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    Map<String, Integer> performances = new TreeMap<>();
+    Calendar c = Calendar.getInstance();
 
+    Portfolio portfolio = (inflexiblePortfolio != null) ? inflexiblePortfolio : flexiblePortfolio;
+
+    Date firstDate;
+    try {
+      firstDate = sdf.parse(startDate);
+    } catch (ParseException pe) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+
+    Date secondDate;
+    try {
+      secondDate = sdf.parse(endDate);
+    } catch (ParseException pe) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+
+    if (firstDate.compareTo(secondDate) > 0) {
+      throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
+    }
+    performances = calculateDateScale(portfolio,firstDate, secondDate, endDate);
+    performances = calculateValueScale(performances);
+
+    //System.out.println(performances);
     return performances;
   }
 

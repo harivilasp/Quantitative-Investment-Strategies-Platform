@@ -7,14 +7,14 @@ Instructions for Setup:
 
 Your present working directory should be like:
 panjwaniha@Haris-MacBook-Air res % pwd
-/Users/panjwaniha/IdeaProjects/assign-5-stocks-part-2/res
+/Users/panjwaniha/IdeaProjects/assign-6-stocks-part-3/res
 
 Your list directory should be like:
 panjwaniha@Haris-MacBook-Air res % ls
 DESIGN-README.txt		model_class_diagram.png
 README.txt			portfolios
 SETUP-README.txt		summary_class_diagram.png
-assign-5-stocks-part-2.jar	supported_stocks.csv
+assign-6-stocks-part-3.jar	supported_stocks.csv
 controller_class_diagram.png	view_class_diagram.png
 docs.zip
 

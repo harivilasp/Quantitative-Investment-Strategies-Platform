@@ -14,6 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import java.awt.*;
+import java.util.Map;
+
+import javax.swing.*;
+
+import controller.Features;
+
 /**
  * This class represents the JPanel view for "Performance graph" operation.
  */
@@ -108,6 +115,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
         if (map.size() == 1) {
           System.out.println("Invalid Arguments");
         }
+        clearInput();
         PerformanceGraph.DrawGraph(map);
       } catch (Exception e) {
         e.getMessage();

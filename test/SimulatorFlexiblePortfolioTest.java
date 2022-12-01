@@ -136,7 +136,7 @@ public class SimulatorFlexiblePortfolioTest {
   public void testLoadFlexiblePortfolio() throws Exception {
     simulator.loadFlexiblePortfolio("flexibleportfolios/testLoadPortfolio.txt");
     assertTrue(simulator.isPortfolioChosen());
-    assertEquals("[NFLX=24.0, MSFT=24.0, AAPL=21.0]", simulator.getComposition().toString());
+    assertEquals("[NFLX=24.0, MSFT=17.0, AAPL=21.0]", simulator.getComposition().toString());
   }
 
 
@@ -176,11 +176,26 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30, "2019-01-01", "2021-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0
+            , 30, "2019-01-01", "2021-12-31", 0.4, weights);
     System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
     System.out.println(simulator.getCompositionAtDate("2019-10-01").toString());
     System.out.println(simulator.getCompositionAtDate("2019-11-02").toString());
     System.out.println(simulator.getCompositionAtDate("2019-12-02").toString());
+  }
+
+  @Test
+  public void testValueAfterAddStrategy() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("META", 40.0);
+    weights.put("AAPL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("GOOG", 10.0);
+    simulator.addStrategy(2000.0, 15, "2019-01-01", "2021-12-31", 0.4, weights);
+
+    assertEquals(33961.59,simulator.getValue("2019-09-03"),0.01);
+    assertEquals(104303.69,simulator.getValue("2020-11-01"),0.01);
+    assertEquals(127096.41,simulator.getValue("2021-02-02"),0.01);
   }
 
   @Test(expected = Exception.class)
@@ -210,7 +225,8 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30, "2022-01-01", "2024-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0
+            , 30, "2022-01-01", "2024-12-31", 0.4, weights);
     System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
     System.out.println(simulator.getCompositionAtDate("2022-10-01").toString());
     System.out.println(simulator.getCompositionAtDate("2022-11-02").toString());
@@ -223,7 +239,8 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30, "2012-01-01", "2015-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0
+            , 30, "2012-01-01", "2095-12-31", 0.4, weights);
   }
 
   @Test
@@ -233,12 +250,26 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 3, "2022-11-21", "2022-12-01", 0.4, weights);
-    System.out.println(simulator.getCostBasis("2022-10-01"));
-    System.out.println(simulator.getCostBasis("2023-10-01"));
-    System.out.println(simulator.getCostBasis("2024-10-01"));
-    System.out.println(simulator.getCostBasis("2025-01-01"));
-    System.out.println(simulator.getCostBasis("2025-10-01"));
+    simulator.addStrategy(2000.0, 30
+            , "2021-11-21", "2023-12-01", 0.4, weights);
+    assertEquals(2001.20,simulator.getCostBasis("2021-12-01"),0.01);
+    assertEquals(22710.89,simulator.getCostBasis("2022-10-01"),0.01);
+    assertEquals(45287.50,simulator.getCostBasis("2023-10-01"),0.01);
+    assertEquals(49288.30,simulator.getCostBasis("2024-10-01"),0.01);
+  }
+
+  @Test
+  public void testCostBasisAfterStrategy() throws Exception {
+    Map<String, Double> weights = new HashMap<>();
+    weights.put("MSFT", 40.0);
+    weights.put("AAL", 20.0);
+    weights.put("NFLX", 30.0);
+    weights.put("AAPL", 10.0);
+    simulator.addStrategy(2000.0
+            , 30, "2021-11-21", "2022-11-30", 0.4, weights);
+    assertEquals(2001.20,simulator.getCostBasis("2021-12-01"),0.01);
+    assertEquals(22710.89,simulator.getCostBasis("2022-10-01"),0.01);
+    assertEquals(27283.90,simulator.getCostBasis("2023-10-01"),0.01);
   }
 
   @Test
@@ -248,7 +279,8 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG", 50.0);
     weights.put("NFLX", 15.0);
     weights.put("AAPL", 10.0);
-    simulator.addStrategy(2000.0, 7, "2021-02-11", "2021-02-30", 0.0, weights);
+    simulator.addStrategy(2000.0
+            , 7, "2021-02-11", "2021-02-30", 0.0, weights);
   }
 
 }
