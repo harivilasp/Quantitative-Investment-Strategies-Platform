@@ -1,14 +1,20 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
-
-import java.awt.*;
+import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-
-import javax.swing.*;
-
-import controller.Features;
+import java.util.Locale;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import utils.Utils;
 
 /**
@@ -61,12 +67,12 @@ public class JTransactionView extends JPanel implements PanelView {
 
     // Other fields
     this.quantityField = new JTextField(6);
-    this.dateChooser = new JDateChooser();
+    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.commField = new JTextField(6);
 
     // Default values and formats
     this.quantityField.setText("1");
-    this.dateChooser.setDateFormatString("yyyy-MM-dd");
+    this.dateChooser.getDateEditor().setEnabled(false);
     this.commField.setText("0.0");
 
     JPanel centerPanel = new JPanel();
@@ -131,12 +137,17 @@ public class JTransactionView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     buyButton.addActionListener(evt -> {
       try {
         String status = features.buyStock(
             (String) this.nameComboBox.getSelectedItem(),
             Integer.parseInt(quantityField.getText()),
-            dateChooser.getDate().toString(),
+            sdf.format(dateChooser.getDateEditor().getDate()),
             Double.parseDouble(commField.getText())
         );
 
@@ -153,7 +164,7 @@ public class JTransactionView extends JPanel implements PanelView {
         String status = features.sellStock(
             (String) this.nameComboBox.getSelectedItem(),
             Integer.parseInt(quantityField.getText()),
-            dateChooser.getDate().toString(),
+            sdf.format(dateChooser.getDateEditor().getDate()),
             Double.parseDouble(commField.getText())
         );
 

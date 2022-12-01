@@ -1,11 +1,10 @@
 package view;
 
-import java.awt.*;
-import java.util.List;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.Dimension;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * This class is the implementation of the {@code GUIView} interface and completes the transactions

@@ -6,7 +6,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -51,8 +54,13 @@ public class JPerfGraphView extends JPanel implements PanelView {
     // Center panel -> Text input fields
 //    this.startDateField = new JTextField(10);
 //    this.endDateField = new JTextField(10);
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_WEEK, -1);
+
     this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.startDateChooser.getDateEditor().setEnabled(false);
     this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.endDateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
 
     centerPanel = new JPanel();
@@ -81,17 +89,22 @@ public class JPerfGraphView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     showButton.addActionListener(event -> {
       try {
         Map<String, Integer> map = features.getPerformance(
-            startDateChooser.getDate().toString(),
-            endDateChooser.getDate().toString()
+            sdf.format(startDateChooser.getDateEditor().getDate()),
+            sdf.format(endDateChooser.getDateEditor().getDate())
         );
 
         if (map.size() == 1) {
           System.out.println("Invalid Arguments");
         }
-        clearInput();
+        // clearInput();
         PerformanceGraph.DrawGraph(map);
       } catch (Exception e) {
         e.getMessage();

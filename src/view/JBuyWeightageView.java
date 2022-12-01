@@ -6,9 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -65,6 +67,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
     this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser.getDateEditor().setEnabled(false);
 //    this.dateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
@@ -126,6 +129,11 @@ public class JBuyWeightageView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     addButton.addActionListener(event -> {
       // Reset the message
       this.messageLabel.setText("");
@@ -145,11 +153,12 @@ public class JBuyWeightageView extends JPanel implements PanelView {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
     });
+
     submitButton.addActionListener(event -> {
       try {
         String status = features.buyStocksWithWeights(
             Double.parseDouble(this.amountField.getText()),
-            dateChooser.getDate().toString(),
+            sdf.format(dateChooser.getDateEditor().getDate()),
             Double.parseDouble(commissionField.getText()),
             weightsMap
         );

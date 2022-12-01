@@ -49,14 +49,14 @@ public class AlphaVantgeApiUtil implements APIUtil {
       URL url = null;
       try {
         url = new URL("https://www.alphavantage"
-                + ".co/query?function=TIME_SERIES_DAILY"
-                + "&outputsize="
-                + outputSize
-                + "&symbol"
-                + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
+            + ".co/query?function=TIME_SERIES_DAILY"
+            + "&outputsize="
+            + outputSize
+            + "&symbol"
+            + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
       } catch (MalformedURLException e) {
         throw new RuntimeException("the alphavantage API has either changed or "
-                + "no longer works");
+            + "no longer works");
       }
 
       InputStream in = null;

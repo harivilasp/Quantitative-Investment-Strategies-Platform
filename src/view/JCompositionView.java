@@ -6,8 +6,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -46,8 +48,8 @@ public class JCompositionView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Date text field and show composition button
-    this.dateChooser = new JDateChooser(new Date());
-    this.dateChooser.setDateFormatString("yyyy-MM-dd");
+    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
 
     JPanel centerPanel = new JPanel();
@@ -79,9 +81,14 @@ public class JCompositionView extends JPanel implements PanelView {
   }
 
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     this.showButton.addActionListener(evt -> {
       List<String> compositions = features.getCompositionAtDate(
-          dateChooser.getDate().toString()
+          sdf.format(dateChooser.getDateEditor().getDate())
       );
 
       StringBuilder result = new StringBuilder();

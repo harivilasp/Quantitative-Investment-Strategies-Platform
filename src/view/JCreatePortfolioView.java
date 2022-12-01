@@ -1,10 +1,15 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * This class represents the JPanel view for "Create portfolio" operation.

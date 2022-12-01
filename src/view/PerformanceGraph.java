@@ -1,13 +1,13 @@
 package view;
 
+import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import java.util.Map;
-
-import javax.swing.*;
 
 public class PerformanceGraph extends JFrame {
 
@@ -19,10 +19,10 @@ public class PerformanceGraph extends JFrame {
     DefaultCategoryDataset dataset = createDataset(map, scale);
     // Create chart  
     JFreeChart chart = ChartFactory.createLineChart(
-            "Portfolio Performance", // Chart title
-            "Date", // X-Axis Label
-            "Relative Performance", // Y-Axis Label
-            dataset
+        "Portfolio Performance", // Chart title
+        "Date", // X-Axis Label
+        "Relative Performance", // Y-Axis Label
+        dataset
     );
 
     ChartPanel panel = new ChartPanel(chart);

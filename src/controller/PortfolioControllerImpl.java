@@ -59,7 +59,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     int portfolioDecision;
     while (true) {
       /* Show user whether they'd like to work on a flexible or an inflexible portfolio. */
-      // TODO: Concatenate
       this.view.showText(
           "\nWhich one of the following type of portfolio would you like to work with?"
       );
@@ -107,6 +106,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Helper method to control the flow of operations for inflexible portfolio.
+   *
+   * @throws IOException in case of user IO error
+   */
   private void controlPortfolio() throws IOException {
     // Get the action decision number
     int actionDecision;
@@ -140,6 +144,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Helper method to control the flow of operations for flexible portfolio.
+   *
+   * @throws IOException in case of user IO error
+   */
   private void controlFlexiblePortfolio() throws IOException {
     // Get the action decision number
     int actionDecision;
@@ -251,6 +260,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Controls flexible portfolio operations based on the selected option and the type of portfolio.
+   *
+   * @param option the selected option
+   * @param type   the portfolio type
+   * @throws IOException in case of user IO error
+   */
   private void performFlexiblePortfolioAction(int option, PortfolioType type) throws IOException {
     if (option <= 4) {
       performPortfolioAction(option, type);

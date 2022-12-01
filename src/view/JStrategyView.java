@@ -6,9 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -73,6 +75,9 @@ public class JStrategyView extends JPanel implements PanelView {
 //    this.endDateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
+    // Disable start date editor
+    this.startDateChooser.getDateEditor().setEnabled(false);
+
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
     centerPanel.add(new JLabel("Amount: "));
@@ -136,6 +141,11 @@ public class JStrategyView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     addButton.addActionListener(event -> {
       // Reset the message
       this.messageLabel.setText("");
@@ -159,13 +169,19 @@ public class JStrategyView extends JPanel implements PanelView {
     });
 
     submitButton.addActionListener(event -> {
+      // Verify end date
+      String endDate = "2200-12-01";  // default
+      if (!endDateChooser.getDateEditor().getDate().toString().isEmpty()) {
+        endDate = sdf.format(endDateChooser.getDateEditor().getDate());
+      }
+
       try {
         messageLabel.setText("Adding");
         String status = features.addStrategy(
             Double.parseDouble(this.amountField.getText()),
             Integer.parseInt(intervalField.getText()),
-            startDateChooser.getDate().toString(),
-            endDateChooser.getDate().toString(),
+            sdf.format(startDateChooser.getDateEditor().getDate()),
+            endDate,
             Double.parseDouble(commissionField.getText()),
             weightsMap
         );
@@ -199,8 +215,8 @@ public class JStrategyView extends JPanel implements PanelView {
     this.intervalField.setText("");
 //    this.startDateField.setText("");
 //    this.endDateField.setText("");
-    startDateChooser.setDate(new Date());
-    endDateChooser.setDate(new Date());
+    this.startDateChooser.setDate(new Date());
+    this.endDateChooser.setDate(new Date());
     this.commissionField.setText("");
   }
 }

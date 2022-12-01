@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import model.Simulator;
 import model.Stock;
 import view.GUIView;
@@ -159,8 +158,8 @@ public class SimulatorController implements Features {
 
   @Override
   public String addStrategy(double amount, int intervalInDays,
-                            String startDate, String endDate, double commission,
-                            Map<String, Double> weights) {
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) {
     try {
       this.model.addStrategy(amount, intervalInDays, startDate, endDate, commission, weights);
       return "Successfully applied";
@@ -171,7 +170,7 @@ public class SimulatorController implements Features {
 
   @Override
   public String buyStocksWithWeights(double amount, String date, double commission,
-                                     Map<String, Double> weights) {
+      Map<String, Double> weights) {
     try {
       this.model.buyStocksWithWeights(amount, date, commission, weights);
       return "Successfully bought";

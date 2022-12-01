@@ -1,12 +1,18 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.*;
-
-import java.util.Date;
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents the JPanel view for "Portfolio value at date" operation on flexible
@@ -42,8 +48,8 @@ public class JValueAtDateView extends JPanel implements PanelView {
 
     // Center panel -> Enter date and submit
     // this.dateField = new JTextField(10);
-    this.dateChooser = new JDateChooser(new Date());
-    this.dateChooser.setDateFormatString("yyyy-MM-dd");
+    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser.getDateEditor().setEnabled(false);
     this.actionButton = new JButton("Get Value");
 
     JPanel centerPanel = new JPanel();
@@ -83,10 +89,15 @@ public class JValueAtDateView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
+    SimpleDateFormat sdf = new SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    );
+
     this.actionButton.addActionListener(event -> {
       String response = features.getValue(
           // dateField.getText()
-          dateChooser.getDate().toString()
+          sdf.format(dateChooser.getDateEditor().getDate())
       );
 
       messageLabel.setText(String.valueOf(response));

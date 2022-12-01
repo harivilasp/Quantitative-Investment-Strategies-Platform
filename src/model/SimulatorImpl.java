@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
-
 import utils.Constants;
 import utils.Utils;
 
@@ -102,7 +101,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void loadFlexiblePortfolio(String filepath)
-          throws IllegalArgumentException, RuntimeException {
+      throws IllegalArgumentException, RuntimeException {
     inflexiblePortfolio = null;
     flexiblePortfolio = new FlexiblePortfolioImpl(filepath, Utils.VALID_STOCKS);
   }
@@ -124,19 +123,19 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void buyStock(String stockName, int stockQty, String date, double commission)
-          throws RuntimeException {
+      throws RuntimeException {
     Stock stock = this.generateStock(stockName, stockQty);  // #ignored: IAE. No need.
     this.flexiblePortfolio.buyStock(stock, date, commission);
   }
 
   @Override
   public void sellStock(String stockName, int stockQty, String date, double commission)
-          throws RuntimeException {
+      throws RuntimeException {
     Stock stock = this.generateStock(stockName, stockQty);  // #ignored: IAE. No need.
     this.flexiblePortfolio.sellStock(stock, date, commission);
   }
 
-  private Map<String,Integer> calculateValueScale(Map<String,Integer> performances){
+  private Map<String, Integer> calculateValueScale(Map<String, Integer> performances) {
     ArrayList<Integer> vals = new ArrayList<Integer>(performances.values());
     vals.sort((Integer a, Integer b) -> a.compareTo(b));
     double mi = vals.get(0);
@@ -161,11 +160,12 @@ public class SimulatorImpl implements Simulator {
       }
     }
     performances.put("Scale (relative) [$" + Double.toString(mi) + "]",
-            (int) Math.round(scalediff));
+        (int) Math.round(scalediff));
     return performances;
   }
+
   private Map<String, Integer> calculateDateScale(Portfolio portfolio
-          ,Date firstDate, Date secondDate, String endDate){
+      , Date firstDate, Date secondDate, String endDate) {
     Map<String, Integer> performances = new TreeMap<>();
     Calendar c = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -212,9 +212,10 @@ public class SimulatorImpl implements Simulator {
     performances.put(endDate, (int) portfolio.getValue(endDate));
     return performances;
   }
+
   @Override
   public Map<String, Integer> getPerformance(String startDate, String endDate)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Map<String, Integer> performances = new TreeMap<>();
     Calendar c = Calendar.getInstance();
@@ -238,7 +239,7 @@ public class SimulatorImpl implements Simulator {
     if (firstDate.compareTo(secondDate) > 0) {
       throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
     }
-    performances = calculateDateScale(portfolio,firstDate, secondDate, endDate);
+    performances = calculateDateScale(portfolio, firstDate, secondDate, endDate);
     performances = calculateValueScale(performances);
 
     //System.out.println(performances);
@@ -255,8 +256,8 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void addStrategy(double amount, int intervalInDays,
-                          String startDate, String endDate, double commission,
-                          Map<String, Double> weights) throws Exception {
+      String startDate, String endDate, double commission,
+      Map<String, Double> weights) throws Exception {
     if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }
@@ -265,7 +266,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void buyStocksWithWeights(double amount, String date, double commission,
-                                   Map<String, Double> weights) throws Exception {
+      Map<String, Double> weights) throws Exception {
     if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }

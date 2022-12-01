@@ -1,8 +1,7 @@
 package view;
 
-import java.util.List;
-
 import controller.Features;
+import java.util.List;
 
 /**
  * This interface defines all the operations as part of the Graphical User Interface (GUI) for the
