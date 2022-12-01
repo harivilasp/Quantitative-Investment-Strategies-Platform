@@ -24,7 +24,7 @@ public class FlexiblePortfolioViewImpl implements PortfolioView {
   public void showPortfolioActions() throws IOException {
     this.out.append("\n");
     this.out.append("FLEXIBLE PORTFOLIO ACTIONS:\n");
-//    this.out.append("1. Show composition\n");
+    this.out.append("1. Show composition\n");
     this.out.append("2. Show value at specific date\n");
     this.out.append("3. Create/Load portfolio\n");
     this.out.append("4. Show performance over time\n");

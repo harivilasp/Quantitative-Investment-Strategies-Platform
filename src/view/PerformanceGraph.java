@@ -30,8 +30,6 @@ public class PerformanceGraph extends JFrame {
   }
 
   private DefaultCategoryDataset createDataset(Map<String, Integer> map, String scale) {
-
-
     String series1 = scale;
 
     DefaultCategoryDataset dataset = new DefaultCategoryDataset();

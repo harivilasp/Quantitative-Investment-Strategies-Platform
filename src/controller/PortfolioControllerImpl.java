@@ -230,7 +230,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       }
 
       case 3: {
-        performPortfolioAddControl(type);
+        controlPortfolioCreation(type);
         break;
       }
 
@@ -241,7 +241,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performPerformanceGraphControl();
+        controlPerformanceGraph();
         break;
       }
 
@@ -265,7 +265,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performTransactionControl(TransactionType.BUY);
+        controlPortfolioTransaction(TransactionType.BUY);
         break;
       }
 
@@ -276,7 +276,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performTransactionControl(TransactionType.SELL);
+        controlPortfolioTransaction(TransactionType.SELL);
         break;
       }
 
@@ -287,28 +287,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Input date
-        String date;
-        while (true) {
-          this.view.showText("Enter cost-basis date (yyyy-mm-dd):");
-          date = getInput();
-
-          if (Utils.isValidDate(date)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        try {
-          this.view.showText(
-              String.format("Cost-basis at [%s]: $%f",
-                  date, this.model.getCostBasis(date))
-          );
-        } catch (Exception re) {
-          this.view.showText(re.getMessage());
-        }
-
+        controlCostBasis();
         break;
       }
 
@@ -319,31 +298,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Composition date
-        String date;
-        while (true) {
-          this.view.showText("Enter date (yyyy-mm-dd):");
-          date = getInput();
-
-          if (Utils.isValidDate(date)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        List<Stock> composition;
-        try {
-          composition = this.model.getCompositionAtDate(date);
-        } catch (RuntimeException re) {
-          this.view.showText(re.getMessage());
-          return;
-        }
-
-        // Format the composition
-        String formattedComposition = formatStockInformation(composition);
-        this.view.showText("Portfolio Composition:\n" + formattedComposition);
-
+        controlDateComposition();
         break;
       }
 
@@ -353,6 +308,14 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Performs the creation or loading of portfolios based on the user's choice and type of
+   * portfolio.
+   *
+   * @param option the user's operation choice
+   * @param type   the type of portfolio
+   * @throws IOException in case of user IO error
+   */
   private void createPortfolio(int option, PortfolioType type) throws IOException {
     if (option == 1) {
       // Show the available portfolio list to the user.
@@ -449,7 +412,7 @@ public class PortfolioControllerImpl implements PortfolioController {
    * @param type the transaction type
    * @throws IOException in case of user IO error
    */
-  private void performTransactionControl(TransactionType type) throws IOException {
+  private void controlPortfolioTransaction(TransactionType type) throws IOException {
     // Buy/Sell stocks
     this.view.showText("\nEnter stock information\n");
 
@@ -546,7 +509,7 @@ public class PortfolioControllerImpl implements PortfolioController {
    *
    * @throws IOException in case of user IO error
    */
-  private void performPerformanceGraphControl() throws IOException {
+  private void controlPerformanceGraph() throws IOException {
     // Start date
     String startDate;
     while (true) {
@@ -627,9 +590,9 @@ public class PortfolioControllerImpl implements PortfolioController {
    * Controls portfolio add operation based on the portfolio type. [CASE 3]
    *
    * @param type the portfolio type
-   * @throws IOException in case user IO error
+   * @throws IOException in case of user IO error
    */
-  private void performPortfolioAddControl(PortfolioType type) throws IOException {
+  private void controlPortfolioCreation(PortfolioType type) throws IOException {
     // Get the portfolio adding decision.
     int addDecision;
 
@@ -670,6 +633,67 @@ public class PortfolioControllerImpl implements PortfolioController {
     } catch (RuntimeException re) {
       this.view.showText(re.getMessage());
     }
+  }
+
+  /**
+   * Controls the portfolio cost basis operation.
+   *
+   * @throws IOException in case of user IO error
+   */
+  private void controlCostBasis() throws IOException {
+    // Input date
+    String date;
+    while (true) {
+      this.view.showText("Enter cost-basis date (yyyy-mm-dd):");
+      date = getInput();
+
+      if (Utils.isValidDate(date)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    try {
+      this.view.showText(
+          String.format("Cost-basis at [%s]: $%f",
+              date, this.model.getCostBasis(date))
+      );
+    } catch (Exception re) {
+      this.view.showText(re.getMessage());
+    }
+  }
+
+  /**
+   * Controls the portfolio date composition operation.
+   *
+   * @throws IOException in case of user IO error
+   */
+  private void controlDateComposition() throws IOException {
+    // Composition date
+    String date;
+    while (true) {
+      this.view.showText("Enter date (yyyy-mm-dd):");
+      date = getInput();
+
+      if (Utils.isValidDate(date)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    List<Stock> composition;
+    try {
+      composition = this.model.getCompositionAtDate(date);
+    } catch (RuntimeException re) {
+      this.view.showText(re.getMessage());
+      return;
+    }
+
+    // Format the composition
+    String formattedComposition = formatStockInformation(composition);
+    this.view.showText("Portfolio Composition:\n" + formattedComposition);
   }
 
   private List<Stock> getStocksInput() throws IOException {

@@ -12,14 +12,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import java.awt.*;
-import java.util.Map;
-
-import javax.swing.*;
-
-import controller.Features;
 
 /**
  * This class represents the JPanel view for "Performance graph" operation.
@@ -85,22 +77,6 @@ public class JPerfGraphView extends JPanel implements PanelView {
 
   public void setPortfolioName(String portfolioName) {
     portfolioLabel.setText(portfolioName);
-  }
-
-  private DefaultCategoryDataset createDataset() {
-    String series1 = "Visitor";
-
-    DefaultCategoryDataset newdataset = new DefaultCategoryDataset();
-
-    newdataset.addValue(200, series1, "2016-12-19");
-    newdataset.addValue(150, series1, "2016-12-20");
-    newdataset.addValue(100, series1, "2016-12-21");
-    newdataset.addValue(210, series1, "2016-12-22");
-    newdataset.addValue(240, series1, "2016-12-23");
-    newdataset.addValue(195, series1, "2016-12-24");
-    newdataset.addValue(245, series1, "2016-12-25");
-
-    return newdataset;
   }
 
   @Override
