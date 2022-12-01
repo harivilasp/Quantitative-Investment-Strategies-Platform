@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import model.Simulator;
 import model.Stock;
 import utils.Constants;
@@ -60,9 +59,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     int portfolioDecision;
     while (true) {
       /* Show user whether they'd like to work on a flexible or an inflexible portfolio. */
-      // TODO: Concatenate
       this.view.showText(
-          "\nWhich one of the following type of portfolio would you like to work with?"
+              "\nWhich one of the following type of portfolio would you like to work with?"
       );
 
       this.view.showText("1. Inflexible portfolio, or");
@@ -108,6 +106,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Helper method to control the flow of operations for inflexible portfolio.
+   *
+   * @throws IOException in case of user IO error
+   */
   private void controlPortfolio() throws IOException {
     // Get the action decision number
     int actionDecision;
@@ -141,6 +144,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Helper method to control the flow of operations for flexible portfolio.
+   *
+   * @throws IOException in case of user IO error
+   */
   private void controlFlexiblePortfolio() throws IOException {
     // Get the action decision number
     int actionDecision;
@@ -192,7 +200,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
         // Format the composition
         String composition = formatStockInformation(
-            this.model.getComposition()
+                this.model.getComposition()
         );
 
         this.view.showText("Portfolio Composition:\n" + composition);
@@ -231,7 +239,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       }
 
       case 3: {
-        performPortfolioAddControl(type);
+        controlPortfolioCreation(type);
         break;
       }
 
@@ -242,7 +250,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performPerformanceGraphControl();
+        controlPerformanceGraph();
         break;
       }
 
@@ -252,6 +260,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Controls flexible portfolio operations based on the selected option and the type of portfolio.
+   *
+   * @param option the selected option
+   * @param type   the portfolio type
+   * @throws IOException in case of user IO error
+   */
   private void performFlexiblePortfolioAction(int option, PortfolioType type) throws IOException {
     if (option <= 4) {
       performPortfolioAction(option, type);
@@ -266,7 +281,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performTransactionControl(TransactionType.BUY);
+        controlPortfolioTransaction(TransactionType.BUY);
         break;
       }
 
@@ -277,7 +292,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        performTransactionControl(TransactionType.SELL);
+        controlPortfolioTransaction(TransactionType.SELL);
         break;
       }
 
@@ -299,31 +314,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Composition date
-        String date;
-        while (true) {
-          this.view.showText("Enter date (yyyy-mm-dd):");
-          date = getInput();
-
-          if (Utils.isValidDate(date)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        List<Stock> composition;
-        try {
-          composition = this.model.getCompositionAtDate(date);
-        } catch (RuntimeException re) {
-          this.view.showText(re.getMessage());
-          return;
-        }
-
-        // Format the composition
-        String formattedComposition = formatStockInformation(composition);
-        this.view.showText("Portfolio Composition:\n" + formattedComposition);
-
+        controlDateComposition();
         break;
       }
 
@@ -333,6 +324,14 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Performs the creation or loading of portfolios based on the user's choice and type of
+   * portfolio.
+   *
+   * @param option the user's operation choice
+   * @param type   the type of portfolio
+   * @throws IOException in case of user IO error
+   */
   private void createPortfolio(int option, PortfolioType type) throws IOException {
     if (option == 1) {
       // Show the available portfolio list to the user.
@@ -423,7 +422,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void performTransactionControl(TransactionType type) throws IOException {
+  /**
+   * Controls performing purchase and sale of stocks based on the transaction type.
+   *
+   * @param type the transaction type
+   * @throws IOException in case of user IO error
+   */
+  private void controlPortfolioTransaction(TransactionType type) throws IOException {
     // Buy/Sell stocks
     this.view.showText("\nEnter stock information\n");
 
@@ -520,7 +525,7 @@ public class PortfolioControllerImpl implements PortfolioController {
    *
    * @throws IOException in case of user IO error
    */
-  private void performPerformanceGraphControl() throws IOException {
+  private void controlPerformanceGraph() throws IOException {
     // Start date
     String startDate;
     while (true) {
@@ -560,10 +565,10 @@ public class PortfolioControllerImpl implements PortfolioController {
     // Build the result
     StringBuilder result = new StringBuilder();
     result.append("Performance of portfolio ")
-        .append("\"").append(this.model.getName()).append("\"")
-        .append(" from ")
-        .append(startDate).append(" to ").append(endDate)
-        .append("\n");
+            .append("\"").append(this.model.getName()).append("\"")
+            .append(" from ")
+            .append(startDate).append(" to ").append(endDate)
+            .append("\n");
 
     Map.Entry<String, Integer> absScaleEntry = null;
     Map.Entry<String, Integer> relScaleEntry = null;
@@ -581,17 +586,17 @@ public class PortfolioControllerImpl implements PortfolioController {
 
       // Else, append to the result
       result.append(entry.getKey()).append(": ").append("*".repeat(entry.getValue()))
-          .append("\n");
+              .append("\n");
     }
 
     if (absScaleEntry != null) {
       result.append("\n").append(absScaleEntry.getKey()).append(": ")
-          .append("$").append(absScaleEntry.getValue()).append("\n");
+              .append("$").append(absScaleEntry.getValue()).append("\n");
     }
 
     if (relScaleEntry != null) {
       result.append(relScaleEntry.getKey()).append(": ")
-          .append("$").append(relScaleEntry.getValue()).append("\n");
+              .append("$").append(relScaleEntry.getValue()).append("\n");
     }
 
     this.view.showText(result.toString());
@@ -601,9 +606,9 @@ public class PortfolioControllerImpl implements PortfolioController {
    * Controls portfolio add operation based on the portfolio type. [CASE 3]
    *
    * @param type the portfolio type
-   * @throws IOException in case user IO error
+   * @throws IOException in case of user IO error
    */
-  private void performPortfolioAddControl(PortfolioType type) throws IOException {
+  private void controlPortfolioCreation(PortfolioType type) throws IOException {
     // Get the portfolio adding decision.
     int addDecision;
 
@@ -646,6 +651,67 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Controls the portfolio cost basis operation.
+   *
+   * @throws IOException in case of user IO error
+   */
+  private void controlCostBasis() throws IOException {
+    // Input date
+    String date;
+    while (true) {
+      this.view.showText("Enter cost-basis date (yyyy-mm-dd):");
+      date = getInput();
+
+      if (Utils.isValidDate(date)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    try {
+      this.view.showText(
+              String.format("Cost-basis at [%s]: $%f",
+                      date, this.model.getCostBasis(date))
+      );
+    } catch (Exception re) {
+      this.view.showText(re.getMessage());
+    }
+  }
+
+  /**
+   * Controls the portfolio date composition operation.
+   *
+   * @throws IOException in case of user IO error
+   */
+  private void controlDateComposition() throws IOException {
+    // Composition date
+    String date;
+    while (true) {
+      this.view.showText("Enter date (yyyy-mm-dd):");
+      date = getInput();
+
+      if (Utils.isValidDate(date)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    List<Stock> composition;
+    try {
+      composition = this.model.getCompositionAtDate(date);
+    } catch (RuntimeException re) {
+      this.view.showText(re.getMessage());
+      return;
+    }
+
+    // Format the composition
+    String formattedComposition = formatStockInformation(composition);
+    this.view.showText("Portfolio Composition:\n" + formattedComposition);
+  }
+
   private List<Stock> getStocksInput() throws IOException {
     this.view.showText("Enter stock information\n");
     Map<String, Integer> stockMap = new HashMap<>();
@@ -653,8 +719,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     while (true) {
       Stock stock = getStockInput();
       stockMap.put(
-          stock.getName(),
-          stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
+              stock.getName(),
+              stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
       );
 
       this.view.showText("Would you like to add more stocks? Y/N:");
@@ -669,7 +735,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     List<Stock> stockArr = new ArrayList<>();
     for (Map.Entry<String, Integer> entry : stockMap.entrySet()) {
       stockArr.add(
-          this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
+              this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
       );
     }
 
@@ -725,13 +791,13 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     for (Stock stock : composition) {
       builder
-          .append(
-              String.format(
-                  "%s -> %s",
-                  stock.getName(), "Quantity = " + stock.getQuantity()
+              .append(
+                      String.format(
+                              "%s -> %s",
+                              stock.getName(), "Quantity = " + stock.getQuantity()
+                      )
               )
-          )
-          .append("\n");
+              .append("\n");
     }
 
     return builder.toString();
