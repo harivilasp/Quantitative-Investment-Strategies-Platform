@@ -1,18 +1,14 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
-import controller.Features;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
+
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Date;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
+import controller.Features;
 import utils.Utils;
 
 /**
@@ -44,7 +40,7 @@ public class JTransactionView extends JPanel implements PanelView {
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    this.portfolioLabel = new JLabel("<Portfolio Name>");
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
     northPanel.add(this.titleLabel);
@@ -65,7 +61,7 @@ public class JTransactionView extends JPanel implements PanelView {
 
     // Other fields
     this.quantityField = new JTextField(6);
-    this.dateChooser = new JDateChooser(new Date());
+    this.dateChooser = new JDateChooser();
     this.commField = new JTextField(6);
 
     // Default values and formats

@@ -202,7 +202,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     double cost = 0;
     if (formattedDate.compareTo(todayDate) >= 0) {
       double tempcost = processStrategy(date);
-      System.out.println(tempcost + " " + cost);
+      //System.out.println(tempcost + " " + cost);
       cost += tempcost;
     }
     // Assuming transactions are sorted.
@@ -258,7 +258,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
           strategy.setStartDate(sdf.format(todayDate));
           long diffInMillis = Math.abs(secondDate.getTime() - c.getTime().getTime());
           long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-          System.out.println(diff + " diff");
+          //System.out.println(diff + " diff");
           tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
                   + strategy.getAmount());
         }
@@ -275,7 +275,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
                   secondDate.getTime() - sdf.parse(strategy.getStartDate()).getTime());
         }
         diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-        System.out.println(diff + " diff");
+        //System.out.println(diff + " diff");
         tempcost += (diff / strategy.getIntervalInDays()) * (strategy.getCommission()
                 + strategy.getAmount());
       }
