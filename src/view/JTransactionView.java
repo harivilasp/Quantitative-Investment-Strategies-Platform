@@ -40,7 +40,7 @@ public class JTransactionView extends JPanel implements PanelView {
   public JTransactionView(String title) {
     setSize(500, 500);
     setLocation(200, 100);
-    setLayout(new BorderLayout(8, 8));
+    setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
     this.titleLabel = new JLabel(title);
@@ -107,12 +107,12 @@ public class JTransactionView extends JPanel implements PanelView {
 
     // Arrange in BoxLayout
     southBox.add(this.messageLabel);
-    southBox.add(new JLabel(""));
-    southBox.add(new JLabel(""));
-    southBox.add(new JLabel(""));
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
     southBox.add(buttonFlow);
-    southBox.add(new JLabel(""));
-    southBox.add(new JLabel(""));
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
     southBox.add(this.homeButton);
 
     JPanel southPanel = new JPanel();

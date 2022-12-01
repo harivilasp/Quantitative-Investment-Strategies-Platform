@@ -2,8 +2,10 @@ package view;
 
 import controller.Features;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -38,19 +40,32 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
 
     // Center panel -> Choose file button
     this.chooseFileButton = new JButton("Choose portfolio from filepath");
-    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.add(this.chooseFileButton);
-    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Message to show whether portfolio loaded was valid or not.
     this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.homeButton = new JButton("HOME");
+
+    // Alignments
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    // BoxLayout for the message and home button
+    JPanel southBox = new JPanel();
+    southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
+    southBox.add(this.messageLabel);
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
+    southBox.add(this.homeButton);
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.messageLabel);
+    southPanel.add(southBox);
     this.add(southPanel, BorderLayout.SOUTH);
+
+    setVisible(true);
   }
 
   @Override

@@ -1,10 +1,14 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents the JPanel view for "Portfolio save" operation on flexible portfolios.
@@ -35,28 +39,48 @@ public class JSavePortfolioView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Whether to save the portfolio
-    JPanel boxPanel = new JPanel();
-    boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.PAGE_AXIS));
-    boxPanel.add(new JLabel("Would you like to save " + this.portfolioName + "?"));
+    JLabel headerLabel = new JLabel("Would you like to save " + this.portfolioName + "?");
+    headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    JPanel centerBox = new JPanel();
+    centerBox.setLayout(new BoxLayout(centerBox, BoxLayout.PAGE_AXIS));
+    centerBox.add(headerLabel);
+
+    // Positive and Negative buttons
     this.posButton = new JButton("YES");
     this.negButton = new JButton("NO");
-    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 8));
+
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 8));
+    buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
     buttonPanel.add(this.posButton);
     buttonPanel.add(this.negButton);
-    boxPanel.add(buttonPanel);
+    centerBox.add(buttonPanel);
 
     JPanel centerPanel = new JPanel();
-    centerPanel.add(boxPanel);
+    centerPanel.add(centerBox);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Home button
+    this.messageLabel = new JLabel("<Message comes here>"); // TODO
     this.homeButton = new JButton("HOME");
-    this.messageLabel = new JLabel("<Message comes here>");
+
+    // Alignments
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    // BoxLayout for the message and home button
+    JPanel southBox = new JPanel();
+    southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
+    southBox.add(this.messageLabel);
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
+    southBox.add(this.homeButton);
+
     JPanel southPanel = new JPanel();
-    southPanel.add(this.homeButton);
-    southPanel.add(this.messageLabel);
+    southPanel.add(southBox);
     this.add(southPanel, BorderLayout.SOUTH);
+
+    setVisible(true);
   }
 
   @Override

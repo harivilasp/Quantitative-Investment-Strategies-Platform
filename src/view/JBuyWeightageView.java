@@ -1,13 +1,22 @@
 package view;
 
-import java.awt.*;
+import com.toedter.calendar.JDateChooser;
+import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.*;
-
-import controller.Features;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import utils.Utils;
 
 
@@ -20,7 +29,8 @@ public class JBuyWeightageView extends JPanel implements PanelView {
   private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JTextField amountField;
-  private JTextField dateField;
+  //  private JTextField dateField;
+  private JDateChooser dateChooser;
   private JTextField commissionField;
   private JButton addButton;
   private JButton homeButton;
@@ -54,7 +64,8 @@ public class JBuyWeightageView extends JPanel implements PanelView {
 
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
-    this.dateField = new JTextField(8);
+    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+//    this.dateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
     JPanel centerPanel = new JPanel();
@@ -62,7 +73,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     centerPanel.add(new JLabel("Amount: "));
     centerPanel.add(this.amountField);
     centerPanel.add(new JLabel("Date (yyyy-mm-dd): "));
-    centerPanel.add(this.dateField);
+    centerPanel.add(this.dateChooser);
     centerPanel.add(new JLabel("Commission: "));
     centerPanel.add(this.commissionField);
     this.add(centerPanel, BorderLayout.CENTER);
@@ -73,7 +84,6 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
 
-    Utils.loadValidStocks();     // TODO: Remove
     String[] options = new String[Utils.VALID_STOCKS.size()];
     options = Utils.VALID_STOCKS.toArray(options);
     Arrays.sort(options);
@@ -87,18 +97,18 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     boxPanel.add(this.comboBox);
     boxPanel.add(this.weightageField);
 
-    this.homeButton = new JButton("HOME");
     this.addButton = new JButton("ADD");
     JPanel sectionPanel = new JPanel();
     sectionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 16));
     sectionPanel.add(boxPanel);
     sectionPanel.add(this.addButton);
-    sectionPanel.add(this.homeButton);
 
     this.messageLabel = new JLabel("<Message comes here>");
     this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.submitButton = new JButton("SUBMIT");
     this.submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton = new JButton("HOME");
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.PAGE_AXIS));
@@ -107,6 +117,9 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     southPanel.add(new JLabel("      "));
     southPanel.add(this.submitButton);
     southPanel.add(new JLabel("      "));
+    southPanel.add(new JLabel("      "));
+    southPanel.add(new JLabel("      "));
+    southPanel.add(this.homeButton);
 
     this.add(southPanel, BorderLayout.SOUTH);
   }
@@ -134,15 +147,19 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     });
     submitButton.addActionListener(event -> {
       try {
-        String status = features.buyStocksWithWeights(Double.parseDouble(this.amountField.getText())
-                , dateField.getText()
-                , Double.parseDouble(commissionField.getText())
-                , weightsMap);
+        String status = features.buyStocksWithWeights(
+            Double.parseDouble(this.amountField.getText()),
+            dateChooser.getDate().toString(),
+            Double.parseDouble(commissionField.getText()),
+            weightsMap
+        );
+
         messageLabel.setText(status);
       } catch (Exception e) {
         messageLabel.setText(e.getMessage());
       }
     });
+
     homeButton.addActionListener(event -> {
       clearInput();
       features.showHome();
@@ -158,7 +175,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     this.comboBox.setSelectedItem("--none--");
     this.weightageField.setText("");
     this.amountField.setText("");
-    this.dateField.setText("");
+    this.dateChooser.setDate(new Date());
     this.commissionField.setText("");
   }
 }

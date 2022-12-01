@@ -1,17 +1,17 @@
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Date;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -21,8 +21,10 @@ public class JPerfGraphView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
-  private JTextField startDateField;
-  private JTextField endDateField;
+  //  private JTextField startDateField;
+//  private JTextField endDateField;
+  private JDateChooser startDateChooser;
+  private JDateChooser endDateChooser;
   private JButton showButton;
   private JButton homeButton;
   private JPanel southPanel;
@@ -48,16 +50,18 @@ public class JPerfGraphView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Text input fields
-    this.startDateField = new JTextField(10);
-    this.endDateField = new JTextField(10);
+//    this.startDateField = new JTextField(10);
+//    this.endDateField = new JTextField(10);
+    this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.showButton = new JButton("SHOW");
 
     centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
     centerPanel.add(new JLabel("Start date (yyyy-mm-dd): "));
-    centerPanel.add(this.startDateField);
+    centerPanel.add(this.startDateChooser);
     centerPanel.add(new JLabel("End date (yyyy-mm-dd): "));
-    centerPanel.add(this.endDateField);
+    centerPanel.add(this.endDateChooser);
     centerPanel.add(this.showButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
@@ -96,10 +100,12 @@ public class JPerfGraphView extends JPanel implements PanelView {
   public void addActionListener(Features features) {
     showButton.addActionListener(event -> {
       try {
-        Map<String, Integer> map
-                = features.getPerformance(startDateField.getText(), endDateField.getText());
+        Map<String, Integer> map = features.getPerformance(
+            startDateChooser.getDate().toString(),
+            endDateChooser.getDate().toString()
+        );
 
-        if (map.size()==1){
+        if (map.size() == 1) {
           System.out.println("Invalid Arguments");
         }
         PerformanceGraph.DrawGraph(map);
@@ -109,12 +115,14 @@ public class JPerfGraphView extends JPanel implements PanelView {
     });
 
     homeButton.addActionListener(event -> {
+      clearInput();
       features.showHome();
     });
   }
 
   @Override
   public void clearInput() {
-    // TODO: Complete implementation
+    this.startDateChooser.setDate(new Date());
+    this.endDateChooser.setDate(new Date());
   }
 }
