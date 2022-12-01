@@ -1,11 +1,13 @@
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
@@ -27,8 +29,10 @@ public class JStrategyView extends JPanel implements PanelView {
   private JLabel portfolioLabel;
   private JTextField amountField;
   private JTextField intervalField;
-  private JTextField startDateField;
-  private JTextField endDateField;
+  //  private JTextField startDateField;
+//  private JTextField endDateField;
+  private JDateChooser startDateChooser;
+  private JDateChooser endDateChooser;
   private JTextField commissionField;
   private JButton addButton;
   private JButton homeButton;
@@ -63,8 +67,10 @@ public class JStrategyView extends JPanel implements PanelView {
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
     this.intervalField = new JTextField("0", 4);
-    this.startDateField = new JTextField(8);
-    this.endDateField = new JTextField(8);
+    this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+//    this.startDateField = new JTextField(8);
+//    this.endDateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
     JPanel centerPanel = new JPanel();
@@ -74,9 +80,9 @@ public class JStrategyView extends JPanel implements PanelView {
     centerPanel.add(new JLabel("Interval (in days): "));
     centerPanel.add(this.intervalField);
     centerPanel.add(new JLabel("Start date (yyyy-mm-dd): "));
-    centerPanel.add(this.startDateField);
+    centerPanel.add(this.startDateChooser);
     centerPanel.add(new JLabel("End date (yyyy-mm-dd): "));
-    centerPanel.add(this.endDateField);
+    centerPanel.add(this.endDateChooser);
     centerPanel.add(new JLabel("Commission: "));
     centerPanel.add(this.commissionField);
     this.add(centerPanel, BorderLayout.CENTER);
@@ -100,18 +106,19 @@ public class JStrategyView extends JPanel implements PanelView {
     boxPanel.add(this.comboBox);
     boxPanel.add(this.weightageField);
 
-    this.homeButton = new JButton("HOME");
     this.addButton = new JButton("ADD");
     JPanel sectionPanel = new JPanel();
     sectionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 16));
     sectionPanel.add(boxPanel);
     sectionPanel.add(this.addButton);
-    sectionPanel.add(this.homeButton);
 
     this.messageLabel = new JLabel("<Message comes here>");
     this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.submitButton = new JButton("SUBMIT");
     this.submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    this.homeButton = new JButton("HOME");
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JPanel southPanel = new JPanel();
     southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.PAGE_AXIS));
@@ -120,6 +127,9 @@ public class JStrategyView extends JPanel implements PanelView {
     southPanel.add(new JLabel("      "));
     southPanel.add(this.submitButton);
     southPanel.add(new JLabel("      "));
+    southPanel.add(new JLabel("      "));
+    southPanel.add(new JLabel("      "));
+    southPanel.add(this.homeButton);
 
     this.add(southPanel, BorderLayout.SOUTH);
   }
@@ -154,15 +164,18 @@ public class JStrategyView extends JPanel implements PanelView {
         String status = features.addStrategy(
             Double.parseDouble(this.amountField.getText()),
             Integer.parseInt(intervalField.getText()),
-            startDateField.getText(), endDateField.getText(),
+            startDateChooser.getDate().toString(),
+            endDateChooser.getDate().toString(),
             Double.parseDouble(commissionField.getText()),
             weightsMap
         );
+
         messageLabel.setText(status);
       } catch (Exception e) {
         messageLabel.setText(e.getMessage());
       }
     });
+
     homeButton.addActionListener(event -> {
       clearInput();
       features.showHome();
@@ -184,8 +197,10 @@ public class JStrategyView extends JPanel implements PanelView {
     this.weightageField.setText("");
     this.amountField.setText("");
     this.intervalField.setText("");
-    this.startDateField.setText("");
-    this.endDateField.setText("");
+//    this.startDateField.setText("");
+//    this.endDateField.setText("");
+    startDateChooser.setDate(new Date());
+    endDateChooser.setDate(new Date());
     this.commissionField.setText("");
   }
 }

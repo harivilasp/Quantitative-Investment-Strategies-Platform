@@ -55,6 +55,7 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
     southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
     southBox.add(this.messageLabel);
     southBox.add(new JLabel("      "));
+    southBox.add(new JLabel("      "));
     southBox.add(this.homeButton);
     southBox.add(new JLabel("      "));
 

@@ -1,10 +1,16 @@
 package view;
 
-import java.awt.*;
-
-import javax.swing.*;
-
+import com.toedter.calendar.JDateChooser;
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.Date;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents the JPanel view for "Portfolio cost basis" operation on a flexible
@@ -14,7 +20,8 @@ public class JCostBasisView extends JPanel implements PanelView {
 
   private JLabel titleLabel;
   private JLabel portfolioLabel;
-  private JTextField dateField;
+  // private JTextField dateField;
+  private JDateChooser dateChooser;
   private JButton showButton;
   private JButton homeButton;
   private JLabel messageLabel;
@@ -39,33 +46,54 @@ public class JCostBasisView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Date text field and show composition button
-    this.dateField = new JTextField(8);
+    // this.dateField = new JTextField(8);
+    this.dateChooser = new JDateChooser(new Date());
+    this.dateChooser.setDateFormatString("yyyy-MM-dd");
     this.showButton = new JButton("SHOW");
-    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
-    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
-    centerPanel.add(new JLabel("Date:"));
-    centerPanel.add(this.dateField);
+    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 12, 8));
+    centerPanel.add(new JLabel("Enter date (yyyy-mm-dd):"));
+    centerPanel.add(this.dateChooser);
     centerPanel.add(this.showButton);
-    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.homeButton = new JButton("HOME");
+
+    // Alignments
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    // BoxLayout for the message and home button
+    JPanel southBox = new JPanel();
+    southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
+    southBox.add(this.messageLabel);
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
+    southBox.add(this.homeButton);
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.messageLabel);
+    southPanel.add(southBox);
     this.add(southPanel, BorderLayout.SOUTH);
+
+    setVisible(true);
   }
 
   @Override
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
-      String status = features.getCostBasis(dateField.getText());
+      String status = features.getCostBasis(
+          // dateField.getText()
+          dateChooser.getDate().toString()
+      );
+
       messageLabel.setText(status);
-      dateField.setText("");
+      // dateField.setText("");
+      dateChooser.setDate(new Date());
     });
+
     this.homeButton.addActionListener(evt -> {
       this.clearInput();
       features.showHome();
@@ -84,6 +112,7 @@ public class JCostBasisView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.messageLabel.setText("");
-    this.dateField.setText("");
+    // dateField.setText("");
+    dateChooser.setDate(new Date());
   }
 }

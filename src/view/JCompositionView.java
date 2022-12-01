@@ -1,11 +1,17 @@
 package view;
 
-import java.awt.*;
-import java.util.List;
-
-import javax.swing.*;
-
+import com.toedter.calendar.JDateChooser;
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.Date;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents the JPanel view for "Portfolio composition" operation on a flexible
@@ -16,7 +22,7 @@ public class JCompositionView extends JPanel implements PanelView {
   private JButton homeButton;
   private JLabel titleLabel;
   private JLabel portfolioLabel;
-  private JTextField dateField;
+  private JDateChooser dateChooser;
   private JButton showButton;
   private JLabel messageLabel;
 
@@ -40,39 +46,53 @@ public class JCompositionView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Date text field and show composition button
-    this.dateField = new JTextField(8);
+    this.dateChooser = new JDateChooser(new Date());
+    this.dateChooser.setDateFormatString("yyyy-MM-dd");
     this.showButton = new JButton("SHOW");
 
     JPanel centerPanel = new JPanel();
-    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
+    centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 12, 8));
     centerPanel.add(new JLabel("Date:"));
-    centerPanel.add(this.dateField);
+    centerPanel.add(this.dateChooser);
     centerPanel.add(this.showButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Result comes here>"); // TODO
+    this.messageLabel = new JLabel("<Message comes here>"); // TODO
     this.homeButton = new JButton("HOME");
 
-    // BoxLayout for the message and home button
+    // Alignments
+    this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    // BoxLayout for the message and home button
+    JPanel southBox = new JPanel();
+    southBox.setLayout(new BoxLayout(southBox, BoxLayout.PAGE_AXIS));
+    southBox.add(this.messageLabel);
+    southBox.add(new JLabel(" "));
+    southBox.add(new JLabel(" "));
+    southBox.add(this.homeButton);
 
     JPanel southPanel = new JPanel();
-    southPanel.add(this.messageLabel);
+    southPanel.add(southBox);
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
   public void addActionListener(Features features) {
     this.showButton.addActionListener(evt -> {
-      List<String> compositions = features.getCompositionAtDate(dateField.getText());
-      ;
-      String result = new String();
+      List<String> compositions = features.getCompositionAtDate(
+          dateChooser.getDate().toString()
+      );
+
+      StringBuilder result = new StringBuilder();
       for (String composition : compositions) {
-        result += composition + "\n";
+        result.append(composition).append("\n");
       }
-      messageLabel.setText(result);
-      dateField.setText("");
+
+      messageLabel.setText(result.toString());
+      dateChooser.setDate(new Date());
     });
+
     this.homeButton.addActionListener(evt -> {
       this.clearInput();
       features.showHome();
@@ -86,6 +106,6 @@ public class JCompositionView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.messageLabel.setText("");
-    this.dateField.setText("");
+    this.dateChooser.setDate(new Date());
   }
 }

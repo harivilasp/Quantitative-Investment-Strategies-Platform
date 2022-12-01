@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import model.Simulator;
 import model.Stock;
 import utils.Constants;
@@ -62,7 +61,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       /* Show user whether they'd like to work on a flexible or an inflexible portfolio. */
       // TODO: Concatenate
       this.view.showText(
-              "\nWhich one of the following type of portfolio would you like to work with?"
+          "\nWhich one of the following type of portfolio would you like to work with?"
       );
 
       this.view.showText("1. Inflexible portfolio, or");
@@ -174,6 +173,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Controls portfolio operations based on the selected option and the type of portfolio.
+   *
+   * @param option the selected option
+   * @param type   the portfolio type
+   * @throws IOException in case of user IO error
+   */
   private void performPortfolioAction(int option, PortfolioType type) throws IOException {
     switch (option) {
       case 1: {
@@ -185,11 +191,10 @@ public class PortfolioControllerImpl implements PortfolioController {
 
         // Format the composition
         String composition = formatStockInformation(
-                this.model.getComposition()
+            this.model.getComposition()
         );
 
         this.view.showText("Portfolio Composition:\n" + composition);
-
         break;
       }
 
@@ -221,52 +226,11 @@ public class PortfolioControllerImpl implements PortfolioController {
         }
 
         this.view.showText(String.format("Value on [%s] = $%s%n", date, value));
-
         break;
       }
 
       case 3: {
-        // Get the portfolio adding decision.
-        int addDecision;
-
-        while (true) {
-          // Show the portfolio creation/loading methods.
-          this.view.showPortfolioAddMethods();
-
-          try {
-            addDecision = Integer.parseInt(getInput());
-
-            // In case the decision was invalid, restart.
-            if (addDecision < 1 || addDecision > 3) {
-              this.view.showText("Invalid option!");
-              continue;
-            }
-
-            // In case the user wants to exit the sub-menu.
-            if (addDecision == 3) {
-              return;
-            }
-
-            // Valid value, break.
-            break;
-          } catch (NumberFormatException nfe) {
-            this.view.showText(Constants.ERR_ENTER_NUM);
-          }
-        }
-
-        // Create portfolio based on the decision.
-        // Assign portfolio to the portfolio memory instance.
-        try {
-          if (type.equals(PortfolioType.INFLEXIBLE)) {
-            createPortfolio(addDecision, PortfolioType.INFLEXIBLE);
-          } else {
-            createPortfolio(addDecision, PortfolioType.FLEXIBLE);
-          }
-
-        } catch (RuntimeException re) {
-          this.view.showText(re.getMessage());
-        }
-
+        performPortfolioAddControl(type);
         break;
       }
 
@@ -277,82 +241,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Start date
-        String startDate;
-        while (true) {
-          this.view.showText("Enter start date (yyyy-mm-dd):");
-          startDate = getInput();
-
-          if (Utils.isValidDate(startDate)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        // End date
-        String endDate;
-        while (true) {
-          this.view.showText("Enter end date (yyyy-mm-dd):");
-          endDate = getInput();
-
-          if (Utils.isValidDate(endDate)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        // Extract the performance map
-        Map<String, Integer> performanceMap = new HashMap<>();
-        try {
-          performanceMap = this.model.getPerformance(startDate, endDate);
-
-        } catch (IllegalArgumentException iae) {
-          this.view.showText(iae.getMessage());
-          return;
-        }
-
-        // Build the result
-        StringBuilder result = new StringBuilder();
-        result
-                .append("Performance of portfolio ")
-                .append("\"").append(this.model.getName()).append("\"")
-                .append(" from ")
-                .append(startDate).append(" to ").append(endDate);
-        result.append("\n");
-
-        Map.Entry<String, Integer> absScaleEntry = null;
-        Map.Entry<String, Integer> relScaleEntry = null;
-        for (Map.Entry<String, Integer> entry : performanceMap.entrySet()) {
-          // If the entry is a scale
-          if (entry.getKey().contains("Scale (relative)")) {
-            relScaleEntry = entry;
-            continue;
-          }
-
-          if (entry.getKey().contains("Scale (absolute)")) {
-            absScaleEntry = entry;
-            continue;
-          }
-
-          // Else, append to the result
-          result.append(entry.getKey()).append(": ").append("*".repeat(entry.getValue()))
-                  .append("\n");
-        }
-
-        if (absScaleEntry != null) {
-          result.append("\n").append(absScaleEntry.getKey()).append(": ")
-                  .append("$").append(absScaleEntry.getValue()).append("\n");
-        }
-
-        if (relScaleEntry != null) {
-          result.append(relScaleEntry.getKey()).append(": ")
-                  .append("$").append(relScaleEntry.getValue()).append("\n");
-        }
-
-        this.view.showText(result.toString());
-
+        performPerformanceGraphControl();
         break;
       }
 
@@ -376,89 +265,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Buy stocks
-        this.view.showText("\nEnter stock information\n");
-
-        // Stock name
-        String stockName;
-        while (true) {
-          this.view.showText("Enter stock name:");
-          stockName = getInput();
-
-          // Valid stock name.
-          if (!stockName.isEmpty() && Utils.VALID_STOCKS.contains(stockName)) {
-            break;
-          }
-
-          this.view.showText("Error: Invalid stock name!");
-        }
-
-        // Stock quantity
-        int stockQty;
-        while (true) {
-          this.view.showText("Enter stock quantity:");
-
-          try {
-            stockQty = Integer.parseInt(getInput());
-
-            if (stockQty < 0) {
-              this.view.showText(Constants.ERR_ENTER_NUM);
-              continue;
-            }
-
-            // Valid value
-            break;
-          } catch (NumberFormatException nfe) {
-            this.view.showText(Constants.ERR_ENTER_NUM);
-          }
-        }
-
-        // Stock transaction date
-        String stockDate;
-        while (true) {
-          this.view.showText("Enter transaction date (yyyy-mm-dd):");
-          stockDate = getInput();
-
-          if (Utils.isValidDate(stockDate)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        // Stock transaction commission
-        float stockComm;
-        while (true) {
-          this.view.showText("Enter transaction commission:");
-
-          try {
-            stockComm = Float.parseFloat(getInput());
-
-            if (stockComm < 0) {
-              this.view.showText("Error: Enter a correct commission value!");
-              continue;
-            }
-
-            // Valid value
-            break;
-          } catch (NumberFormatException nfe) {
-            this.view.showText("Error: Enter a correct commission value!");
-          }
-        }
-
-        // Buy the stock.
-
-        this.model.buyStock(stockName, stockQty, stockDate, stockComm);
-
-        // Auto-save the portfolio
-        try {
-          this.model.save();
-          this.view.showText("Portfolio saved successfully!");
-        } catch (IOException | RuntimeException exception) {
-          this.view.showText(exception.getMessage());
-          return;
-        }
-
+        performTransactionControl(TransactionType.BUY);
         break;
       }
 
@@ -469,90 +276,7 @@ public class PortfolioControllerImpl implements PortfolioController {
           return;
         }
 
-        // Sell stocks
-        this.view.showText("\nEnter stock information\n");
-
-        // Stock name
-        String stockName;
-        while (true) {
-          this.view.showText("Enter stock name:");
-          stockName = getInput();
-
-          // Valid stock name.
-          if (!stockName.isEmpty() && Utils.VALID_STOCKS.contains(stockName)) {
-            break;
-          }
-
-          this.view.showText("Error: Invalid stock name!");
-        }
-
-        // Stock quantity
-        int stockQty;
-        while (true) {
-          this.view.showText("Enter stock quantity:");
-
-          try {
-            stockQty = Integer.parseInt(getInput());
-
-            if (stockQty < 0) {
-              this.view.showText(Constants.ERR_ENTER_NUM);
-              continue;
-            }
-
-            break;
-          } catch (NumberFormatException nfe) {
-            this.view.showText(Constants.ERR_ENTER_NUM);
-          }
-        }
-
-        // Stock transaction date
-        String stockDate;
-        while (true) {
-          this.view.showText("Enter transaction date (yyyy-mm-dd):");
-          stockDate = getInput();
-
-          if (Utils.isValidDate(stockDate)) {
-            break;
-          }
-
-          this.view.showText(Constants.ERR_INVALID_DATE);
-        }
-
-        // Stock transaction commission
-        float stockComm;
-        while (true) {
-          this.view.showText("Enter transaction commission:");
-
-          try {
-            stockComm = Float.parseFloat(getInput());
-
-            if (stockComm < 0) {
-              this.view.showText("Error: Enter a correct commission value!");
-              continue;
-            }
-
-            break;
-          } catch (NumberFormatException nfe) {
-            this.view.showText("Error: Enter a correct commission value!");
-          }
-        }
-
-        try {
-          this.model.sellStock(stockName, stockQty, stockDate, stockComm);
-        } catch (RuntimeException re) {
-          this.view.showText(re.getMessage());
-          return;
-        }
-
-        // Auto-save the portfolio
-        try {
-          this.model.save();
-          this.view.showText("Portfolio saved successfully!");
-        } catch (IOException | RuntimeException exception) {
-          this.view.showText(exception.getMessage());
-          return;
-        }
-
+        performTransactionControl(TransactionType.SELL);
         break;
       }
 
@@ -578,8 +302,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
         try {
           this.view.showText(
-                  String.format("Cost-basis at [%s]: $%f",
-                          date, this.model.getCostBasis(date))
+              String.format("Cost-basis at [%s]: $%f",
+                  date, this.model.getCostBasis(date))
           );
         } catch (Exception re) {
           this.view.showText(re.getMessage());
@@ -719,6 +443,229 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  private void performTransactionControl(TransactionType type) throws IOException {
+    // Buy/Sell stocks
+    this.view.showText("\nEnter stock information\n");
+
+    // Stock name
+    String stockName;
+    while (true) {
+      this.view.showText("Enter stock name:");
+      stockName = getInput();
+
+      // Valid stock name.
+      if (!stockName.isEmpty() && Utils.VALID_STOCKS.contains(stockName)) {
+        break;
+      }
+
+      this.view.showText("Error: Invalid stock name!");
+    }
+
+    // Stock quantity
+    int stockQty;
+    while (true) {
+      this.view.showText("Enter stock quantity:");
+
+      try {
+        stockQty = Integer.parseInt(getInput());
+
+        if (stockQty < 0) {
+          this.view.showText(Constants.ERR_ENTER_NUM);
+          continue;
+        }
+
+        // Valid value
+        break;
+      } catch (NumberFormatException nfe) {
+        this.view.showText(Constants.ERR_ENTER_NUM);
+      }
+    }
+
+    // Stock transaction date
+    String stockDate;
+    while (true) {
+      this.view.showText("Enter transaction date (yyyy-mm-dd):");
+      stockDate = getInput();
+
+      if (Utils.isValidDate(stockDate)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    // Stock transaction commission
+    float stockComm;
+    while (true) {
+      this.view.showText("Enter transaction commission:");
+
+      try {
+        stockComm = Float.parseFloat(getInput());
+
+        if (stockComm < 0) {
+          this.view.showText("Error: Enter a correct commission value!");
+          continue;
+        }
+
+        // Valid value
+        break;
+      } catch (NumberFormatException nfe) {
+        this.view.showText("Error: Enter a correct commission value!");
+      }
+    }
+
+    // Make stock transaction.
+    try {
+      if (type.equals(TransactionType.BUY)) {
+        this.model.buyStock(stockName, stockQty, stockDate, stockComm);
+      } else if (type.equals(TransactionType.SELL)) {
+        this.model.sellStock(stockName, stockQty, stockDate, stockComm);
+      }
+    } catch (RuntimeException re) {
+      this.view.showText(re.getMessage());
+      return;
+    }
+
+    // Auto-save the portfolio
+    try {
+      this.model.save();
+      this.view.showText("Portfolio saved successfully!");
+    } catch (IOException | RuntimeException exception) {
+      this.view.showText(exception.getMessage());
+    }
+  }
+
+  /**
+   * Controls the performance graph creation control by asking start and end dates. [CASE 4]
+   *
+   * @throws IOException in case of user IO error
+   */
+  private void performPerformanceGraphControl() throws IOException {
+    // Start date
+    String startDate;
+    while (true) {
+      this.view.showText("Enter start date (yyyy-mm-dd):");
+      startDate = getInput();
+
+      if (Utils.isValidDate(startDate)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    // End date
+    String endDate;
+    while (true) {
+      this.view.showText("Enter end date (yyyy-mm-dd):");
+      endDate = getInput();
+
+      if (Utils.isValidDate(endDate)) {
+        break;
+      }
+
+      this.view.showText(Constants.ERR_INVALID_DATE);
+    }
+
+    // Extract the performance map
+    Map<String, Integer> performanceMap = new HashMap<>();
+    try {
+      performanceMap = this.model.getPerformance(startDate, endDate);
+
+    } catch (IllegalArgumentException iae) {
+      this.view.showText(iae.getMessage());
+      return;
+    }
+
+    // Build the result
+    StringBuilder result = new StringBuilder();
+    result.append("Performance of portfolio ")
+        .append("\"").append(this.model.getName()).append("\"")
+        .append(" from ")
+        .append(startDate).append(" to ").append(endDate)
+        .append("\n");
+
+    Map.Entry<String, Integer> absScaleEntry = null;
+    Map.Entry<String, Integer> relScaleEntry = null;
+    for (Map.Entry<String, Integer> entry : performanceMap.entrySet()) {
+      // If the entry is a scale
+      if (entry.getKey().contains("Scale (relative)")) {
+        relScaleEntry = entry;
+        continue;
+      }
+
+      if (entry.getKey().contains("Scale (absolute)")) {
+        absScaleEntry = entry;
+        continue;
+      }
+
+      // Else, append to the result
+      result.append(entry.getKey()).append(": ").append("*".repeat(entry.getValue()))
+          .append("\n");
+    }
+
+    if (absScaleEntry != null) {
+      result.append("\n").append(absScaleEntry.getKey()).append(": ")
+          .append("$").append(absScaleEntry.getValue()).append("\n");
+    }
+
+    if (relScaleEntry != null) {
+      result.append(relScaleEntry.getKey()).append(": ")
+          .append("$").append(relScaleEntry.getValue()).append("\n");
+    }
+
+    this.view.showText(result.toString());
+  }
+
+  /**
+   * Controls portfolio add operation based on the portfolio type. [CASE 3]
+   *
+   * @param type the portfolio type
+   * @throws IOException in case user IO error
+   */
+  private void performPortfolioAddControl(PortfolioType type) throws IOException {
+    // Get the portfolio adding decision.
+    int addDecision;
+
+    while (true) {
+      // Show the portfolio creation/loading methods.
+      this.view.showPortfolioAddMethods();
+
+      try {
+        addDecision = Integer.parseInt(getInput());
+
+        // In case the decision was invalid, restart.
+        if (addDecision < 1 || addDecision > 3) {
+          this.view.showText("Invalid option!");
+          continue;
+        }
+
+        // In case the user wants to exit the sub-menu.
+        if (addDecision == 3) {
+          return;
+        }
+
+        // Valid value, break.
+        break;
+      } catch (NumberFormatException nfe) {
+        this.view.showText(Constants.ERR_ENTER_NUM);
+      }
+    }
+
+    // Create portfolio based on the decision.
+    // Assign portfolio to the portfolio memory instance.
+    try {
+      if (type.equals(PortfolioType.INFLEXIBLE)) {
+        createPortfolio(addDecision, PortfolioType.INFLEXIBLE);
+      } else {
+        createPortfolio(addDecision, PortfolioType.FLEXIBLE);
+      }
+
+    } catch (RuntimeException re) {
+      this.view.showText(re.getMessage());
+    }
+  }
+
   private List<Stock> getStocksInput() throws IOException {
     this.view.showText("Enter stock information\n");
     Map<String, Integer> stockMap = new HashMap<>();
@@ -726,8 +673,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     while (true) {
       Stock stock = getStockInput();
       stockMap.put(
-              stock.getName(),
-              stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
+          stock.getName(),
+          stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
       );
 
       this.view.showText("Would you like to add more stocks? Y/N:");
@@ -742,7 +689,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     List<Stock> stockArr = new ArrayList<>();
     for (Map.Entry<String, Integer> entry : stockMap.entrySet()) {
       stockArr.add(
-              this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
+          this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
       );
     }
 
@@ -798,13 +745,13 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     for (Stock stock : composition) {
       builder
-              .append(
-                      String.format(
-                              "%s -> %s",
-                              stock.getName(), "Quantity = " + stock.getQuantity()
-                      )
+          .append(
+              String.format(
+                  "%s -> %s",
+                  stock.getName(), "Quantity = " + stock.getQuantity()
               )
-              .append("\n");
+          )
+          .append("\n");
     }
 
     return builder.toString();
