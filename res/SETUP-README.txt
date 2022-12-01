@@ -3,7 +3,20 @@ PROGRAM SETUP
 Instructions for Setup:
 1. Download the project zip and uncompress.
 2. JAR file is located in res/. RUN JAR file inside res/.
-3. Program doesn't not require any external library, standard JDK 11 will suffice.
+3. We have used external jar but included in jar itself so wil not require anything to download
+   to run jar.
+
+Instructions for setup in Intellij
+1. Download the project zip and uncompress and open as project in intellij.
+2. If want to setup in Intellij then need to download jar as follows and need to add in modules
+   2.1. Jcalender
+        4.1.1. Download jcalender from https://www.toedter.com/download/jcalendar-1.4.zip
+        4.1.2. extract and jcalendar-1.4.jar can be found in lib folder of extracted library.
+   2.2. Jfreechart
+        4.2.1. Download Jfreechart from https://sourceforge.net/projects/jfreechart/
+        4.2.2. extract and add jar from lib folder into intellij modules.
+3. If want to run tests for controller, need to unzip testfiles.zip since it has
+   desired output for tests written.
 
 Your present working directory should be like:
 panjwaniha@Haris-MacBook-Air res % pwd
@@ -13,16 +26,27 @@ Your list directory should be like:
 panjwaniha@Haris-MacBook-Air res % ls
 DESIGN-README.txt		model_class_diagram.png
 README.txt			portfolios
-SETUP-README.txt		summary_class_diagram.png
+SETUP-README.txt		summary-class-diagram.png
 assign-6-stocks-part-3.jar	supported_stocks.csv
 controller_class_diagram.png	view_class_diagram.png
 docs.zip
 
 Terminal command (example): To run Jar file
-panjwaniha@Haris-MacBook-Air res % java -jar assign-5-stocks-part-2.jar
+panjwaniha@Haris-MacBook-Air res % java -jar assign-6-stocks-part-3.jar
 
 NOTE: Currently, we are supporting high value stocks only list can be found in res/ folder.
 
+In starting command line will give user two options:-
+Can choose to go for command line view or GUI View
+
+GUI VIEW
+1. Main screen has buttons to perform action on portfolio.
+2. Top of the application it will be showing which portfolio is currently selected
+   or no portfolio chosen.
+3. Each button will take to new screen can perform desired action and will also have
+   button to return back to home screen.
+
+COMMAND LINE VIEW
 
 /* INFLEXIBLE PORTFOLIO */
 """

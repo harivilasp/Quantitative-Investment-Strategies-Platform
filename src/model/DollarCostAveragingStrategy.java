@@ -26,7 +26,7 @@ public class DollarCostAveragingStrategy implements Strategy {
    * @param weights        the stocks weights associated with these operations
    */
   public DollarCostAveragingStrategy(double amount, int intervalInDays, String startDate,
-      String endDate, double commission, Map<String, Double> weights) {
+                                     String endDate, double commission, Map<String, Double> weights) {
     this.amount = amount;
     this.intervalInDays = intervalInDays;
     this.startDate = startDate;

@@ -193,9 +193,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG", 10.0);
     simulator.addStrategy(2000.0, 15, "2019-01-01", "2021-12-31", 0.4, weights);
 
-    assertEquals(33961.59,simulator.getValue("2019-09-03"),0.01);
-    assertEquals(104303.69,simulator.getValue("2020-11-01"),0.01);
-    assertEquals(127096.41,simulator.getValue("2021-02-02"),0.01);
+    assertEquals(33961.59, simulator.getValue("2019-09-03"), 0.01);
+    assertEquals(104303.69, simulator.getValue("2020-11-01"), 0.01);
+    assertEquals(127096.41, simulator.getValue("2021-02-02"), 0.01);
   }
 
   @Test(expected = Exception.class)
@@ -252,10 +252,10 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG", 10.0);
     simulator.addStrategy(2000.0, 30
             , "2021-11-21", "2023-12-01", 0.4, weights);
-    assertEquals(2001.20,simulator.getCostBasis("2021-12-01"),0.01);
-    assertEquals(22710.89,simulator.getCostBasis("2022-10-01"),0.01);
-    assertEquals(45287.50,simulator.getCostBasis("2023-10-01"),0.01);
-    assertEquals(49288.30,simulator.getCostBasis("2024-10-01"),0.01);
+    assertEquals(2001.20, simulator.getCostBasis("2021-12-01"), 0.01);
+    assertEquals(22710.89, simulator.getCostBasis("2022-10-01"), 0.01);
+    assertEquals(45287.50, simulator.getCostBasis("2023-10-01"), 0.01);
+    assertEquals(49288.30, simulator.getCostBasis("2024-10-01"), 0.01);
   }
 
   @Test
@@ -267,9 +267,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 10.0);
     simulator.addStrategy(2000.0
             , 30, "2021-11-21", "2022-11-30", 0.4, weights);
-    assertEquals(2001.20,simulator.getCostBasis("2021-12-01"),0.01);
-    assertEquals(22710.89,simulator.getCostBasis("2022-10-01"),0.01);
-    assertEquals(27283.90,simulator.getCostBasis("2023-10-01"),0.01);
+    assertEquals(2001.20, simulator.getCostBasis("2021-12-01"), 0.01);
+    assertEquals(22710.89, simulator.getCostBasis("2022-10-01"), 0.01);
+    assertEquals(27283.90, simulator.getCostBasis("2023-10-01"), 0.01);
   }
 
   @Test

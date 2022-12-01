@@ -76,8 +76,22 @@ FLEXIBLE PORTFOLIO
 
     12.2. Hence, value will be converted into number of stars and view will print same.
 
+13. Investing with amount is possible at past date and user will give weight, amount to invest and
+    commission. Actual amount invested will be after subtracting commission from amount and amount
+    to invest in each stock will be percentage specified in stock and number of share we get at
+    that date at that price will be bought using buy method internally.
+14. Strategy can be applied, so all the transactions which are possible with dates before than today
+    can be completed since have price of those dates and strategy will saved for future transactions.
 
 DESIGN IMPROVEMENTS
+1. In previous assignment suggestion of reducing function length by using private
+   helper function, So we have incorporated them.
+2. we made controller in a way so that it can be loosely coupled with any view like Swing,
+   JavaFx.
+3. In this assignment we have allowed doing cost basis at future date as well since strategy
+   might be continuing in future as well so we can calculate cost basis as well in future.
+
+Design Choices:-
 1. Implemented Facade design pattern for model, which helps to reduce coupling between
    model and controller, as now only single model will be connecting with controller.
 2. File Writer class is seperated from core model, which helps in changing file format easily.
