@@ -42,18 +42,20 @@ public class JCompositionView extends JPanel implements PanelView {
     // Center panel -> Date text field and show composition button
     this.dateField = new JTextField(8);
     this.showButton = new JButton("SHOW");
-    this.homeButton = new JButton("HOME");
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 8));
     centerPanel.add(new JLabel("Date:"));
     centerPanel.add(this.dateField);
     centerPanel.add(this.showButton);
-    centerPanel.add(this.homeButton);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Result comes here>");
+    this.messageLabel = new JLabel("<Result comes here>"); // TODO
+    this.homeButton = new JButton("HOME");
+
+    // BoxLayout for the message and home button
+
 
     JPanel southPanel = new JPanel();
     southPanel.add(this.messageLabel);
