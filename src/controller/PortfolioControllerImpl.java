@@ -443,6 +443,12 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
+  /**
+   * Controls performing purchase and sale of stocks based on the transaction type.
+   *
+   * @param type the transaction type
+   * @throws IOException in case of user IO error
+   */
   private void performTransactionControl(TransactionType type) throws IOException {
     // Buy/Sell stocks
     this.view.showText("\nEnter stock information\n");
