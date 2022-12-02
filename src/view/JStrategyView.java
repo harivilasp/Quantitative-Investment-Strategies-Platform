@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -66,8 +65,10 @@ public class JStrategyView extends JPanel implements PanelView {
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
     this.intervalField = new JTextField("0", 4);
-    this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
-    this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.startDateChooser = new JDateChooser();
+    this.startDateChooser.setDateFormatString("yyyy-MM-dd");
+    this.endDateChooser = new JDateChooser();
+    this.endDateChooser.setDateFormatString("yyyy-MM-dd");
     this.commissionField = new JTextField("0.0", 6);
 
     // Disable start date editor
@@ -112,7 +113,7 @@ public class JStrategyView extends JPanel implements PanelView {
     sectionPanel.add(boxPanel);
     sectionPanel.add(this.addButton);
 
-    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel = new JLabel("");
     this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.submitButton = new JButton("SUBMIT");
     this.submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -171,7 +172,7 @@ public class JStrategyView extends JPanel implements PanelView {
     submitButton.addActionListener(event -> {
       // Verify end date
       String endDate = "2200-12-01";  // default
-      if (!endDateChooser.getDateEditor().getDate().toString().isEmpty()) {
+      if (endDateChooser.getDateEditor().getDate() != null) {
         endDate = sdf.format(endDateChooser.getDateEditor().getDate());
       }
 
@@ -213,8 +214,8 @@ public class JStrategyView extends JPanel implements PanelView {
     this.weightageField.setText("0.0");
     this.amountField.setText("0.0");
     this.intervalField.setText("1");
-    this.startDateChooser.setDate(new Date());
-    this.endDateChooser.setDate(new Date());
+    this.startDateChooser.setDate(null);
+    this.endDateChooser.setDate(null);
     this.commissionField.setText("0.0");
   }
 }

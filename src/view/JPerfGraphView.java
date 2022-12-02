@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import javax.swing.BoxLayout;
@@ -50,9 +49,11 @@ public class JPerfGraphView extends JPanel implements PanelView {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_WEEK, -1);
 
-    this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.startDateChooser = new JDateChooser();
+    this.startDateChooser.setDateFormatString("yyyy-MM-dd");
     this.startDateChooser.getDateEditor().setEnabled(false);
-    this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.endDateChooser = new JDateChooser();
+    this.endDateChooser.setDateFormatString("yyyy-MM-dd");
     this.endDateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
 
@@ -112,7 +113,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
 
   @Override
   public void clearInput() {
-    this.startDateChooser.setDate(new Date());
-    this.endDateChooser.setDate(new Date());
+    this.startDateChooser.setDate(null);
+    this.endDateChooser.setDate(null);
   }
 }

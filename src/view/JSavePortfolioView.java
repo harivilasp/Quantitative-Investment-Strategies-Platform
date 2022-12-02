@@ -60,7 +60,7 @@ public class JSavePortfolioView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Home button
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("");
     this.homeButton = new JButton("HOME");
 
     // Alignments

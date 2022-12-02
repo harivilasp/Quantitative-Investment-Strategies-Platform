@@ -82,7 +82,7 @@ public class JTransactionView extends JPanel implements PanelView {
     centerPanel.add(this.quantityField);
     centerPanel.add(new JLabel("Transaction date (yyyy-mm-dd): "));
     centerPanel.add(this.dateChooser);
-    centerPanel.add(new JLabel("Commission: "));
+    centerPanel.add(new JLabel("Commission (in USD): "));
     centerPanel.add(this.commField);
     this.add(centerPanel, BorderLayout.CENTER);
 

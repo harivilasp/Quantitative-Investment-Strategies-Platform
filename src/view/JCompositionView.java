@@ -47,7 +47,8 @@ public class JCompositionView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Date text field and show composition button
-    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser = new JDateChooser();
+    this.dateChooser.setDateFormatString("yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
 
@@ -59,7 +60,7 @@ public class JCompositionView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("");
     this.homeButton = new JButton("HOME");
 
     // Alignments
@@ -109,7 +110,7 @@ public class JCompositionView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.messageLabel.setText("");
-    this.dateChooser.setDate(new Date());
+    this.dateChooser.setDate(null);
   }
 
   /**
