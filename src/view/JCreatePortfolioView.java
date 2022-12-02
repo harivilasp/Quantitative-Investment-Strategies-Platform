@@ -49,7 +49,7 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Result
-    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel = new JLabel("");
     this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.homeButton = new JButton("HOME");
     this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
