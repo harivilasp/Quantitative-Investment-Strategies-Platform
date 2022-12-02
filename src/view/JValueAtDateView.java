@@ -21,8 +21,6 @@ import javax.swing.JPanel;
 public class JValueAtDateView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel titleLabel;
-  // private JTextField dateField;
   private JDateChooser dateChooser;
   private JButton actionButton;
   private JLabel messageLabel;
@@ -38,16 +36,15 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Enter date and submit
-    // this.dateField = new JTextField(10);
     this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
     this.actionButton = new JButton("Get Value");
@@ -61,7 +58,7 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Show result
-    this.messageLabel = new JLabel("Show result");
+    this.messageLabel = new JLabel("");
     this.homeButton = new JButton("HOME");
 
     // Alignments
@@ -96,12 +93,10 @@ public class JValueAtDateView extends JPanel implements PanelView {
 
     this.actionButton.addActionListener(event -> {
       String response = features.getValue(
-          // dateField.getText()
           sdf.format(dateChooser.getDateEditor().getDate())
       );
 
       messageLabel.setText(String.valueOf(response));
-      // dateField.setText("");
       dateChooser.setDate(new Date());
     });
 

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
  */
 public class JSavePortfolioView extends JPanel implements PanelView {
 
-  private JLabel titleLabel;
   private JLabel messageLabel;
   private JButton posButton;
   private JButton negButton;
@@ -31,11 +30,11 @@ public class JSavePortfolioView extends JPanel implements PanelView {
     this.setPreferredSize(new Dimension(500, 500));
     this.setLayout(new BorderLayout(8, 16));
     portfolioName = new String();
-    // North panel -> title
-    this.titleLabel = new JLabel(title);
 
+    // North panel -> title
+    JLabel titleLabel = new JLabel(title);
     JPanel northPanel = new JPanel();
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Whether to save the portfolio

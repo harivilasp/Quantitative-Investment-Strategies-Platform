@@ -9,10 +9,21 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+/**
+ * This class represents a frame that displays the performance metrics of the stocks in a portfolio
+ * between certain dates.
+ */
 public class PerformanceGraph extends JFrame {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Creates an instance of the performance graph frame.
+   *
+   * @param title the title of the frame
+   * @param map   the hash map of values
+   * @param scale the scale of the graph
+   */
   public PerformanceGraph(String title, Map<String, Integer> map, String scale) {
     super(title);
     // Create dataset  
@@ -29,19 +40,13 @@ public class PerformanceGraph extends JFrame {
     setContentPane(panel);
   }
 
-  private DefaultCategoryDataset createDataset(Map<String, Integer> map, String scale) {
-    String series1 = scale;
-
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-    for (Map.Entry<String, Integer> entry : map.entrySet()) {
-      dataset.addValue(entry.getValue(), series1, entry.getKey());
-    }
-
-    return dataset;
-  }
-
-  public static void DrawGraph(Map<String, Integer> map) {
+  /**
+   * This method draws a graph on the frame using the value set of dates and their respective
+   * performance.
+   *
+   * @param map the map of graph values
+   */
+  public static void drawGraph(Map<String, Integer> map) {
     SwingUtilities.invokeLater(() -> {
       String scale = new String();
       for (Map.Entry<String, Integer> entry : map.entrySet()) {
@@ -59,5 +64,17 @@ public class PerformanceGraph extends JFrame {
       performanceGraph.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
       performanceGraph.setVisible(true);
     });
+  }
+
+  /* Helper method to create a dataset */
+  private DefaultCategoryDataset createDataset(Map<String, Integer> map, String scale) {
+    String series1 = scale;
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    for (Map.Entry<String, Integer> entry : map.entrySet()) {
+      dataset.addValue(entry.getValue(), series1, entry.getKey());
+    }
+
+    return dataset;
   }
 }

@@ -21,16 +21,11 @@ import javax.swing.JPanel;
  */
 public class JPerfGraphView extends JPanel implements PanelView {
 
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
-  //  private JTextField startDateField;
-//  private JTextField endDateField;
   private JDateChooser startDateChooser;
   private JDateChooser endDateChooser;
   private JButton showButton;
   private JButton homeButton;
-  private JPanel southPanel;
-  private JPanel centerPanel;
 
   /**
    * Creates an instance of the JPerfGraph view to map out all the view components.
@@ -42,18 +37,16 @@ public class JPerfGraphView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
-    this.portfolioLabel = new JLabel("<Portfolio Name>"); // TODO
+    JLabel titleLabel = new JLabel(title);
+    this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Text input fields
-//    this.startDateField = new JTextField(10);
-//    this.endDateField = new JTextField(10);
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_WEEK, -1);
 
@@ -63,7 +56,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
     this.endDateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
 
-    centerPanel = new JPanel();
+    JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
     centerPanel.add(new JLabel("Start date (yyyy-mm-dd): "));
     centerPanel.add(this.startDateChooser);
@@ -76,7 +69,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
     this.homeButton = new JButton("HOME");
     this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    southPanel = new JPanel();
+    JPanel southPanel = new JPanel();
     southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.PAGE_AXIS));
     southPanel.add(this.homeButton);
     southPanel.add(new JLabel("      "));
@@ -105,7 +98,7 @@ public class JPerfGraphView extends JPanel implements PanelView {
           System.out.println("Invalid Arguments");
         }
         // clearInput();
-        PerformanceGraph.DrawGraph(map);
+        PerformanceGraph.drawGraph(map);
       } catch (Exception e) {
         e.getMessage();
       }

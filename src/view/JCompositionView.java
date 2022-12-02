@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 public class JCompositionView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JDateChooser dateChooser;
   private JButton showButton;
@@ -38,12 +37,12 @@ public class JCompositionView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
@@ -54,7 +53,7 @@ public class JCompositionView extends JPanel implements PanelView {
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 12, 8));
-    centerPanel.add(new JLabel("Date:"));
+    centerPanel.add(new JLabel("Enter date (yyyy-mm-dd):"));
     centerPanel.add(this.dateChooser);
     centerPanel.add(this.showButton);
     this.add(centerPanel, BorderLayout.CENTER);
@@ -80,6 +79,7 @@ public class JCompositionView extends JPanel implements PanelView {
     this.add(southPanel, BorderLayout.SOUTH);
   }
 
+  @Override
   public void addActionListener(Features features) {
     SimpleDateFormat sdf = new SimpleDateFormat(
         "yyyy-MM-dd",
@@ -106,13 +106,18 @@ public class JCompositionView extends JPanel implements PanelView {
     });
   }
 
-  public void setPortfolioName(String portfolioName) {
-    portfolioLabel.setText(portfolioName);
-  }
-
   @Override
   public void clearInput() {
     this.messageLabel.setText("");
     this.dateChooser.setDate(new Date());
+  }
+
+  /**
+   * Helper method to set the portfolio name.
+   *
+   * @param portfolioName the portfolio name to be set
+   */
+  public void setPortfolioName(String portfolioName) {
+    portfolioLabel.setText(portfolioName);
   }
 }

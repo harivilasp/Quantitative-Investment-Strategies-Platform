@@ -24,7 +24,6 @@ import utils.Utils;
 public class JTransactionView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JComboBox<String> nameComboBox;
   private JTextField quantityField;
@@ -45,11 +44,11 @@ public class JTransactionView extends JPanel implements PanelView {
     setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("<Portfolio Name>");
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 0));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
@@ -68,11 +67,11 @@ public class JTransactionView extends JPanel implements PanelView {
     // Other fields
     this.quantityField = new JTextField(6);
     this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser.getDateEditor().setEnabled(false);
     this.commField = new JTextField(6);
 
     // Default values and formats
     this.quantityField.setText("1");
-    this.dateChooser.getDateEditor().setEnabled(false);
     this.commField.setText("0.0");
 
     JPanel centerPanel = new JPanel();
@@ -91,7 +90,7 @@ public class JTransactionView extends JPanel implements PanelView {
     this.buyButton = new JButton("BUY");
     this.sellButton = new JButton("SELL");
     this.homeButton = new JButton("HOME");
-    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel = new JLabel("");
 
     // Set alignment
     this.homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,9 +129,9 @@ public class JTransactionView extends JPanel implements PanelView {
   public void clearInput() {
     this.messageLabel.setText("");
     this.nameComboBox.setSelectedItem("--none--");
-    this.quantityField.setText("");
     this.dateChooser.setDate(new Date());
-    this.commField.setText("");
+    this.quantityField.setText("1");
+    this.commField.setText("0.0");
   }
 
   @Override
@@ -152,7 +151,7 @@ public class JTransactionView extends JPanel implements PanelView {
         );
 
         messageLabel.setText(status);
-        this.nameComboBox.setSelectedItem("--none--");
+        nameComboBox.setSelectedItem("--none--");
         dateChooser.setDate(new Date());
       } catch (Exception e) {
         messageLabel.setText(e.getMessage());
@@ -169,7 +168,7 @@ public class JTransactionView extends JPanel implements PanelView {
         );
 
         messageLabel.setText(status);
-        this.nameComboBox.setSelectedItem("--none--");
+        nameComboBox.setSelectedItem("--none--");
         dateChooser.setDate(new Date());
       } catch (Exception e) {
         messageLabel.setText(e.getMessage());

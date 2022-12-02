@@ -18,7 +18,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class JLoadPortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel titleLabel;
   private JButton chooseFileButton;
   private JLabel messageLabel;
 
@@ -32,10 +31,10 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
 
     JPanel northPanel = new JPanel();
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Choose file button
@@ -70,7 +69,6 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
 
   @Override
   public void addActionListener(Features features) {
-
     chooseFileButton.addActionListener(evt -> {
       // Open file chooser
       JFileChooser fileChooser = new JFileChooser();
@@ -79,6 +77,7 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
           "Text files",
           "txt"
       );
+
       fileChooser.setFileFilter(fileFilter);
 
       // Retrieve response code from the file chooser
@@ -90,6 +89,7 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
         this.messageLabel.setText(responseStatus); // TODO
       }
     });
+
     homeButton.addActionListener(evt -> {
       features.showHome();
     });

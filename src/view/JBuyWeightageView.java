@@ -28,10 +28,8 @@ import utils.Utils;
  */
 public class JBuyWeightageView extends JPanel implements PanelView {
 
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JTextField amountField;
-  //  private JTextField dateField;
   private JDateChooser dateChooser;
   private JTextField commissionField;
   private JButton addButton;
@@ -55,12 +53,12 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     this.weightsMap = new HashMap<>();
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("No Portfolio Selected");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
@@ -68,16 +66,15 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     this.amountField = new JTextField("0.0", 6);
     this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
-//    this.dateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
-    centerPanel.add(new JLabel("Amount: "));
+    centerPanel.add(new JLabel("Amount (in USD): "));
     centerPanel.add(this.amountField);
     centerPanel.add(new JLabel("Date (yyyy-mm-dd): "));
     centerPanel.add(this.dateChooser);
-    centerPanel.add(new JLabel("Commission: "));
+    centerPanel.add(new JLabel("Commission (in USD): "));
     centerPanel.add(this.commissionField);
     this.add(centerPanel, BorderLayout.CENTER);
 
@@ -149,6 +146,11 @@ public class JBuyWeightageView extends JPanel implements PanelView {
       // Parse weightage text
       try {
         weightage = Double.parseDouble(this.weightageField.getText());
+        // Invalid weightage
+        if (weightage < 0 || weightage > 100) {
+          throw new NumberFormatException();
+        }
+
       } catch (NumberFormatException nfe) {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }
@@ -182,9 +184,9 @@ public class JBuyWeightageView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.comboBox.setSelectedItem("--none--");
-    this.weightageField.setText("");
-    this.amountField.setText("");
+    this.weightageField.setText("0.0");
+    this.amountField.setText("0.0");
     this.dateChooser.setDate(new Date());
-    this.commissionField.setText("");
+    this.commissionField.setText("0.0");
   }
 }

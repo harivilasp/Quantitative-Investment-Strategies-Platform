@@ -27,12 +27,9 @@ import utils.Utils;
  */
 public class JStrategyView extends JPanel implements PanelView {
 
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
   private JTextField amountField;
   private JTextField intervalField;
-  //  private JTextField startDateField;
-//  private JTextField endDateField;
   private JDateChooser startDateChooser;
   private JDateChooser endDateChooser;
   private JTextField commissionField;
@@ -57,12 +54,12 @@ public class JStrategyView extends JPanel implements PanelView {
     this.weightsMap = new HashMap<>();
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("No portfolio Selected");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
@@ -71,8 +68,6 @@ public class JStrategyView extends JPanel implements PanelView {
     this.intervalField = new JTextField("0", 4);
     this.startDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.endDateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
-//    this.startDateField = new JTextField(8);
-//    this.endDateField = new JTextField(8);
     this.commissionField = new JTextField("0.0", 6);
 
     // Disable start date editor
@@ -80,7 +75,7 @@ public class JStrategyView extends JPanel implements PanelView {
 
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
-    centerPanel.add(new JLabel("Amount: "));
+    centerPanel.add(new JLabel("Amount (in USD): "));
     centerPanel.add(this.amountField);
     centerPanel.add(new JLabel("Interval (in days): "));
     centerPanel.add(this.intervalField);
@@ -88,14 +83,14 @@ public class JStrategyView extends JPanel implements PanelView {
     centerPanel.add(this.startDateChooser);
     centerPanel.add(new JLabel("End date (yyyy-mm-dd): "));
     centerPanel.add(this.endDateChooser);
-    centerPanel.add(new JLabel("Commission: "));
+    centerPanel.add(new JLabel("Commission (in USD): "));
     centerPanel.add(this.commissionField);
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Stock weightage addition
     // ComboBox panel
     JPanel boxPanel = new JPanel();
-    boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
+    boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage (in %)"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
 
     String[] options = new String[Utils.VALID_STOCKS.size()];
@@ -161,6 +156,11 @@ public class JStrategyView extends JPanel implements PanelView {
       // Parse weightage text
       try {
         weightage = Double.parseDouble(this.weightageField.getText());
+        // Invalid weightage
+        if (weightage < 0 || weightage > 100) {
+          throw new NumberFormatException();
+        }
+
         weightsMap.put(stockName, weightsMap.getOrDefault(stockName, 0.0) + weightage);
         messageLabel.setText("Added");
       } catch (NumberFormatException nfe) {
@@ -210,13 +210,11 @@ public class JStrategyView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.comboBox.setSelectedItem("--none--");
-    this.weightageField.setText("");
-    this.amountField.setText("");
-    this.intervalField.setText("");
-//    this.startDateField.setText("");
-//    this.endDateField.setText("");
+    this.weightageField.setText("0.0");
+    this.amountField.setText("0.0");
+    this.intervalField.setText("1");
     this.startDateChooser.setDate(new Date());
     this.endDateChooser.setDate(new Date());
-    this.commissionField.setText("");
+    this.commissionField.setText("0.0");
   }
 }

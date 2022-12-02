@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 public class JCreatePortfolioView extends JPanel implements PanelView {
 
   private JButton homeButton;
-  private JLabel titleLabel;
   private JTextField nameField;
   private JButton createButton;
   private JLabel messageLabel;
@@ -32,10 +31,10 @@ public class JCreatePortfolioView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
 
     JPanel northPanel = new JPanel();
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Name text field and create button

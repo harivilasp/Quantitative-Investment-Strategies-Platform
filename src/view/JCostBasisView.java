@@ -20,9 +20,7 @@ import javax.swing.JPanel;
  */
 public class JCostBasisView extends JPanel implements PanelView {
 
-  private JLabel titleLabel;
   private JLabel portfolioLabel;
-  // private JTextField dateField;
   private JDateChooser dateChooser;
   private JButton showButton;
   private JButton homeButton;
@@ -38,17 +36,16 @@ public class JCostBasisView extends JPanel implements PanelView {
     this.setLayout(new BorderLayout(8, 16));
 
     // North panel -> Title
-    this.titleLabel = new JLabel(title);
+    JLabel titleLabel = new JLabel(title);
     this.portfolioLabel = new JLabel("<Portfolio Name>");
 
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 8));
-    northPanel.add(this.titleLabel);
+    northPanel.add(titleLabel);
     northPanel.add(this.portfolioLabel);
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Date text field and show composition button
-    // this.dateField = new JTextField(8);
     this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
     this.showButton = new JButton("SHOW");
@@ -92,12 +89,10 @@ public class JCostBasisView extends JPanel implements PanelView {
 
     this.showButton.addActionListener(evt -> {
       String status = features.getCostBasis(
-          // dateField.getText()
           sdf.format(dateChooser.getDateEditor().getDate())
       );
 
       messageLabel.setText(status);
-      // dateField.setText("");
       dateChooser.setDate(new Date());
     });
 
@@ -119,7 +114,6 @@ public class JCostBasisView extends JPanel implements PanelView {
   @Override
   public void clearInput() {
     this.messageLabel.setText("");
-    // dateField.setText("");
     this.dateChooser.setDate(new Date());
   }
 }
