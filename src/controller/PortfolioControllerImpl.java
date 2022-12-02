@@ -60,7 +60,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     while (true) {
       /* Show user whether they'd like to work on a flexible or an inflexible portfolio. */
       this.view.showText(
-          "\nWhich one of the following type of portfolio would you like to work with?"
+              "\nWhich one of the following type of portfolio would you like to work with?"
       );
 
       this.view.showText("1. Inflexible portfolio, or");
@@ -200,7 +200,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
         // Format the composition
         String composition = formatStockInformation(
-            this.model.getComposition()
+                this.model.getComposition()
         );
 
         this.view.showText("Portfolio Composition:\n" + composition);
@@ -565,10 +565,10 @@ public class PortfolioControllerImpl implements PortfolioController {
     // Build the result
     StringBuilder result = new StringBuilder();
     result.append("Performance of portfolio ")
-        .append("\"").append(this.model.getName()).append("\"")
-        .append(" from ")
-        .append(startDate).append(" to ").append(endDate)
-        .append("\n");
+            .append("\"").append(this.model.getName()).append("\"")
+            .append(" from ")
+            .append(startDate).append(" to ").append(endDate)
+            .append("\n");
 
     Map.Entry<String, Integer> absScaleEntry = null;
     Map.Entry<String, Integer> relScaleEntry = null;
@@ -586,17 +586,17 @@ public class PortfolioControllerImpl implements PortfolioController {
 
       // Else, append to the result
       result.append(entry.getKey()).append(": ").append("*".repeat(entry.getValue()))
-          .append("\n");
+              .append("\n");
     }
 
     if (absScaleEntry != null) {
       result.append("\n").append(absScaleEntry.getKey()).append(": ")
-          .append("$").append(absScaleEntry.getValue()).append("\n");
+              .append("$").append(absScaleEntry.getValue()).append("\n");
     }
 
     if (relScaleEntry != null) {
       result.append(relScaleEntry.getKey()).append(": ")
-          .append("$").append(relScaleEntry.getValue()).append("\n");
+              .append("$").append(relScaleEntry.getValue()).append("\n");
     }
 
     this.view.showText(result.toString());
@@ -672,8 +672,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     try {
       this.view.showText(
-          String.format("Cost-basis at [%s]: $%f",
-              date, this.model.getCostBasis(date))
+              String.format("Cost-basis at [%s]: $%f",
+                      date, this.model.getCostBasis(date))
       );
     } catch (Exception re) {
       this.view.showText(re.getMessage());
@@ -719,8 +719,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     while (true) {
       Stock stock = getStockInput();
       stockMap.put(
-          stock.getName(),
-          stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
+              stock.getName(),
+              stockMap.getOrDefault(stock.getName(), 0) + (int) stock.getQuantity()
       );
 
       this.view.showText("Would you like to add more stocks? Y/N:");
@@ -735,7 +735,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     List<Stock> stockArr = new ArrayList<>();
     for (Map.Entry<String, Integer> entry : stockMap.entrySet()) {
       stockArr.add(
-          this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
+              this.model.generateStock(entry.getKey(), entry.getValue())  // #ignored: IAE. No need.
       );
     }
 
@@ -791,13 +791,13 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     for (Stock stock : composition) {
       builder
-          .append(
-              String.format(
-                  "%s -> %s",
-                  stock.getName(), "Quantity = " + stock.getQuantity()
+              .append(
+                      String.format(
+                              "%s -> %s",
+                              stock.getName(), "Quantity = " + stock.getQuantity()
+                      )
               )
-          )
-          .append("\n");
+              .append("\n");
     }
 
     return builder.toString();

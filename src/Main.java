@@ -20,7 +20,7 @@ public class Main {
    * @param args any input parameter
    * @throws Exception in case of any errors
    */
-  public static void main(String args[]) {
+  public static void main(String[] args) {
 
     System.out.println("Welcome!");
     int choice;

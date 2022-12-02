@@ -70,9 +70,22 @@ FLEXIBLE PORTFOLIO
 6. Commission fees are usually a fixed fee per transaction. Added support to specify and
    incorporate commissions fees.
 7. Composition at date has been supported, which gives composition of portfolio till that date.
-8. Graph of performance has been drawn between start date and end date.
+8. Graph of performance has been drawn between start date and end date in view as well.
 9. Web API Integration has been completed, which fetches the real time prices of stocks
    for date with design to support plan (for additional APIs in the future).
+10. Investing a fixed amount into an existing portfolio containing multiple stocks,
+    using a specified weight for each stock in the portfolio. For example, the user can
+    create a FANG portfolio (Facebook, Apple, Netflix, Google) and then specify to
+    invest $2000 in the portfolio on a specific date, such that 40% goes towards Facebook,
+    20% towards Apple, 30% towards Netflix and 10% towards Google). In contrast with preventing
+    clients from buying fractional shares explicitly, a fixed amount strategy does allow
+    purchases of fractional shares depending on the amount specified.
+11. Program offer creating "start-to-finish" dollar-cost averaging as a single operation.
+    For example, "create a portfolio of 10 specified stocks, and invest $2000 in the portfolio
+    every 30 days starting on Jan 1 2012 until Dec 31 2015 using the same,
+    specified weights for each transaction". Note that this is one specific example:
+    the user may use a different amount, different frequency and time range.
+    The strategy can also be ongoing, i.e. the user may not specify an end date.
 
 USER INTERFACE
 
@@ -96,16 +109,16 @@ The text interface works as expected, showing users a list of operations to work
 The GUI option however, provides the user the below set of operations arranged in a grid layout for
 the user to click.
 
-1. Create portfolio
+1. Create portfolio: Can create new portfolio.
 2. Buy/Sell stock
 3. Composition at date
 4. Check cost basis
 5. Check value
 6. Save portfolio to file
 7. Read portfolio from file
-8. Apply strategy
-9. Invest amount
-10. Performance of portfolio
+8. Apply strategy: as of now only dollar cost strategy is supported.
+9. Invest amount: will ask for amount and weights user wants to invest in stocks.
+10. Performance of portfolio: shows the graph of performance of portfolio between 2 given dates.
 11. Quit
 
 The user can click on any of the options which opens a new panel for that operation inside the same

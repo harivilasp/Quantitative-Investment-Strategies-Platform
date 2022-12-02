@@ -58,7 +58,7 @@ public interface FlexiblePortfolio extends Portfolio {
    * @param weights        the stocks weights associated with these operations
    */
   void addStrategy(double amount, int intervalInDays, String startDate, String endDate,
-      double commission, Map<String, Double> weights) throws Exception;
+                   double commission, Map<String, Double> weights) throws Exception;
 
   /**
    * This method helps buy stocks associated with weights for each stocks for a defined amount.
@@ -69,5 +69,5 @@ public interface FlexiblePortfolio extends Portfolio {
    * @param weights    the defined weights for the stocks
    */
   void buyStocksWithWeights(double amount, String date, double commission,
-      Map<String, Double> weights) throws Exception;
+                            Map<String, Double> weights) throws Exception;
 }

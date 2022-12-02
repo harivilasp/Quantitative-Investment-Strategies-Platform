@@ -111,7 +111,8 @@ public interface Simulator {
   /**
    * This method sells stock at particular date with given commission.
    *
-   * @param stock      represents the stock symbol and quantity.
+   * @param stockName      represents the stock symbol.
+   * @param stockQty      represents the stock quantity.
    * @param date       represents date of selling stock.
    * @param commission represents the commission of selling.
    * @throws RuntimeException when stock invalid combination of selling is provided.

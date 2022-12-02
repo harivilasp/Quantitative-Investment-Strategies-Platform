@@ -107,7 +107,7 @@ public interface Features {
    * @return the response status of the operation
    */
   String addStrategy(double amount, int intervalInDays, String startDate, String endDate,
-      double commission, Map<String, Double> weights
+                     double commission, Map<String, Double> weights
   );
 
   /**
@@ -120,7 +120,7 @@ public interface Features {
    * @return the response status of the operation
    */
   String buyStocksWithWeights(double amount, String date, double commission,
-      Map<String, Double> weights);
+                              Map<String, Double> weights);
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.

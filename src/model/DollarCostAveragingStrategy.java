@@ -26,7 +26,7 @@ public class DollarCostAveragingStrategy implements Strategy {
    * @param weights        the stocks weights associated with these operations
    */
   public DollarCostAveragingStrategy(double amount, int intervalInDays, String startDate,
-      String endDate, double commission, Map<String, Double> weights) {
+                                     String endDate, double commission, Map<String, Double> weights) {
     this.amount = amount;
     this.intervalInDays = intervalInDays;
     this.startDate = startDate;
@@ -34,37 +34,36 @@ public class DollarCostAveragingStrategy implements Strategy {
     this.weights = weights;
     this.commission = commission;
   }
-
-  /**
-   * Getters
-   */
+  @Override
   public double getAmount() {
     return amount;
   }
-
+  @Override
   public int getIntervalInDays() {
     return intervalInDays;
   }
 
+  @Override
   public String getStartDate() {
     return startDate;
   }
 
+  @Override
   public String getEndDate() {
     return endDate;
   }
 
+  @Override
   public double getCommission() {
     return commission;
   }
 
-  /**
-   * Setters
-   */
+  @Override
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
+  @Override
   public Map<String, Double> getWeights() {
     return weights;
   }

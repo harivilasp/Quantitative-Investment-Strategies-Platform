@@ -215,7 +215,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public Map<String, Integer> getPerformance(String startDate, String endDate)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Map<String, Integer> performances = new TreeMap<>();
     Calendar c = Calendar.getInstance();
@@ -239,7 +239,7 @@ public class SimulatorImpl implements Simulator {
     if (firstDate.compareTo(secondDate) > 0) {
       throw new IllegalArgumentException(Constants.ERR_INVALID_DATE);
     }
-    performances = calculateDateScale(portfolio, firstDate, secondDate, endDate);
+    performances = calculateDateScale(portfolio,firstDate, secondDate, endDate);
     performances = calculateValueScale(performances);
 
     //System.out.println(performances);
@@ -256,8 +256,8 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) throws Exception {
+                          String startDate, String endDate, double commission,
+                          Map<String, Double> weights) throws Exception {
     if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }
@@ -266,7 +266,7 @@ public class SimulatorImpl implements Simulator {
 
   @Override
   public void buyStocksWithWeights(double amount, String date, double commission,
-      Map<String, Double> weights) throws Exception {
+                                   Map<String, Double> weights) throws Exception {
     if (inflexiblePortfolio != null) {
       throw new Exception("Operation only supported on Inflexible Portfolio");
     }
