@@ -101,7 +101,8 @@ public interface Simulator {
   /**
    * This method buys stock at particular date with given commission.
    *
-   * @param stock      represents the stock symbol and quantity.
+   * @param stockName  represents the stock symbol.
+   * @param stockQty   represents the stock quantity.
    * @param date       represents date of buying stock.
    * @param commission represents the commission of buying.
    */

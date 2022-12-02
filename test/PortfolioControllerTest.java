@@ -141,14 +141,14 @@ public class PortfolioControllerTest {
     public void addStrategy(double amount,
                             int intervalInDays, String startDate, String endDate,
                             double commission, Map<String, Double> weights) throws Exception {
-
+      // do nothing
     }
 
     @Override
     public void buyStocksWithWeights(double amount,
-                                     String Date, double commission,
+                                     String date, double commission,
                                      Map<String, Double> weights) throws Exception {
-
+      // Do nothing
     }
   }
 
@@ -254,7 +254,7 @@ public class PortfolioControllerTest {
 
     @Override
     public void buyStocksWithWeights(double amount,
-                                     String Date, double commission,
+                                     String date, double commission,
                                      Map<String, Double> weights) throws Exception {
       // do nothing
     }
