@@ -94,13 +94,6 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test
-  public void testGetPerformanceOverMonths() throws RuntimeException, ParseException {
-    Map<String, Integer> performances = simulator.getPerformance("2022-08-19", "2022-10-15");
-
-  }
-
-
-  @Test
   public void testGetPerformanceYearsLargediff() throws RuntimeException, ParseException {
     Map<String, Integer> performances = simulator.getPerformance("1950-09-19", "2022-10-15");
     assertEquals("{1950-09-19=0, 1957-09-19=0, 1964-09-19=0, 1971-09-19=0, "
@@ -155,6 +148,7 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
     simulator.buyStocksWithWeights(2000.0, "2-09-09", 0.4, weights);
+    assertEquals("[GOOG=3.0]",simulator.getCompositionAtDate("2022-09-08").toString());
   }
 
   @Test
@@ -165,8 +159,7 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
     simulator.buyStocksWithWeights(2000.0, "2022-09-09", 0.4, weights);
-    System.out.println(simulator.getCompositionAtDate("2022-09-08").toString());
-    System.out.println(simulator.getCompositionAtDate("2022-09-18").toString());
+    assertEquals("[GOOG=3.0]",simulator.getCompositionAtDate("2022-09-08").toString());
   }
 
   @Test
@@ -178,10 +171,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG", 10.0);
     simulator.addStrategy(2000.0
             , 30, "2019-01-01", "2021-12-31", 0.4, weights);
-    System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
-    System.out.println(simulator.getCompositionAtDate("2019-10-01").toString());
-    System.out.println(simulator.getCompositionAtDate("2019-11-02").toString());
-    System.out.println(simulator.getCompositionAtDate("2019-12-02").toString());
+    assertEquals("[AAPL=19.348487548826743, GOOG=1.5830714582782577, "
+                    + "META=41.734000383894696, NFLX=16.147737846071035]",
+            simulator.getCompositionAtDate("2019-09-01").toString());
   }
 
   @Test
@@ -205,7 +197,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30, "201-01", "2015-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0, 30,
+            "201-01", "2015-12-31", 0.4, weights);
+    assertEquals("[]",simulator.getCompositionAtDate("2019-09-01").toString());
   }
 
   @Test(expected = Exception.class)
@@ -215,7 +209,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30, "2015-01-01", "2012-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0, 30, "2015-01-01",
+            "2012-12-31", 0.4, weights);
+    assertEquals("[]",simulator.getCompositionAtDate("2019-09-01").toString());
   }
 
   @Test
@@ -225,11 +221,12 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0
-            , 30, "2022-01-01", "2024-12-31", 0.4, weights);
-    System.out.println(simulator.getCompositionAtDate("2019-09-01").toString());
-    System.out.println(simulator.getCompositionAtDate("2022-10-01").toString());
-    System.out.println(simulator.getCompositionAtDate("2022-11-02").toString());
+    simulator.addStrategy(2000.0,
+            30, "2022-01-01", "2024-12-31", 0.4, weights);
+    assertEquals("[]",simulator.getCompositionAtDate("2019-09-01").toString());
+    assertEquals("[AAPL=24.992450104469924, GOOG=12.06554908120043, "
+            + "META=41.11300371116656, NFLX=22.989968010924873]",
+            simulator.getCompositionAtDate("2022-10-01").toString());
   }
 
   @Test
@@ -239,8 +236,11 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0
-            , 30, "2012-01-01", "2095-12-31", 0.4, weights);
+    simulator.addStrategy(2000.0,
+            30, "2017-01-02", "2095-12-31", 0.4, weights);
+    assertEquals("[AAPL=147.4344374765463, GOOG=9.818317668203221, "
+                    + "META=258.25211229110056, NFLX=125.47829217814575]"
+            ,simulator.getCompositionAtDate("2022-02-21").toString());
   }
 
   @Test
@@ -250,8 +250,8 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 20.0);
     weights.put("NFLX", 30.0);
     weights.put("GOOG", 10.0);
-    simulator.addStrategy(2000.0, 30
-            , "2021-11-21", "2023-12-01", 0.4, weights);
+    simulator.addStrategy(2000.0, 30,
+            "2021-11-21", "2023-12-01", 0.4, weights);
     assertEquals(2001.20, simulator.getCostBasis("2021-12-01"), 0.01);
     assertEquals(22710.89, simulator.getCostBasis("2022-10-01"), 0.01);
     assertEquals(45287.50, simulator.getCostBasis("2023-10-01"), 0.01);
@@ -281,7 +281,9 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("AAPL", 10.0);
     simulator.addStrategy(2000.0,
             7, "2021-02-11", "2021-02-30", 0.0, weights);
-    System.out.println(simulator.getCompositionAtDate("2021-02-21").toString());
+    assertEquals("[AAPL=3.02195740627258, GOOG=0.9494462111909601, "
+                    + "MSFT=4.096018904004696, NFLX=1.0852553014884883]"
+            ,simulator.getCompositionAtDate("2021-02-21").toString());
   }
 
 }

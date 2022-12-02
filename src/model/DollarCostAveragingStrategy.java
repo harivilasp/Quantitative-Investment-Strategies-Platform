@@ -34,37 +34,36 @@ public class DollarCostAveragingStrategy implements Strategy {
     this.weights = weights;
     this.commission = commission;
   }
-
-  /**
-   * Getters
-   */
+  @Override
   public double getAmount() {
     return amount;
   }
-
+  @Override
   public int getIntervalInDays() {
     return intervalInDays;
   }
 
+  @Override
   public String getStartDate() {
     return startDate;
   }
 
+  @Override
   public String getEndDate() {
     return endDate;
   }
 
+  @Override
   public double getCommission() {
     return commission;
   }
 
-  /**
-   * Setters
-   */
+  @Override
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
+  @Override
   public Map<String, Double> getWeights() {
     return weights;
   }

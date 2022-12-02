@@ -116,7 +116,8 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void sellStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
+    public void sellStock(String stockName, int stockQty, String date,
+                          double commission) throws RuntimeException {
       // Do nothing
     }
 
@@ -241,12 +242,12 @@ public class PortfolioControllerTest {
 
     @Override
     public void addStrategy(double amount, int intervalInDays, String startDate, String endDate, double commission, Map<String, Double> weights) throws Exception {
-
+      // Do nothing
     }
 
     @Override
     public void buyStocksWithWeights(double amount, String Date, double commission, Map<String, Double> weights) throws Exception {
-
+      // do nothing
     }
 
   }
@@ -849,8 +850,8 @@ public class PortfolioControllerTest {
   @Test
   public void testLoadTypoInvalidOption() {
     this.in = new StringReader(
-            "3\n1\nportfolios/mistake.txt\n3\n1\n" +
-                    "portfolios/testportfolio.txt\n"
+            "3\n1\nportfolios/mistake.txt\n3\n1\n"
+                    + "portfolios/testportfolio.txt\n"
                     + "1\n2\n2014-10-10\n4\n");
     this.view = new PortfolioViewImpl(out);
     this.controller = new PortfolioControllerImpl(model, view, in, out);

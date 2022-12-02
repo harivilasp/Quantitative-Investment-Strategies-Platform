@@ -212,6 +212,7 @@ public class SimulatorImpl implements Simulator {
     performances.put(endDate, (int) portfolio.getValue(endDate));
     return performances;
   }
+
   @Override
   public Map<String, Integer> getPerformance(String startDate, String endDate)
           throws IllegalArgumentException {
