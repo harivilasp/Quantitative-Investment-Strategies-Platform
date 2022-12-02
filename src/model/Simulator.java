@@ -155,7 +155,7 @@ public interface Simulator {
                    String startDate, String endDate, double commission,
                    Map<String, Double> weights) throws Exception;
 
-  void buyStocksWithWeights(double amount, String Date, double commission,
+  void buyStocksWithWeights(double amount, String date, double commission,
                             Map<String, Double> weights) throws Exception;
 
 }

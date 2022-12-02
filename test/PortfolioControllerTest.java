@@ -258,7 +258,6 @@ public class PortfolioControllerTest {
                                      Map<String, Double> weights) throws Exception {
       // do nothing
     }
-
   }
 
   @Test

@@ -16,9 +16,8 @@ public class Main {
 
   /**
    * Instantiates the model, view and controller. Also, runs the app for the client.
-   *g
-   * @param args any input parameter
-   * @throws Exception in case of any errors
+   *
+   * @param args any input parameter.
    */
   public static void main(String[] args) {
 
