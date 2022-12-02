@@ -64,7 +64,8 @@ public class JBuyWeightageView extends JPanel implements PanelView {
 
     // Center panel -> Text input fields
     this.amountField = new JTextField("0.0", 6);
-    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser = new JDateChooser();
+    this.dateChooser.setDateFormatString("yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
     this.commissionField = new JTextField("0.0", 6);
 
@@ -81,7 +82,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     // South panel -> Stock weightage addition
     // ComboBox panel
     JPanel boxPanel = new JPanel();
-    boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage"));
+    boxPanel.setBorder(BorderFactory.createTitledBorder("Stock Weightage (in %)"));
     boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
 
     String[] options = new String[Utils.VALID_STOCKS.size()];
@@ -103,7 +104,7 @@ public class JBuyWeightageView extends JPanel implements PanelView {
     sectionPanel.add(boxPanel);
     sectionPanel.add(this.addButton);
 
-    this.messageLabel = new JLabel("<Message comes here>");
+    this.messageLabel = new JLabel("");
     this.messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.submitButton = new JButton("SUBMIT");
     this.submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -151,6 +152,8 @@ public class JBuyWeightageView extends JPanel implements PanelView {
           throw new NumberFormatException();
         }
 
+        weightsMap.put(stockName, weightsMap.getOrDefault(stockName, 0.0) + weightage);
+        messageLabel.setText("Added");
       } catch (NumberFormatException nfe) {
         this.messageLabel.setText("ERROR: Invalid weightage!");
       }

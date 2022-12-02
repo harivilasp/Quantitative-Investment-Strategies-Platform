@@ -45,7 +45,8 @@ public class JValueAtDateView extends JPanel implements PanelView {
     this.add(northPanel, BorderLayout.NORTH);
 
     // Center panel -> Enter date and submit
-    this.dateChooser = new JDateChooser(new Date(), "yyyy-MM-dd");
+    this.dateChooser = new JDateChooser();
+    this.dateChooser.setDateFormatString("yyyy-MM-dd");
     this.dateChooser.getDateEditor().setEnabled(false);
     this.actionButton = new JButton("Get Value");
 
@@ -108,7 +109,7 @@ public class JValueAtDateView extends JPanel implements PanelView {
 
   @Override
   public void clearInput() {
-    this.dateChooser.setDate(new Date());
+    this.dateChooser.setDate(null);
     this.messageLabel.setText("");
   }
 }
