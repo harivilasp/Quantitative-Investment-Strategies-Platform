@@ -30,7 +30,7 @@ public class GUIMainView extends JFrame implements GUIView {
    */
   public GUIMainView() {
     super("Stock Market Simulator");
-    this.setPreferredSize(new Dimension(850, 650));
+    this.setPreferredSize(new Dimension(1050, 850));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
 
