@@ -10,7 +10,7 @@ import java.util.List;
 public interface GUIView {
 
   /**
-   * Display the portfolio value view in the main screen given the name of the portfolio
+   * Display the portfolio value view in the main screen given the name of the portfolio.
    *
    * @param portfolioName the provided portfolio name
    */

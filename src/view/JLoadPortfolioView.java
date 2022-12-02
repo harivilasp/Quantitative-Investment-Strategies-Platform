@@ -1,12 +1,16 @@
 package view;
 
-import java.awt.*;
-import java.io.File;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.io.File;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This class represents the JPanel view for "Load portfolio" operation.
@@ -41,7 +45,7 @@ public class JLoadPortfolioView extends JPanel implements PanelView {
     this.add(centerPanel, BorderLayout.CENTER);
 
     // South panel -> Message to show whether portfolio loaded was valid or not.
-    this.messageLabel = new JLabel("<Message comes here>"); // TODO
+    this.messageLabel = new JLabel("");
     this.homeButton = new JButton("HOME");
 
     // Alignments

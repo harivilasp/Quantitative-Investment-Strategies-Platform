@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import model.Simulator;
 import model.Stock;
 import view.GUIView;
@@ -21,12 +20,6 @@ public class SimulatorController implements Features {
   /* The view class instance. */
   private GUIView view;
 
-  /* The scanner class instance. */
-  private final Scanner scanner;
-
-  /* The Appendable out instance. */
-  private final Appendable out;
-
   /**
    * This method constructs the model of controller.
    *
@@ -40,21 +33,13 @@ public class SimulatorController implements Features {
     this.model = model;
     // Create the view
     this.view = view; // Inflexible portfolio
-    // Instantiate the scanner
-    this.scanner = new Scanner(in);
-    // Instantiate the appendable out
-    this.out = out;
+
     view.addActionListener(this);
   }
 
   @Override
   public boolean isPortfolioChosen() {
     return false;
-  }
-
-  @Override
-  public void resetPortfolios() {
-    // TODO: Complete implementation
   }
 
   @Override
