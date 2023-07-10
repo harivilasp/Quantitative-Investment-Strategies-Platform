@@ -35,13 +35,15 @@ public interface Features {
 
   /**
    * This helps to make in memory portfolio persistent by saving it as a text file.
+   * @return status of action performed.
    */
   String save();
 
   /**
    * This method helps to create new empty flexible portfolio.
    *
-   * @param portfolioName the portfolio name
+   * @param portfolioName the portfolio name.
+   * @return status of action performed.
    */
   String addFlexiblePortfolio(String portfolioName);
 
@@ -49,6 +51,7 @@ public interface Features {
    * This method helps to load flexible portfolio form existing file.
    *
    * @param filepath the relative file path
+   * @return status of action performed.
    */
   String loadFlexiblePortfolio(String filepath);
 

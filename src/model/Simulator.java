@@ -101,24 +101,25 @@ public interface Simulator {
   /**
    * This method buys stock at particular date with given commission.
    *
-   * @param stock      represents the stock symbol and quantity.
+   * @param stockName  represents the stock symbol.
+   * @param stockQty   represents the stock quantity.
    * @param date       represents date of buying stock.
    * @param commission represents the commission of buying.
    */
   void buyStock(String stockName, int stockQty, String date, double commission)
-      throws RuntimeException;
+          throws RuntimeException;
 
   /**
    * This method sells stock at particular date with given commission.
    *
-   * @param stockName      represents the stock symbol.
-   * @param stockQty      represents the stock quantity.
+   * @param stockName  represents the stock symbol.
+   * @param stockQty   represents the stock quantity.
    * @param date       represents date of selling stock.
    * @param commission represents the commission of selling.
    * @throws RuntimeException when stock invalid combination of selling is provided.
    */
   void sellStock(String stockName, int stockQty, String date, double commission)
-      throws RuntimeException;
+          throws RuntimeException;
 
   /**
    * This method calculated the map to draws the graph of performance in between two dates.
@@ -129,7 +130,7 @@ public interface Simulator {
    * @throws IllegalArgumentException when some invalid date is passed.
    */
   Map<String, Integer> getPerformance(String startDate, String endDate)
-      throws IllegalArgumentException;
+          throws IllegalArgumentException;
 
   /**
    * This methods calculates cost basis of portfolio which includes bought stocks price and
@@ -151,10 +152,10 @@ public interface Simulator {
   List<Stock> getCompositionAtDate(String date) throws RuntimeException;
 
   void addStrategy(double amount, int intervalInDays,
-      String startDate, String endDate, double commission,
-      Map<String, Double> weights) throws Exception;
+                   String startDate, String endDate, double commission,
+                   Map<String, Double> weights) throws Exception;
 
-  void buyStocksWithWeights(double amount, String Date, double commission,
-      Map<String, Double> weights) throws Exception;
+  void buyStocksWithWeights(double amount, String date, double commission,
+                            Map<String, Double> weights) throws Exception;
 
 }

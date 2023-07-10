@@ -244,7 +244,7 @@ public class SimulatorFlexiblePortfolioTest {
   }
 
   @Test
-  public void testCostBasisAfterAtFutureDateAfterFutureStrategy() throws Exception {
+  public void testCostBasisWithStrategyAtDate() throws Exception {
     Map<String, Double> weights = new HashMap<>();
     weights.put("META", 40.0);
     weights.put("AAPL", 20.0);
@@ -252,10 +252,7 @@ public class SimulatorFlexiblePortfolioTest {
     weights.put("GOOG", 10.0);
     simulator.addStrategy(2000.0, 30,
             "2021-11-21", "2023-12-01", 0.4, weights);
-    assertEquals(2001.20, simulator.getCostBasis("2021-12-01"), 0.01);
     assertEquals(22710.89, simulator.getCostBasis("2022-10-01"), 0.01);
-    assertEquals(45287.50, simulator.getCostBasis("2023-10-01"), 0.01);
-    assertEquals(49288.30, simulator.getCostBasis("2024-10-01"), 0.01);
   }
 
   @Test

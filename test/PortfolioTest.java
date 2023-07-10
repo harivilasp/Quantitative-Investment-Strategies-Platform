@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +151,7 @@ public class PortfolioTest {
    * Test get value of portfolio (from filepath, valid date).
    */
   @Test
-  public void testGetValueFromFilepath() throws ParseException {
+  public void testGetValueFromFilepath() {
     double expected = 1 * 155.74 + 1 * 295.72;
 
     Portfolio portfolio = new PortfolioImpl(FILEPATH);
@@ -164,7 +163,7 @@ public class PortfolioTest {
    * Test get value of portfolio (from filepath, valid date).
    */
   @Test
-  public void testGetValueFromStocks() throws ParseException {
+  public void testGetValueFromStocks() {
     double expected = 14102.04;
     Portfolio portfolio = new PortfolioImpl("Tech Portfolio", stocks);
     // Test the saved stocks
@@ -175,7 +174,7 @@ public class PortfolioTest {
    * Test get value for portfolio (invalid future date).
    */
   @Test(expected = RuntimeException.class)
-  public void testGetValueDateInFuture() throws ParseException {
+  public void testGetValueDateInFuture() {
     Simulator sm = new SimulatorImpl();
     Portfolio portfolio = new PortfolioImpl(FILEPATH);
     // @throws: RuntimeException for future date.

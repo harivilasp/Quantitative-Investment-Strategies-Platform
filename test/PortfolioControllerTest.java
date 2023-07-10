@@ -138,13 +138,17 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void addStrategy(double amount, int intervalInDays, String startDate, String endDate, double commission, Map<String, Double> weights) throws Exception {
-
+    public void addStrategy(double amount,
+                            int intervalInDays, String startDate, String endDate,
+                            double commission, Map<String, Double> weights) throws Exception {
+      // do nothing
     }
 
     @Override
-    public void buyStocksWithWeights(double amount, String Date, double commission, Map<String, Double> weights) throws Exception {
-
+    public void buyStocksWithWeights(double amount,
+                                     String date, double commission,
+                                     Map<String, Double> weights) throws Exception {
+      // Do nothing
     }
   }
 
@@ -220,7 +224,8 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void sellStock(String stockName, int stockQty, String date, double commission) throws RuntimeException {
+    public void sellStock(String stockName,
+                          int stockQty, String date, double commission) throws RuntimeException {
       // Do nothing
     }
 
@@ -241,15 +246,18 @@ public class PortfolioControllerTest {
     }
 
     @Override
-    public void addStrategy(double amount, int intervalInDays, String startDate, String endDate, double commission, Map<String, Double> weights) throws Exception {
+    public void addStrategy(double amount,
+                            int intervalInDays, String startDate, String endDate,
+                            double commission, Map<String, Double> weights) throws Exception {
       // Do nothing
     }
 
     @Override
-    public void buyStocksWithWeights(double amount, String Date, double commission, Map<String, Double> weights) throws Exception {
+    public void buyStocksWithWeights(double amount,
+                                     String date, double commission,
+                                     Map<String, Double> weights) throws Exception {
       // do nothing
     }
-
   }
 
   @Test
