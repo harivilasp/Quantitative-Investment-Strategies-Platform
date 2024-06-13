@@ -1,4 +1,4 @@
-# Stock Market Simulation
+# Quantitative-Investment-Strategies-Platform
 This project is a stock market simulation that uses real-time prices obtained through the AlphaVantage API. It facilitates learning and experimentation with the market by allowing users to create portfolios, trade, and apply different strategies.
 
 The project was designed and developed using an MVC architecture, adhering to SOLID principles and utilizing various design patterns such as Factory and Singleton. It was delivered in iterations on a bi-weekly basis using agile and test-driven development.
